@@ -1,60 +1,62 @@
 # 🎞️ Pixel3D — Galeria
 
-Galeria de GIFs exportados pelo Pixel3D, com servidor Node.js.
+Galeria de GIFs exportados pelo Pixel3D. **100% estática** — sem servidor, sem
+Railway/Render. Corre diretamente no GitHub Pages, tal como o resto do site.
 
 ---
 
-## 🚀 Deploy no Render.com (gratuito)
+## 🚀 Como funciona
 
-### 1. Colocar o projeto no GitHub
+A galeria lê a lista de GIFs a partir de `galeria/gifs/manifest.json`. Esse
+ficheiro é gerado automaticamente por uma GitHub Action
+(`.github/workflows/gallery-manifest.yml`) sempre que um `.gif` é adicionado,
+removido ou alterado em `galeria/gifs/` na branch `main`:
+
+1. Fazes push de um `.gif` novo para `galeria/gifs/`
+2. A Action corre `node galeria/generate-manifest.js` e faz commit do
+   `manifest.json` atualizado
+3. O GitHub Pages redeploy automaticamente e a galeria mostra o novo GIF —
+   sem qualquer intervenção manual
+
+---
+
+## ➕ Adicionar um GIF
+
+**Via GitHub (mais simples):**
+Abre a pasta `galeria/gifs` no GitHub → **Add file → Upload files** → arrasta
+o `.gif` → **Commit changes** na `main`. Aguarda ~1 min.
+
+**Via git local:**
 
 ```bash
-# Na raiz do projeto pixel3d/
-git init
-git add .
-git commit -m "Pixel3D inicial"
-
-# Criar repositório no GitHub e fazer push
-git remote add origin https://github.com/SEU_USER/pixel3d.git
-git push -u origin main
+cp ~/Desktop/meu_modelo.gif galeria/gifs/
+git add galeria/gifs/meu_modelo.gif
+git commit -m "Adiciona GIF à galeria"
+git push
 ```
 
-### 2. Criar serviço no Render
-
-1. Entrar em [render.com](https://render.com) → **New → Web Service**
-2. Ligar o repositório GitHub
-3. Configurar:
-   - **Root Directory:** `galeria`
-   - **Build Command:** `npm install`
-   - **Start Command:** `node server.js`
-   - **Plan:** Free
-4. Em **Environment Variables**, adicionar:
-   - `UPLOAD_PASSWORD` → a tua password (ex: `12QWasZX`)
-5. Clicar **Create Web Service**
-
-O Render faz deploy automático. Em 2-3 minutos o site está em:
-`https://pixel3d-galeria.onrender.com`
-
-> ⚠️ **Nota sobre o tier gratuito:**
-> O disco do Render Free é efémero — GIFs carregados via upload desaparecem
-> quando o serviço reinicia (~15 min sem tráfego) ou há redeploy.
->
-> **Solução A (recomendada, gratuita):** Coloca os GIFs na pasta `galeria/gifs/`
-> e faz commit. Ficam permanentes no repositório e são servidos pelo servidor.
->
-> **Solução B (~$1/mês):** Persistent Disk no Render:
-> Settings → Disks → Add Disk, Mount Path `/data/gifs`,
-> adicionar env var `GIFS_DIR=/data/gifs`. Uploads persistem para sempre.
+Para apagar um GIF, remove o ficheiro de `galeria/gifs/` (localmente ou pelo
+GitHub) e faz commit/push — a Action atualiza o manifest automaticamente.
 
 ---
 
-## 💻 Correr localmente
+## 💻 Testar localmente
+
+Não há servidor a correr — basta servir a pasta como ficheiros estáticos, por
+exemplo:
 
 ```bash
-cd galeria/
-npm install
-node server.js
-# → http://localhost:3000
+npx http-server galeria -p 8080
+# → http://localhost:8080
+```
+
+Ou simplesmente abrir `galeria/index.html` no browser (alguns browsers
+bloqueiam `fetch` em `file://`; se isso acontecer, usa o `http-server`).
+
+Se quiseres regenerar o manifest manualmente (sem esperar pela Action):
+
+```bash
+node galeria/generate-manifest.js
 ```
 
 ---
@@ -63,35 +65,12 @@ node server.js
 
 ```
 pixel3d/
+├── .github/workflows/
+│   └── gallery-manifest.yml   ← gera o manifest automaticamente
 ├── galeria/
-│   ├── index.html       ← Interface da galeria
-│   ├── server.js        ← Servidor Express
-│   ├── package.json
-│   └── gifs/            ← GIFs (commit aqui para serem permanentes)
-├── render.yaml          ← Config do Render (deploy automático)
-└── .gitignore
-```
-
----
-
-## 🔑 Variáveis de ambiente
-
-| Variável | Default | Descrição |
-|----------|---------|-----------|
-| `PORT` | `3000` | Porta (Render define automaticamente) |
-| `UPLOAD_PASSWORD` | `12QWasZX` | Password para upload/apagar |
-| `GIFS_DIR` | `./gifs` | Pasta dos GIFs |
-
-> Em produção, definir `UPLOAD_PASSWORD` sempre via variável de ambiente — nunca hardcoded.
-
----
-
-## 🎞️ Adicionar GIFs permanentes (via Git)
-
-```bash
-cp ~/Desktop/meu_modelo.gif galeria/gifs/
-git add galeria/gifs/meu_modelo.gif
-git commit -m "Adiciona GIF à galeria"
-git push
-# Render faz redeploy automático
+│   ├── index.html              ← Interface da galeria (estática)
+│   ├── generate-manifest.js    ← Script que gera gifs/manifest.json
+│   └── gifs/
+│       ├── manifest.json       ← Gerado automaticamente, não editar à mão
+│       └── *.gif
 ```

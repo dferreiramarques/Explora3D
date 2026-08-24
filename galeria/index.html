@@ -95,46 +95,30 @@ header {
   opacity:0; transition:opacity .15s;
 }
 .gif-item:hover .gif-label { opacity:1; }
-.gif-del {
-  position:absolute; top:4px; right:4px;
-  width:20px; height:20px; border-radius:4px;
-  background:rgba(255,0,77,.8); border:none; color:#fff;
-  font-size:10px; cursor:pointer; opacity:0; transition:opacity .15s;
-  display:flex; align-items:center; justify-content:center;
-}
-.gif-item:hover .gif-del { opacity:1; }
-.gif-del:hover { background:var(--accent2); }
 
-/* ── Upload modal ─────────────────────────────────────────────── */
-#upload-modal {
+/* ── Info modal ────────────────────────────────────────────────── */
+#info-modal {
   display:none; position:fixed; inset:0; z-index:200;
   background:rgba(0,0,0,.75); backdrop-filter:blur(8px);
   align-items:center; justify-content:center;
 }
-#upload-modal.open { display:flex; }
+#info-modal.open { display:flex; }
 .modal-box {
   background:#0f1530; border:2px solid var(--accent); border-radius:16px;
-  padding:32px 36px; width:360px; box-shadow:0 0 40px rgba(0,255,136,.2);
+  padding:32px 36px; width:420px; box-shadow:0 0 40px rgba(0,255,136,.2);
 }
-.modal-box h2 { font-size:16px; color:var(--accent); margin-bottom:20px; letter-spacing:.05em; }
-.modal-box label { font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); display:block; margin-bottom:5px; }
-.modal-box input[type="password"],
-.modal-box input[type="file"] {
-  width:100%; padding:9px 12px; background:#1a2040;
-  border:1px solid rgba(0,255,136,.3); border-radius:8px;
-  color:var(--text); font-size:13px; margin-bottom:16px; outline:none; font-family:inherit;
+.modal-box h2 { font-size:16px; color:var(--accent); margin-bottom:16px; letter-spacing:.05em; }
+.modal-box ol { margin:0 0 18px 18px; padding:0; }
+.modal-box li { font-size:12.5px; line-height:1.7; color:var(--text); }
+.modal-box code {
+  background:#1a2040; border:1px solid rgba(0,255,136,.3); border-radius:4px;
+  padding:1px 6px; font-size:11.5px; color:var(--accent);
 }
-.modal-box input[type="file"] { padding:7px 10px; cursor:pointer; }
+.modal-box p.hint { font-size:11px; color:var(--muted); margin-bottom:18px; }
 .modal-actions { display:flex; gap:10px; margin-top:4px; }
 .modal-actions button { flex:1; padding:10px; border-radius:8px; font-size:12px; font-weight:700; cursor:pointer; transition:.15s; }
 .btn-cancel { background:transparent; border:1px solid rgba(255,255,255,.12); color:var(--muted); }
 .btn-cancel:hover { border-color:var(--accent2); color:var(--accent2); }
-.btn-upload { background:var(--accent); border:none; color:#0a0e27; }
-.btn-upload:hover { background:#00e077; }
-.btn-upload:disabled { opacity:.5; cursor:not-allowed; }
-.modal-msg { font-size:11px; margin-top:8px; display:none; }
-.modal-msg.err { color:var(--accent2); }
-.modal-msg.ok  { color:var(--accent); }
 
 /* ── Lightbox ─────────────────────────────────────────────────── */
 #lightbox { display:none; position:fixed; inset:0; z-index:300; background:rgba(0,0,0,.85); backdrop-filter:blur(10px); align-items:center; justify-content:center; flex-direction:column; gap:12px; }
@@ -163,7 +147,7 @@ header {
   <div class="sep"></div>
 
   <button class="hbtn" onclick="loadGIFs()">🔄 Atualizar</button>
-  <button class="hbtn orange" onclick="openUpload()">➕ Adicionar GIFs</button>
+  <button class="hbtn orange" onclick="openInfo()">➕ Adicionar GIFs</button>
 
   <div class="sep"></div>
 
@@ -199,25 +183,27 @@ header {
 <div id="empty-state">
   <div class="icon">🎞️</div>
   <h2>Galeria vazia</h2>
-  <p id="empty-msg">Ainda não há GIFs na pasta.<br>Usa <strong style="color:#ffa300">➕ Adicionar GIFs</strong> para começar!</p>
+  <p id="empty-msg">Ainda não há GIFs na pasta.<br>Vê como em <strong style="color:#ffa300">➕ Adicionar GIFs</strong>!</p>
 </div>
 
 <div id="gallery-wrap">
   <div id="gallery"></div>
 </div>
 
-<!-- Upload modal -->
-<div id="upload-modal">
+<!-- Info modal -->
+<div id="info-modal">
   <div class="modal-box">
     <h2>➕ Adicionar GIFs</h2>
-    <label>Password</label>
-    <input type="password" id="upload-pwd" placeholder="••••••••" autocomplete="off">
-    <label>Ficheiros GIF</label>
-    <input type="file" id="upload-files" accept=".gif,image/gif" multiple>
-    <div class="modal-msg" id="modal-msg"></div>
+    <p class="hint">A galeria é gerada automaticamente a partir da pasta <code>galeria/gifs/</code> no GitHub. Não há upload pela página — basta adicionar o ficheiro ao repositório:</p>
+    <ol>
+      <li>No GitHub, abre a pasta <code>galeria/gifs</code></li>
+      <li><strong>Add file → Upload files</strong> e arrasta o(s) <code>.gif</code></li>
+      <li><strong>Commit changes</strong> diretamente na <code>main</code></li>
+      <li>Aguarda ~1 min: a Action gera o manifest e o site atualiza sozinho</li>
+    </ol>
+    <p class="hint">Ou, via terminal: <code>cp ficheiro.gif galeria/gifs/ &amp;&amp; git add galeria/gifs/ficheiro.gif &amp;&amp; git commit -m "gif" &amp;&amp; git push</code></p>
     <div class="modal-actions">
-      <button class="btn-cancel" onclick="closeUpload()">Cancelar</button>
-      <button class="btn-upload" id="btn-do-upload" onclick="doUpload()">Enviar</button>
+      <button class="btn-cancel" onclick="closeInfo()">Fechar</button>
     </div>
   </div>
 </div>
@@ -240,7 +226,7 @@ window.addEventListener('load', loadGIFs);
 async function loadGIFs() {
     showState('loading');
     try {
-        const res = await fetch('/api/gifs');
+        const res = await fetch('gifs/manifest.json?t=' + Date.now());
         if (!res.ok) throw new Error('HTTP ' + res.status);
         const data = await res.json();
         gifs = data.gifs || [];
@@ -249,7 +235,7 @@ async function loadGIFs() {
     } catch (err) {
         showState('empty');
         document.getElementById('empty-msg').innerHTML =
-            `Não foi possível contactar o servidor.<br><small style="color:var(--muted)">${err.message}<br>Inicia com: <code style="color:var(--accent)">node server.js</code></small>`;
+            `Não foi possível carregar o manifest.<br><small style="color:var(--muted)">${err.message}<br>Confirma que existe <code style="color:var(--accent)">galeria/gifs/manifest.json</code></small>`;
     }
 }
 
@@ -264,7 +250,6 @@ function renderGallery() {
         item.innerHTML = `
           <img src="${gif.url}" alt="${gif.name}" loading="lazy">
           <div class="gif-label">${label}</div>
-          <button class="gif-del" title="Apagar" onclick="deleteGIF(event,'${gif.name}')">✕</button>
         `;
         item.querySelector('img').addEventListener('click', () => openLB(i));
         g.appendChild(item);
@@ -301,71 +286,9 @@ function setBG(hex) {
 }
 function setSwatch(el, hex) { setBG(hex); }
 
-// ── Upload ─────────────────────────────────────────────────────
-function openUpload() {
-    const m = document.getElementById('modal-msg');
-    m.style.display = 'none'; m.className = 'modal-msg';
-    document.getElementById('upload-pwd').value = '';
-    document.getElementById('upload-files').value = '';
-    document.getElementById('btn-do-upload').disabled = false;
-    document.getElementById('btn-do-upload').textContent = 'Enviar';
-    document.getElementById('upload-modal').classList.add('open');
-    setTimeout(() => document.getElementById('upload-pwd').focus(), 80);
-}
-function closeUpload() { document.getElementById('upload-modal').classList.remove('open'); }
-
-async function doUpload() {
-    const pwd   = document.getElementById('upload-pwd').value;
-    const files = document.getElementById('upload-files').files;
-    const msgEl = document.getElementById('modal-msg');
-    const btn   = document.getElementById('btn-do-upload');
-
-    const showMsg = (txt, type) => {
-        msgEl.textContent = txt;
-        msgEl.className = 'modal-msg ' + type;
-        msgEl.style.display = 'block';
-    };
-
-    if (!pwd)          { showMsg('Insere a password.', 'err'); return; }
-    if (!files.length) { showMsg('Seleciona pelo menos um ficheiro GIF.', 'err'); return; }
-
-    btn.disabled = true; btn.textContent = 'A enviar…';
-    showMsg(`A enviar ${files.length} ficheiro(s)…`, 'ok');
-
-    const form = new FormData();
-    for (const f of files) form.append('gifs', f);
-
-    try {
-        const res = await fetch('/api/upload', {
-            method: 'POST',
-            headers: { 'x-upload-password': pwd },
-            body: form
-        });
-        const data = await res.json();
-        if (!res.ok) { showMsg(data.error || 'Erro no upload.', 'err'); btn.disabled=false; btn.textContent='Enviar'; return; }
-        showMsg(`✓ ${data.count} GIF(s) adicionado(s)!`, 'ok');
-        setTimeout(() => { closeUpload(); loadGIFs(); }, 900);
-    } catch (err) {
-        showMsg('Erro de rede: ' + err.message, 'err');
-        btn.disabled = false; btn.textContent = 'Enviar';
-    }
-}
-
-// ── Delete ─────────────────────────────────────────────────────
-async function deleteGIF(e, name) {
-    e.stopPropagation();
-    const pwd = prompt(`Password para apagar "${name}":`);
-    if (!pwd) return;
-    if (!confirm(`Confirmas apagar "${name}"?`)) return;
-    try {
-        const res = await fetch(`/api/gifs/${encodeURIComponent(name)}`, {
-            method:'DELETE', headers:{'x-upload-password': pwd}
-        });
-        const data = await res.json();
-        if (!res.ok) { alert(data.error || 'Erro.'); return; }
-        loadGIFs();
-    } catch(err) { alert('Erro: ' + err.message); }
-}
+// ── Info "como adicionar" ─────────────────────────────────────────
+function openInfo() { document.getElementById('info-modal').classList.add('open'); }
+function closeInfo() { document.getElementById('info-modal').classList.remove('open'); }
 
 // ── Lightbox ───────────────────────────────────────────────────
 function openLB(i) { lbIdx=i; updateLB(); document.getElementById('lightbox').classList.add('open'); }
@@ -386,10 +309,10 @@ document.addEventListener('keydown', e => {
         if (e.key==='ArrowRight') navLB(+1);
         if (e.key==='Escape') closeLB();
     }
-    if (e.key==='Escape') closeUpload();
+    if (e.key==='Escape') closeInfo();
 });
 document.getElementById('lightbox').addEventListener('click', e => { if(e.target.id==='lightbox') closeLB(); });
-document.getElementById('upload-modal').addEventListener('click', e => { if(e.target.id==='upload-modal') closeUpload(); });
+document.getElementById('info-modal').addEventListener('click', e => { if(e.target.id==='info-modal') closeInfo(); });
 
 document.getElementById('gallery-wrap').style.background = currentBG;
 </script>
