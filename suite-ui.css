@@ -1,0 +1,198 @@
+/* Explora3D · native HTML components inspired by PrimeNG Aura.
+   Source: monco3d/suite-ui.css. Distribute with sync-suite-ui.ps1.
+   This is a visual adaptation, not the Angular PrimeNG runtime. */
+:root {
+  color-scheme: dark;
+  --p-primary-color: #ff6c36;
+  --p-primary-hover-color: #ff946b;
+  --p-primary-contrast-color: #291107;
+  --p-surface-950: #09090b;
+  --p-surface-900: #18181b;
+  --p-surface-800: #27272a;
+  --p-surface-700: #3f3f46;
+  --p-text-color: #fafafa;
+  --p-text-muted-color: #a1a1aa;
+  --p-content-border-color: #3f3f46;
+  --p-focus-ring: 0 0 0 3px rgb(255 108 54 / 28%);
+  --suite-font: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --suite-radius: 8px;
+  --suite-shadow: 0 12px 32px rgb(0 0 0 / 28%);
+  /* Compatibility with each editor's existing tokens. */
+  --ant-color-primary: var(--p-primary-color);
+  --ant-color-bg-base: var(--p-surface-950);
+  --ant-color-bg-container: var(--p-surface-900);
+  --ant-color-bg-elevated: var(--p-surface-800);
+  --ant-color-bg-spotlight: var(--p-surface-700);
+  --ant-color-border: var(--p-content-border-color);
+  --ant-color-border-secondary: var(--p-surface-800);
+  --ant-color-text: var(--p-text-color);
+  --ant-color-text-secondary: var(--p-text-muted-color);
+  --ant-color-text-tertiary: #a1a1aa;
+  --ant-font-family: var(--suite-font);
+  --ant-border-radius: var(--suite-radius);
+  --ant-border-radius-lg: 12px;
+  --bg: var(--p-surface-950);
+  --bg0: var(--p-surface-950);
+  --bg1: var(--p-surface-900);
+  --bg2: var(--p-surface-800);
+  --bg3: var(--p-surface-800);
+  --bg4: var(--p-surface-700);
+  --s1: var(--p-surface-900);
+  --s2: var(--p-surface-800);
+  --s3: var(--p-surface-800);
+  --panel: var(--p-surface-900);
+  --border: var(--p-content-border-color);
+  --border2: var(--p-content-border-color);
+  --text: var(--p-text-color);
+  --fg: var(--p-text-color);
+  --dim: var(--p-text-muted-color);
+  --muted: var(--p-text-muted-color);
+  --acc: var(--p-primary-color);
+  --acc2: var(--p-primary-hover-color);
+  --acc-dim: #69301d;
+  --accent: var(--p-primary-color);
+  --accent2: #fda4af;
+  --accent3: #93c5fd;
+  --amber: var(--p-primary-color);
+  --amber2: var(--p-primary-hover-color);
+  --amber3: var(--p-primary-color);
+  --font-ui: var(--suite-font);
+  --font-mono: var(--suite-font);
+  --mono: var(--suite-font);
+  --radius: var(--suite-radius);
+  --glow-amber: none;
+  --glow-green: none;
+}
+html body { font-family: var(--suite-font); font-size: 14px; color: var(--p-text-color); background: var(--p-surface-950); }
+body::after { display: none; }
+button, input, select, textarea { font-family: inherit; }
+button { border-radius: var(--suite-radius); transition: background-color .15s, border-color .15s, box-shadow .15s; }
+button:disabled { cursor: not-allowed; opacity: .5; }
+:is(button, a, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--p-primary-color) !important;
+  outline-offset: 3px;
+  box-shadow: var(--p-focus-ring);
+}
+input:not([type=range]):not([type=color]):not([type=checkbox]):not([type=file]):not([type=hidden]), select, textarea {
+  background: var(--p-surface-950) !important;
+  color: var(--p-text-color) !important;
+  border: 1px solid var(--p-content-border-color) !important;
+  border-radius: var(--suite-radius) !important;
+  padding: 8px 10px;
+  font-size: 13px;
+  min-height: 36px;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 12%);
+}
+input::placeholder, textarea::placeholder { color: var(--p-text-muted-color); opacity: 1; }
+input[type=checkbox], input[type=range] { accent-color: var(--p-primary-color); }
+input[type=range] { cursor: pointer; }
+input[type=range]::-webkit-slider-runnable-track { background: var(--p-surface-700); border-radius: 10px; }
+input[type=range]::-webkit-slider-thumb { background: var(--p-primary-color); box-shadow: none; }
+input[type=range]::-moz-range-track { background: var(--p-surface-700); border-radius: 10px; }
+input[type=range]::-moz-range-thumb { background: var(--p-primary-color); border-color: var(--p-primary-color); }
+input[type=color] { border: 1px solid var(--p-content-border-color); border-radius: 6px; background: var(--p-surface-950); }
+:is(.btn, .exp-btn, .rot-btn, .tpl-btn, .example-btn, .mode-btn, .export-btn, .brush-preset, .cm-secondary, .cm-submit, .tm-tab, .tm-logout, .brand-link, #toggle-sidebar) {
+  background: var(--p-surface-800) !important;
+  border: 1px solid var(--p-content-border-color) !important;
+  color: var(--p-text-color) !important;
+  border-radius: var(--suite-radius) !important;
+  min-height: 36px;
+  padding: 8px 12px;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: normal;
+  text-transform: none;
+  box-shadow: none !important;
+}
+:is(.btn, .exp-btn, .rot-btn, .tpl-btn, .example-btn, .mode-btn, .export-btn, .brush-preset, .cm-secondary, .tm-tab, .brand-link):hover:not(:disabled) {
+  background: var(--p-surface-700) !important;
+  border-color: #71717a !important;
+}
+:is(.btn.primary, .exp-btn.primary, .btn.success, .cm-submit, #stlBtn, #hdr-stl) {
+  background: var(--p-primary-color) !important;
+  color: var(--p-primary-contrast-color) !important;
+  border-color: var(--p-primary-color) !important;
+  box-shadow: none !important;
+}
+:is(.btn.primary, .exp-btn.primary, .btn.success, .cm-submit, #stlBtn, #hdr-stl):hover:not(:disabled) { background: var(--p-primary-hover-color) !important; }
+:is(.btn.danger, .btn-danger) { color: #fda4af !important; background: rgb(244 63 94 / 10%) !important; border: 1px solid rgb(251 113 133 / 35%) !important; border-radius: 8px; min-height: 36px; }
+:is(.mode-btn.active, .brush-preset.active, .tm-tab.active, .tool-btn.active) {
+  background: #3d2119 !important; color: #ff946b !important;
+  border-color: var(--p-primary-color) !important; box-shadow: none !important;
+}
+:is(.section-label, .section-title, .lsb-label) {
+  font: 600 12px/1.5 var(--suite-font);
+  color: var(--p-text-muted-color);
+  letter-spacing: .025em;
+  text-transform: none;
+}
+.section-label::before { display: none; }
+:is(.hint, .field-label, .field label, .tiny, .layer-label, .cm-hint) { font-family: var(--suite-font); color: var(--p-text-muted-color); font-size: 12px; letter-spacing: normal; }
+:is(#hdr, #titlebar, body > header) { background: var(--p-surface-900); border-bottom: 1px solid var(--p-content-border-color); }
+:is(#lsb, #rsb, #sidebar, .panel) { background: var(--p-surface-900); border-color: var(--p-content-border-color); }
+:is(.section, .panel-section) { padding: 18px 16px; border-color: var(--p-surface-800); }
+:is(.stat-box, .layer-ctrl, .info-box) { background: var(--p-surface-950); border: 1px solid var(--p-content-border-color); border-radius: 10px; box-shadow: none; }
+:is(.cm-box, #credits-inner, #aboutBox, #svgModalBox) { background: var(--p-surface-900); border: 1px solid var(--p-content-border-color); border-radius: 16px; box-shadow: var(--suite-shadow); }
+:is(.cm-modal, #credits-modal) { backdrop-filter: blur(5px); }
+.cm-box h3 { font-size: 20px; letter-spacing: -.025em; }
+.cm-box label { font-size: 13px; color: var(--p-text-muted-color); }
+:is(.tm-table, table) { border-collapse: collapse; }
+:is(.tm-table, table) th { background: var(--p-surface-800); color: var(--p-text-muted-color); font-weight: 600; }
+:is(.tm-table, table) :is(td, th) { border-bottom: 1px solid var(--p-content-border-color); padding: 10px 12px; }
+:is(#toast, #message, .message) { font-family: var(--suite-font); border-radius: 10px; box-shadow: var(--suite-shadow); letter-spacing: normal; }
+/* Volume: retain compact tool tiles and their geometry / colour previews. */
+body[data-suite-app=volume] #logo { font: 700 22px var(--suite-font); color: var(--p-text-color); }
+body[data-suite-app=volume] #logo .logo-text span { color: var(--p-primary-color); }
+body[data-suite-app=volume] #hdr { overflow-x: auto; }
+body[data-suite-app=volume] #hdr button { min-height: 34px; border-radius: 8px !important; }
+body[data-suite-app=volume] #hdr button:not(#hdr-stl):not(#cert-btn) { background: var(--p-surface-800) !important; color: var(--p-text-color) !important; border-color: var(--p-content-border-color) !important; }
+body[data-suite-app=volume] .shape-btn { border-radius: 10px; }
+/* Revolve: remove the terminal treatment, keep the profile and 3D dimensions. */
+body[data-suite-app=revolve] #app { grid-template-columns: minmax(0, 1fr) 420px; grid-template-rows: 56px minmax(0, 1fr); }
+body[data-suite-app=revolve] #titlebar .app-name { color: var(--p-text-color); font-size: 20px; letter-spacing: -.025em; text-transform: none; }
+body[data-suite-app=revolve] #titlebar .logo { border-color: #85432c; color: var(--p-primary-color); background: #3d2119; box-shadow: none; }
+body[data-suite-app=revolve] #titlebar .tag { font-size: 11px; letter-spacing: normal; text-transform: none; background: var(--p-surface-800); }
+body[data-suite-app=revolve] #titlebar .tag:nth-of-type(n+3) { display: none; }
+body[data-suite-app=revolve] #status-dot { background: var(--p-primary-color); box-shadow: none; animation: none; }
+body[data-suite-app=revolve] #json-editor { font: 12px/1.6 ui-monospace, Consolas, monospace; min-height: 260px; }
+body[data-suite-app=revolve] #profile-editor { margin: 12px 0; }
+body[data-suite-app=revolve] #coords { letter-spacing: normal; background: rgb(24 24 27 / 90%); }
+body[data-suite-app=revolve] .field-label { font-size: 13px; }
+/* Area: separate neutral chrome from the printable drawing surface. */
+body[data-suite-app=area] > header { height: auto; min-height: 64px; flex-wrap: wrap; padding: 10px 16px; gap: 8px; }
+body[data-suite-app=area] { display: flex; flex-direction: column; height: 100dvh; padding-bottom: 22px; }
+body[data-suite-app=area] > header { flex-shrink: 0; }
+body[data-suite-app=area] > main { flex: 1; height: auto; min-height: 0; }
+body[data-suite-app=area] .logo { font: 700 22px var(--suite-font); letter-spacing: -.025em; cursor: pointer; }
+body[data-suite-app=area] .logo em { color: var(--p-primary-color); }
+body[data-suite-app=area] .panel { width: 290px; }
+body[data-suite-app=area] .tool-btn { background: var(--p-surface-800); border-color: var(--p-content-border-color); color: var(--p-text-color); border-radius: 8px; }
+body[data-suite-app=area] #toolPalette { border-radius: 12px; box-shadow: var(--suite-shadow); padding-bottom: 8px; }
+body[data-suite-app=area] #statusBar { background: var(--p-surface-900); border-color: var(--p-content-border-color); color: var(--p-text-muted-color); }
+/* Voxel: use the same panel rhythm, without changing PICO-8 palette swatches. */
+body[data-suite-app=voxel] #sidebar { width: 340px; border-left: 1px solid var(--p-content-border-color); padding: 20px 16px; gap: 20px; backdrop-filter: none; }
+body[data-suite-app=voxel] #brand { background: rgb(24 24 27 / 94%); border: 1px solid var(--p-content-border-color); border-radius: 12px; padding: 16px; gap: 10px; }
+body[data-suite-app=voxel] #brand h1 { font-size: 22px; letter-spacing: -.025em; color: var(--p-text-color); text-shadow: none; }
+body[data-suite-app=voxel] #brand .version { font-size: 12px; letter-spacing: normal; }
+body[data-suite-app=voxel] #toggle-sidebar { right: 354px; }
+body[data-suite-app=voxel] #toggle-sidebar.moved { right: 14px; }
+body[data-suite-app=voxel] .stat-box .val { font-size: 24px; color: var(--p-primary-color); }
+body[data-suite-app=voxel] #info { background: rgb(24 24 27 / 90%); border: 1px solid var(--p-content-border-color); border-radius: 10px; color: var(--p-text-muted-color); }
+body[data-suite-app=voxel] #sidebar > div:not(.stats):not(.sidebar-license):not(.layer-ctrl) { padding-top: 14px; border-top: 1px solid var(--p-surface-800); }
+@media (max-width: 1100px) {
+  body[data-suite-app=revolve] #app { grid-template-columns: minmax(0, 1fr) 350px; }
+  body[data-suite-app=area] .panel { width: 250px; }
+}
+@media (max-width: 768px) {
+  body[data-suite-app=voxel] #brand { top: 10px; left: 10px; padding: 10px; max-width: calc(100vw - 100px); }
+  body[data-suite-app=voxel] #brand .version, body[data-suite-app=voxel] .brand-links { display: none; }
+  body[data-suite-app=voxel] #sidebar { width: min(300px, calc(100vw - 64px)); top: 70px; height: calc(100dvh - 70px); }
+  body[data-suite-app=voxel] #toggle-sidebar, body[data-suite-app=voxel] #toggle-sidebar.moved { right: 10px; top: 14px; }
+  body[data-suite-app=voxel] #info { max-width: calc(100vw - 32px); font-size: 11px; }
+  body[data-suite-app=area] .panel { width: 220px; }
+  body[data-suite-app=area] .hdr-right { flex-wrap: wrap; }
+}
+@media (prefers-reduced-motion: reduce) {
+  button, input, #sidebar { transition: none !important; }
+  #status-dot { animation: none !important; }
+}
