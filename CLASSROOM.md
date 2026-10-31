@@ -1,9 +1,9 @@
 # Sala de aula — quatro secções
 
-Area, Revolve e Voxel carregam `classroom.config.js`, `classroom-adapter.js`,
+Area, Volume, Revolve e Voxel carregam `classroom.config.js`, `classroom-adapter.js`,
 `classroom.js` e `classroom.css`. O botão Sala de aula abre um diálogo nativo com
 os percursos de aluno e professor. Os projetos mantêm os seus formatos nativos:
-imagem/configuração/SVG na Area, perfil/configuração no Revolve e blocos no Voxel.
+imagem/configuração/SVG na Area, formas/paleta no Volume, perfil/configuração no Revolve e blocos no Voxel.
 
 ## Professor
 
@@ -41,6 +41,8 @@ As tabelas e os trabalhos existentes não são eliminados. `shapes_json` e os
 pedidos antigos sem `app_id` continuam a corresponder ao Volume. O cliente novo
 verifica `/api/capabilities` antes de enviar dados e explica que é necessário
 atualizar o servidor se a versão pública ainda não suporta estas secções.
+Esta versão exige capabilities 3 para guardar também o Volume no formato comum,
+mantendo `shapes_json` sincronizado para clientes antigos. Publicar primeiro a API.
 
 `classroom.config.js` aponta por defeito para a API já usada pelo Volume; pode ser
 alterado para staging ou alojamento próprio. A API aceita JSON até 8 MB e valida

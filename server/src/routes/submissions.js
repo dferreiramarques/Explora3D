@@ -62,12 +62,13 @@ router.put('/:id', asyncHandler(async (req, res) => {
   const { rows } = await pool.query(
     'SELECT a.app_id FROM submissions s JOIN activities a ON a.id=s.activity_id WHERE s.id=$1', [req.params.id]);
   if (!rows.length) return res.status(404).json({ error: 'Submissão não encontrada.' });
-  if (rows[0].app_id !== 'volume') {
+  if (rows[0].app_id !== 'volume' || req.body?.project_json) {
     const { project_json, submit } = req.body || {};
     if (!validProject(rows[0].app_id, project_json)) return res.status(400).json({ error: 'Formato de projeto inválido para esta secção.' });
     await pool.query(`UPDATE submissions SET project_json=$1, updated_at=now(),
+      shapes_json=CASE WHEN $4 THEN $1->'data' ELSE shapes_json END,
       submitted_project_json=CASE WHEN $2 THEN $1 ELSE submitted_project_json END,
-      submitted_at=CASE WHEN $2 THEN now() ELSE submitted_at END WHERE id=$3`, [project_json, submit === true, req.params.id]);
+      submitted_at=CASE WHEN $2 THEN now() ELSE submitted_at END WHERE id=$3`, [project_json, submit === true, req.params.id, rows[0].app_id === 'volume']);
     return res.json({ ok: true, submitted: submit === true });
   }
   const { shapes_json } = req.body || {};
@@ -75,7 +76,7 @@ router.put('/:id', asyncHandler(async (req, res) => {
     return res.status(400).json({ error: 'Formato inválido.' });
   }
   const { rowCount } = await pool.query(
-    'UPDATE submissions SET shapes_json=$1, updated_at=now() WHERE id=$2',
+    'UPDATE submissions SET shapes_json=$1, project_json=NULL, updated_at=now() WHERE id=$2',
     [shapes_json, req.params.id]
   );
   if (!rowCount) return res.status(404).json({ error: 'Submissão não encontrada.' });

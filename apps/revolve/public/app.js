@@ -139,6 +139,7 @@ function desenharPerfil() {
         });
     });
     const atual = pontos[perfilSelecionado];
+    window.ExploraProfilePoint?.(atual);
     document.getElementById('profile-selection').textContent = `Ponto ${perfilSelecionado + 1} · raio ${atual.x.toFixed(2)} · altura ${atual.y.toFixed(2)}`;
     document.getElementById('profile-remove').disabled = pontos.length <= 3;
     svg.onpointermove = e => {
@@ -925,7 +926,7 @@ function gerarFolhaA4(nomeCriador) {
 
         ctx.fillStyle = '#f5a623';
         ctx.font = '14px "Share Tech Mono", monospace';
-        ctx.fillText('Code3D — Centro de Inovação Carlos Fiolhais', PAD, meioY + 62);
+        ctx.fillText('Explora3D · Revolve — Centro de Inovação Carlos Fiolhais', PAD, meioY + 62);
 
         // ── METADE INFERIOR: JSON ────────────────────────────
         const jsonRaw    = document.getElementById('json-editor').value;
@@ -992,7 +993,7 @@ function gerarFolhaA4(nomeCriador) {
         ctx.fillStyle = '#bbbbbb';
         ctx.font = '14px "Share Tech Mono", monospace';
         ctx.textAlign = 'center';
-        ctx.fillText('Centro de Inovação Carlos Fiolhais  ·  Code3D desenvolvido por David Marques  ·  CC BY-NC-ND 4.0  ·  ' + dataStr, W / 2, rodapeY);
+        ctx.fillText('Centro de Inovação Carlos Fiolhais  ·  Explora3D · Revolve desenvolvido por David Marques  ·  CC BY-NC-ND 4.0  ·  ' + dataStr, W / 2, rodapeY);
 
         // ── ABRIR JANELA DE IMPRESSÃO ────────────────────────
         const dataURLfinal = canvas.toDataURL('image/png', 1.0);
@@ -1000,7 +1001,7 @@ function gerarFolhaA4(nomeCriador) {
         win.document.write(`<!DOCTYPE html>
 <html>
 <head>
-  <title>Code3D — ${nomeObjeto} — ${nomeCriador}</title>
+  <title>Explora3D · Revolve — ${nomeObjeto} — ${nomeCriador}</title>
   <style>
     @page { size: A4 portrait; margin: 0; }
     * { margin: 0; padding: 0; box-sizing: border-box; }

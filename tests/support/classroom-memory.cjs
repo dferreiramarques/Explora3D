@@ -33,6 +33,7 @@ function createMemoryAPI() {
     if (sql.startsWith('UPDATE submissions SET project_json')) {
       const s = submissions.find(s => s.id === p[2]);
       s.project_json = structuredClone(p[0]); s.updated_at = new Date().toISOString();
+      if (p[3]) s.shapes_json = structuredClone(p[0].data);
       if (p[1]) { s.submitted_project_json = structuredClone(p[0]); s.submitted_at = s.updated_at; }
       return result([s]);
     }
@@ -41,7 +42,7 @@ function createMemoryAPI() {
     if (sql.startsWith('SELECT s.*, a.app_id FROM submissions')) return result(submissions.filter(s => s.id === p[0] && activities.some(a => a.id === s.activity_id && a.teacher_id === p[1])).map(s => ({ ...s, app_id: activities.find(a => a.id === s.activity_id).app_id })));
     if (sql.startsWith('UPDATE submissions SET shapes_json')) {
       const s = submissions.find(s => s.id === p[1]); if (!s) return result([]);
-      s.shapes_json = p[0]; return result([s]);
+      s.shapes_json = p[0]; s.project_json = null; return result([s]);
     }
     throw new Error('Unhandled test query: ' + sql);
   };

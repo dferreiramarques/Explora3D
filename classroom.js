@@ -1,8 +1,8 @@
 (() => {
   'use strict';
   const app = document.body.dataset.suiteApp;
-  if (!['area', 'revolve', 'voxel'].includes(app)) return;
-  const names = { area: 'Area', revolve: 'Revolve', voxel: 'Voxel' };
+  if (!['area', 'volume', 'revolve', 'voxel'].includes(app)) return;
+  const names = { area: 'Area', volume: 'Volume', revolve: 'Revolve', voxel: 'Voxel' };
   const adapter = window.ExploraProject;
   const API = window.EXPLORA_CLASSROOM_API;
   const tokenKey = 'monco3d_teacher_token_v1';
@@ -21,8 +21,10 @@
   toolbar.innerHTML = '<button class="ec-entry" type="button">🏫 Sala de aula</button><button class="ec-deliver" type="button" hidden>Entregar ao professor</button><button class="ec-entry" type="button" hidden>Voltar ao meu trabalho</button><span class="ec-status" role="status" aria-live="polite"></span>';
   const [entry, deliver, back] = toolbar.querySelectorAll('button');
   const status = toolbar.querySelector('.ec-status');
-  const header = document.querySelector(app === 'area' ? 'body > header' : app === 'revolve' ? '#titlebar' : '#brand');
+  const header = document.getElementById('explora-projectbar') || document.querySelector(app === 'area' ? 'body > header' : app === 'volume' ? '#hdr' : app === 'revolve' ? '#titlebar' : '#brand');
   header.appendChild(toolbar);
+  new MutationObserver(() => { if (status.textContent) window.ExploraWorkspace?.status(status.textContent); }).observe(status, { childList: true, characterData: true, subtree: true });
+  const boundary = () => window.dispatchEvent(new Event('explora:project-boundary'));
   const dialog = document.createElement('dialog');
   dialog.className = 'ec-dialog'; dialog.setAttribute('aria-labelledby', 'ec-title');
   dialog.innerHTML = `
@@ -76,8 +78,10 @@
       get('brief').textContent = session.brief || 'O professor ainda não escreveu o desafio.';
     }
   }
-  function open() {
+  function open(nextTab) {
+    if (nextTab === 'teacher' || nextTab === 'student') tab = nextTab;
     returnFocus = document.activeElement; notice(); render(); dialog.showModal();
+    if (tab === 'teacher' && token()) run(activities);
   }
   entry.addEventListener('click', open);
   get('close').onclick = () => dialog.close();
@@ -97,7 +101,7 @@
       try { capability = await request('/api/capabilities', {}, false); } catch {
         throw new Error('Esta secção precisa da versão atualizada do servidor de sala de aula. O trabalho no editor continua disponível.');
       }
-      if (capability.classroom_version < 2 || !capability.apps?.includes(app)) throw new Error('Atualiza o servidor para usar a sala de aula nesta secção.');
+      if (capability.classroom_version < 3 || !capability.apps?.includes(app)) throw new Error('Atualiza o servidor para usar a sala de aula nesta secção.');
       supported = true;
     }
     const controller = new AbortController();
@@ -144,10 +148,11 @@
   };
   async function join(creds) {
     if (preview) throw new Error('Volta ao teu trabalho antes de entrar numa sala.');
+    window.ExploraWorkspace?.flush();
     const own = adapter.capture();
     const data = await request('/api/submissions/join', { method: 'POST', body: JSON.stringify(creds) });
     if (data.activity?.app_id !== app) throw new Error('Esta atividade pertence a outra secção.');
-    let project = data.project_json;
+    let project = data.project_json || (app === 'volume' && data.shapes_json ? { app, version: 1, data: data.shapes_json } : null);
     const pending = read(draftKey);
     if (pending?.submissionId === data.submission_id && confirm('Há um rascunho neste navegador que ainda não foi confirmado pelo servidor. Queres recuperá-lo?')) project = pending.project;
     if (project) {
@@ -157,7 +162,7 @@
     personal = own;
     session = { id: data.submission_id, code: creds.classroom_code, name: creds.student_name, title: data.activity.title, brief: data.activity.brief };
     delivered = !!data.submitted_at; lastSaved = '';
-    write(sessionKey, creds); render(); notice('Entraste na sala. Podes continuar a criar.');
+    write(sessionKey, creds); render(); boundary(); notice('Entraste na sala. Podes continuar a criar.');
     await save();
   }
   async function submit() { await save(true); notice('Trabalho entregue. Podes continuar a editar e entregar outra versão quando quiseres.'); }
@@ -170,7 +175,7 @@
     session = null; personal = null; lastSaved = ''; delivered = false; write(sessionKey, null);
     get('pin').value = ''; get('name').value = '';
     const url = new URL(location.href); url.searchParams.delete('code'); history.replaceState(null, '', url);
-    status.textContent = ''; render(); notice('Saíste da sala. O trabalho está guardado no servidor.');
+    status.textContent = ''; render(); boundary(); notice('Saíste da sala. O trabalho está guardado no servidor.');
   });
   async function login(register = false) {
     if (!get('auth').reportValidity()) return;
@@ -210,14 +215,15 @@
         const button = document.createElement('button'); button.type = 'button'; button.textContent = label;
         button.onclick = () => run(async () => {
           const data = await request('/api/teacher/submissions/' + result.id, { headers: auth() });
-          const project = data.submitted_project_json || data.project_json;
+          const project = data.submitted_project_json || data.project_json || (app === 'volume' && data.shapes_json ? { app, version: 1, data: data.shapes_json } : null);
           if (!project || project.app !== app) throw new Error('Este aluno ainda não guardou um projeto nesta atividade.');
           if (download) {
             const url = URL.createObjectURL(new Blob([JSON.stringify(project.data, null, 2)], { type: 'application/json' }));
             const link = document.createElement('a'); link.href = url; link.download = app + '-trabalho.' + (app === 'area' ? 'stampforge' : 'json'); link.click(); setTimeout(() => URL.revokeObjectURL(url), 1000);
           } else {
+            window.ExploraWorkspace?.flush();
             const own = preview || adapter.capture();
-            await adapter.restore(project.data); preview = own; render();
+            await adapter.restore(project.data); preview = own; render(); boundary();
             status.textContent = 'Cópia do trabalho de ' + result.student_name + ' · original preservado'; dialog.close();
           }
         }); actions.appendChild(button);
@@ -226,7 +232,7 @@
     });
   }
   back.onclick = async () => {
-    try { await adapter.restore(preview); preview = null; status.textContent = session ? 'De volta ao teu trabalho' : ''; render(); }
+    try { await adapter.restore(preview); preview = null; status.textContent = session ? 'De volta ao teu trabalho' : ''; render(); boundary(); }
     catch (error) { open(); notice(error.message); }
   };
   get('refresh').onclick = () => run(() => activity ? detail(activity) : activities());
@@ -255,10 +261,12 @@
   const saved = read(sessionKey);
   if (code) get('code').value = code;
   window.addEventListener('load', async () => {
+    await window.ExploraWorkspace?.ready;
     if (saved && (!code || saved.classroom_code === code.toUpperCase())) {
       try { await join(saved); } catch (error) { status.textContent = 'Sessão não retomada · abre Sala de aula'; }
     }
     if (code && !session) open();
   });
+  window.ExploraClassroom = { open, save, scope: () => preview ? 'copy' : session ? 'classroom' : 'free' };
   render();
 })();

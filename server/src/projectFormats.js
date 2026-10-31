@@ -5,6 +5,7 @@ function validProject(app, project) {
   if (!project || project.app !== app || project.version !== 1 || !project.data) return false;
   if (Buffer.byteLength(JSON.stringify(project)) > 6 * 1024 * 1024) return false;
   const d = project.data;
+  if (app === 'volume') return Array.isArray(d.shapes) && d.shapes.length <= 10000 && d.shapes.every(s => s && ['x', 'y', 'w', 'h'].every(k => finite(s[k])));
   if (app === 'voxel') return Array.isArray(d.blocos) && d.blocos.length <= 4096 && d.blocos.every(b =>
     b && ['x', 'y', 'z'].every(k => Number.isInteger(b[k]) && b[k] >= 0 && b[k] < 16) && Number.isInteger(b.c) && b.c >= 0 && b.c < 16);
   if (app === 'revolve') return Array.isArray(d.pontos) && d.pontos.length >= 3 && d.pontos.length <= 128 &&

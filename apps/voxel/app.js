@@ -1,5 +1,5 @@
 // ============================================================
-// PIXEL3D — app.js
+// Explora3D · Voxel — app.js
 // Modelador 3D Voxel para o Clube de Código
 // Centro de Inovação Carlos Fiolhais
 // ============================================================
@@ -228,12 +228,12 @@ function init() {
     scene.background = new THREE.Color(0x11131c);
     scene.fog = new THREE.Fog(0x11131c, 35, 70);
 
-    camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 200);
+    camera = new THREE.PerspectiveCamera(55, document.getElementById('viewport').clientWidth / document.getElementById('viewport').clientHeight, 0.1, 200);
     camera.position.set(26, 22, 26);
     camera.lookAt(cameraTarget);
 
     renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize(document.getElementById('viewport').clientWidth, document.getElementById('viewport').clientHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.shadowMap.enabled = true;
     document.getElementById('viewport').appendChild(renderer.domElement);
@@ -300,9 +300,9 @@ function init() {
     carregarTemplate('humanoid');
 
     window.addEventListener('resize', () => {
-        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.aspect = document.getElementById('viewport').clientWidth / document.getElementById('viewport').clientHeight;
         camera.updateProjectionMatrix();
-        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setSize(document.getElementById('viewport').clientWidth, document.getElementById('viewport').clientHeight);
     });
 
     animate();
@@ -839,10 +839,10 @@ async function exportarFicha() {
     // Linha verde sob a barra
     doc.setFillColor(...cGreen); doc.rect(0, 5.5, PW, 0.8, 'F');
 
-    // Logótipo — "PIXEL3D" grande em verde, à esquerda
+    // Logótipo — "Explora3D · Voxel" grande em verde, à esquerda
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(11); doc.setTextColor(...cGreen);
-    doc.text('PIXEL3D', ML, 3.8);
+    doc.text('Explora3D · Voxel', ML, 3.8);
 
     // "FICHA DE PROJETO" — à direita, branco sobre escuro
     doc.setFontSize(7); doc.setFont('helvetica', 'normal');
@@ -864,7 +864,7 @@ async function exportarFicha() {
     doc.setTextColor(...cLight);
     const hoje = new Date().toLocaleDateString('pt-PT');
     const blockCount = Object.keys(voxelMeshes).length;
-    doc.text(`${result.nome}   ·   ${hoje}   ·   ${blockCount} blocos   ·   Pixel3D v1.4 · CICF`,
+    doc.text(`${result.nome}   ·   ${hoje}   ·   ${blockCount} blocos   ·   Voxel v1.4 · CICF`,
              ML + 5, Y + 13);
 
     Y += 18;
@@ -925,7 +925,7 @@ async function exportarFicha() {
     doc.setFillColor(...cDark); doc.rect(0, footerTop, PW, PH - footerTop, 'F');
     doc.setFont('helvetica', 'normal'); doc.setFontSize(6.5);
     doc.setTextColor(...cLight);
-    doc.text('Pixel3D  ·  Clube de Código  ·  Centro de Inovação Carlos Fiolhais',
+    doc.text('Voxel  ·  Clube de Código  ·  Centro de Inovação Carlos Fiolhais',
              PW / 2, PH - 4, { align: 'center' });
     doc.setTextColor(...cGreen);
     doc.text('centroinovacaocarlosfiolhais.github.io', PW - MR, PH - 4, { align: 'right' });
@@ -944,7 +944,7 @@ async function exportarFicha() {
 function guardarModelo() {
     const data = {
         versao: '2.5',
-        nome: 'Pixel3D',
+        nome: 'Voxel',
         data: new Date().toISOString(),
         blocos: Object.keys(voxelMeshes).map(k => {
             const [x, y, z] = k.split(',').map(Number);
@@ -991,7 +991,7 @@ function exportarTXT() {
     const SYMS = ['·','N','P','V','C','Z','S','B','R','L','A','M','U','I','O','E'];
     const total = Object.keys(voxelMeshes).length;
     let txt = '════════════════════════════════════\n';
-    txt += '  PIXEL3D — O Teu Modelo Voxel\n';
+    txt += '  Explora3D · Voxel — O Teu Modelo Voxel\n';
     txt += '════════════════════════════════════\n';
     txt += `  Blocos  : ${total}\n`;
     txt += `  Grid    : ${GRID_SIZE}×${GRID_SIZE}×${GRID_SIZE}\n`;
@@ -1017,7 +1017,7 @@ function exportarTXT() {
     }
 
     txt += '════════════════════════════════════\n';
-    txt += '  Pixel3D · CICF\n';
+    txt += '  Voxel · CICF\n';
     txt += '════════════════════════════════════\n';
 
     const a = document.createElement('a');
@@ -1042,7 +1042,7 @@ function toggleSidebar() {
     const btn = document.getElementById('toggle-sidebar');
     sb.classList.toggle('hidden');
     btn.classList.toggle('moved');
-    btn.textContent = sb.classList.contains('hidden') ? '▶ Painel' : '◀ Painel';
+    btn.textContent = sb.classList.contains('hidden') ? '▶ Ferramentas' : '◀ Ferramentas';
 }
 
 // ============================================================

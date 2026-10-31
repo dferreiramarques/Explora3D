@@ -38,6 +38,16 @@ test('source licences and pedagogical materials were imported', () => {
     assert(fs.existsSync(path.join(root, file)), file);
   }
 });
+
+test('all editors use one project bar, panel stylesheet and classroom client', () => {
+  for (const app of Object.values(apps)) {
+    const html = fs.readFileSync(path.resolve(root, app.url, 'index.html'), 'utf8');
+    for (const asset of ['workspace.js', 'workspace.css', 'project-store.js', 'classroom.js', 'classroom-adapter.js']) {
+      assert(html.includes(asset), app.name + ': ' + asset);
+    }
+    assert(html.indexOf('workspace.js') < html.lastIndexOf('classroom.js'), app.name);
+  }
+});
 test('Volume legacy link preserves activity query and redirects into the suite', () => {
   const script = fs.readFileSync(path.join(root, 'volume.html'), 'utf8').match(/<script>([\s\S]*?)<\/script>/)[1];
   let destination;

@@ -1,8 +1,8 @@
 // Cache scoped to this editor, including when installed inside the suite.
 const APP_ROOT = new URL('./', self.location.href);
 const CACHE_PREFIX = 'revolve:' + APP_ROOT.pathname + ':';
-const CACHE_NAME = CACHE_PREFIX + 'v24';
-const PRECACHE = ['index.html', 'app.js', '../../../suite-ui.css', '../../../editor-runtime.js', '../../../classroom.css', '../../../classroom.config.js', '../../../classroom-adapter.js', '../../../classroom.js', 'manifest.json'].map(path => new URL(path, APP_ROOT).href);
+const CACHE_NAME = CACHE_PREFIX + 'v25';
+const PRECACHE = ['index.html', 'app.js', '../../../suite-ui.css', '../../../editor-runtime.js', '../../../classroom.css', '../../../classroom.config.js', '../../../classroom-adapter.js', '../../../classroom.js', '../../../workspace.js', '../../../workspace.css', '../../../project-store.js', 'manifest.json'].map(path => new URL(path, APP_ROOT).href);
 const SHARED_THEME = new URL('../../../suite-ui.css', APP_ROOT).href;
 const SHARED_RUNTIME = new URL('../../../editor-runtime.js', APP_ROOT).href;
 const DEPENDENCIES = [

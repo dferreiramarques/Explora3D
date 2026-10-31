@@ -6,6 +6,7 @@
   });
   window.ExploraProject = {
     capture() {
+      if (app === 'volume') return { version: 1, nextId, shapes: JSON.parse(JSON.stringify(shapes)), palette: JSON.parse(JSON.stringify(COLOR_DEFS)), activeColor };
       if (app === 'revolve') return construirJSONCompleto();
       if (app === 'voxel') return { versao: '2.5', nome: 'Voxel', blocos: Object.keys(voxelMeshes).map(key => {
         const [x, y, z] = key.split(',').map(Number); return { x, y, z, c: grid[x][y][z] };
@@ -17,6 +18,17 @@
       throw new Error('Editor não suportado.');
     },
     async restore(data) {
+      if (app === 'volume') {
+        if (!Array.isArray(data.shapes) || data.shapes.some(s => !s || !['x', 'y', 'w', 'h'].every(k => Number.isFinite(s[k])))) throw new Error('Formas inválidas.');
+        if (data.palette) {
+          if (!Array.isArray(data.palette) || data.palette.length === 0 || data.palette.length > 16 || data.palette.some(c => !c || !/^#[0-9a-f]{6}$/i.test(c.hex) || !Number.isFinite(c.z))) throw new Error('Paleta inválida.');
+          COLOR_DEFS.splice(0, COLOR_DEFS.length, ...JSON.parse(JSON.stringify(data.palette)));
+          activeColor = COLOR_DEFS.some(c => c.hex === data.activeColor) ? data.activeColor : COLOR_DEFS[0].hex;
+          rebuildSwatches(); updateHoleBadge();
+        }
+        applyLoadedShapes(data); undoStack = []; redoStack = []; updateHistoryBtns();
+        return;
+      }
       if (app === 'revolve') {
         if (!Array.isArray(data.pontos) || data.pontos.length < 3) throw new Error('Perfil inválido.');
         document.getElementById('json-editor').value = JSON.stringify(data, null, 2);

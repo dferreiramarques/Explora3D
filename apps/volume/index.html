@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
+<script>window.EXPLORA_UNIFIED_UI = true;</script>
 <script src="../../classroom.config.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
@@ -775,6 +776,8 @@ button{cursor:pointer;border:none;font-family:inherit;background:none;color:inhe
 }
 </style>
 <link rel="stylesheet" href="../../suite-ui.css">
+<link rel="stylesheet" href="../../workspace.css">
+<link rel="stylesheet" href="../../classroom.css">
 </head>
 <body data-suite-app="volume">
 <div id="app">
@@ -2437,7 +2440,7 @@ function setMode(m){
 function toggle3D(){setMode(mode==='3d'?'2d':'3d');}
 
 function rebuildSwatches(){
-  const bot=document.getElementById('bot');
+  const bot=document.getElementById('ux-volume-colours')||document.getElementById('bot');
   // remover todos os col-wrap existentes e o btn-add-color
   bot.querySelectorAll('.col-wrap, #btn-add-color').forEach(el=>el.remove());
   // re-inserir no início do bot
@@ -2797,6 +2800,7 @@ function loadJSON(e){
 const AUTOSAVE_KEY='monco3d_autosave_v1';
 let autosaveTimer=null;
 function doAutosave(){
+  if(window.EXPLORA_UNIFIED_UI) return;
   if(readOnlyView) return; // modo de visualização (super-admin) — nunca gravar o que se está a ver
   // enquanto edita o trabalho de um aluno, não pisar o rascunho local do professor —
   // só vai para a API (syncClassroomAutosave), o localStorage fica intacto para o professor recuperar o seu.
@@ -2930,6 +2934,7 @@ function teacherIsSuperadmin(){
 const CLASSROOM_CREDS_KEY='monco3d_classroom_creds_v1';
 
 function openClassroomModal(){
+  if(window.ExploraClassroom) return window.ExploraClassroom.open('student');
   const urlCode=new URLSearchParams(location.search).get('code');
   if(urlCode) document.getElementById('cm-code').value=urlCode.toUpperCase();
   document.getElementById('classroom-error').classList.remove('show');
@@ -2992,6 +2997,7 @@ function leaveClassroom(){
 
 // Tenta retomar uma sessão de sala de aula guardada neste dispositivo. Devolve true se o conseguiu.
 async function tryResumeClassroomSession(){
+  if(window.EXPLORA_UNIFIED_UI) return false;
   let creds=null;
   try{ creds=JSON.parse(localStorage.getItem(CLASSROOM_CREDS_KEY)||'null'); }catch(e){}
   if(!creds||!creds.classroom_code) return false;
@@ -3021,6 +3027,7 @@ function closeBriefModal(){ document.getElementById('brief-modal').classList.rem
 
 // ── Professor: autenticação ─────────────────────────
 function openTeacherModal(){
+  if(window.ExploraClassroom) return window.ExploraClassroom.open('teacher');
   try{ teacherAuthToken=localStorage.getItem('monco3d_teacher_token_v1')||null; }catch(e){}
   document.getElementById('teacher-modal').classList.add('open');
   if(teacherAuthToken) showTeacherDash(); else showTeacherAuth();
@@ -3233,7 +3240,7 @@ async function saveTeacherEditAndReturn(){
       method:'PUT', headers:authHeader(), body:JSON.stringify({shapes_json:{version:1,nextId,shapes}})
     });
     showToast('💾 Trabalho do aluno atualizado');
-  }catch(err){ showToast('⚠️ '+err.message); }
+  }catch(err){ showToast('⚠️ '+err.message); return; }
   const snap=viewerSnapshot, activityId=teacherState.currentActivityId;
   teacherEditSession=null; viewerSnapshot=null;
   document.getElementById('teacher-edit-banner').classList.remove('show');
@@ -3806,6 +3813,7 @@ window.addEventListener('keydown',e=>{
 },true);
 
 function maybeStartTour(){
+  if(window.EXPLORA_UNIFIED_UI) return;
   let done=false;
   try{ done=!!localStorage.getItem(TOUR_KEY); }catch(e){}
   if(!done)setTimeout(startTour,500);
@@ -3822,9 +3830,9 @@ try{ teacherAuthToken=localStorage.getItem('monco3d_teacher_token_v1')||null; }c
     return;
   }
   const urlCode=new URLSearchParams(location.search).get('code');
-  if(urlCode) setTimeout(openClassroomModal, 300);
+  if(urlCode && !window.EXPLORA_UNIFIED_UI) setTimeout(openClassroomModal, 300);
 
-  const auto=readAutosave();
+  const auto=window.EXPLORA_UNIFIED_UI?null:readAutosave();
   if(auto){
     const when=new Date(auto.ts).toLocaleString('pt-PT');
     if(confirm('Encontrámos um trabalho não guardado de '+when+'. Queres recuperá-lo?')){
@@ -3878,5 +3886,9 @@ updateHistoryBtns();
 </script>
 <script src="../../editor-runtime.js"></script>
 <script>window.addEventListener('storage',event=>{if(event.key==='monco3d_teacher_token_v1')teacherAuthToken=event.newValue;});</script>
+<script src="../../classroom-adapter.js"></script>
+<script src="../../project-store.js"></script>
+<script src="../../workspace.js"></script>
+<script src="../../classroom.js"></script>
 </body>
 </html>

@@ -29,6 +29,7 @@ test('classroom routes isolate apps, preserve deliveries and remain compatible w
     assert.equal(own.status, 200); assert.equal(own.data.length, 0);
   });
   const projects = {
+    volume: { version: 1, nextId: 1, shapes: [] },
     area: { canvas: 'data:image/png;base64,iVBORw0KGgo=', settings: { resolution: 600 } },
     revolve: { pontos: [{ x: 0, y: 0 }, { x: 1, y: 1 }, { x: 0, y: 2 }], segmentos: 20 },
     voxel: { blocos: [{ x: 0, y: 0, z: 0, c: 3 }] }
@@ -37,7 +38,7 @@ test('classroom routes isolate apps, preserve deliveries and remain compatible w
     const created = await request('/api/activities', 'POST', { title: 'Desafio ' + appId, brief: 'Explora uma forma', app_id: appId }, token);
     assert.equal(created.status, 200); assert.equal(created.data.app_id, appId);
     const code = created.data.classroom_code;
-    const wrong = await request('/api/submissions/join', 'POST', { classroom_code: code, student_name: 'Aluno teste', student_pin: '1234', app_id: 'volume' });
+    const wrong = await request('/api/submissions/join', 'POST', { classroom_code: code, student_name: 'Aluno teste', student_pin: '1234', app_id: appId === 'volume' ? 'area' : 'volume' });
     assert.equal(wrong.status, 409);
     const creds = { classroom_code: code, student_name: 'Aluno teste', student_pin: '1234', app_id: appId };
     const joined = await request('/api/submissions/join', 'POST', creds);
@@ -68,5 +69,5 @@ test('classroom routes isolate apps, preserve deliveries and remain compatible w
   assert(Array.isArray(join.data.shapes_json.shapes));
   assert.equal((await request('/api/submissions/' + join.data.submission_id, 'PUT', { shapes_json: { shapes: [] } })).status, 200);
   const oldList = await request('/api/activities', 'GET', null, token);
-  assert.equal(oldList.data.length, 1); assert.equal(oldList.data[0].app_id, 'volume');
+  assert.equal(oldList.data.length, 2); assert.equal(oldList.data[0].app_id, 'volume');
 });

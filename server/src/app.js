@@ -20,7 +20,7 @@ app.use(cors({
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE']
 }));
 
-app.get('/api/capabilities', (req, res) => res.json({ classroom_version: 2, apps: ['volume', 'area', 'revolve', 'voxel'] }));
+app.get('/api/capabilities', (req, res) => res.json({ classroom_version: 3, apps: ['volume', 'area', 'revolve', 'voxel'] }));
 
 app.get('/', (req, res) => res.json({ ok: true, service: 'monco3d-classroom-api' }));
 
