@@ -2413,6 +2413,7 @@ function updateAchs(){
 // MODE SWITCHING
 // ═══════════════════════════════════════
 function setMode(m){
+  document.body.classList.toggle('explora-mode-3d',m==='3d');
   mode=m;
   canvas.style.display                               =m==='2d'?'block':'none';
   document.getElementById('hint2d').style.display   =m==='2d'?'flex':'none';
@@ -2492,7 +2493,7 @@ function rebuildSwatches(){
 // ═══════════════════════════════════════
 const mount3=document.getElementById('three-mount');
 const renderer3=new THREE.WebGLRenderer({antialias:true});
-renderer3.setClearColor(0x0c0c0f,1);
+renderer3.setClearColor(0x11131c,1);
 renderer3.setPixelRatio(Math.min(devicePixelRatio,2));
 mount3.appendChild(renderer3.domElement);
 
@@ -2534,7 +2535,7 @@ function resizeR3(){
   if(!w||!h)return;
   renderer3.setSize(w,h,false);camera3.aspect=w/h;camera3.updateProjectionMatrix();
 }
-(function anim3(){requestAnimationFrame(anim3);resizeR3();renderer3.render(scene3,camera3);})();
+(function anim3(){requestAnimationFrame(anim3);if(window.exploraFrameActive===false||document.hidden||mode!=='3d')return;resizeR3();renderer3.render(scene3,camera3);})();
 
 // ── Canvas coords → Clipper integer path (scale ×1000 for precision) ────
 const CP_SCALE = 1000;
@@ -3873,5 +3874,6 @@ try{ teacherAuthToken=localStorage.getItem('monco3d_teacher_token_v1')||null; }c
 updateHistoryBtns();
 
 </script>
+<script src="../../editor-runtime.js"></script>
 </body>
 </html>

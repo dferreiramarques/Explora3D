@@ -653,7 +653,7 @@
             <div id="viewport"></div>
 
             <div id="focal-ctrl">
-                <div class="focal-label">FOV</div>
+                <div class="focal-label">Vista</div>
                 <div class="focal-value" id="focal-value">60°</div>
                 <input
                     type="range"
@@ -662,7 +662,7 @@
                     oninput="ajustarFocal(this.value)"
                     orient="vertical"
                 >
-                <div class="focal-label" style="margin-top:6px">FLAT</div>
+                <div class="focal-label" style="margin-top:6px">Plano</div>
             </div>
 
             <div id="coords">
@@ -681,15 +681,15 @@
         <div id="sidebar">
 
             <div class="section">
-                <div class="section-label">Molda o perfil</div>
-                <p class="hint">Arrasta os pontos para mudar a forma. A zona preenchida mostra metade do perfil, com as mesmas proporções do sólido visto de frente.</p>
+                <div class="section-label">Puxa os pontos. Cria uma forma.</div>
+                <p class="hint">Arrasta uma bolinha e vê o objeto mudar. A curva roda à volta da linha para criar o teu sólido.</p>
                 <svg id="profile-editor" viewBox="0 0 300 260" aria-label="Editor do perfil de revolução" style="width:100%;background:var(--bg0);border:1px solid var(--border2);border-radius:8px;touch-action:none;user-select:none"></svg>
                 <div id="profile-selection" class="hint" aria-live="polite">Escolhe um ponto para o ajustar.</div>
                 <div class="btn-group">
                     <button class="btn" onclick="adicionarPontoPerfil()">+ Ponto</button>
                     <button class="btn" id="profile-remove" onclick="removerPontoPerfil()" disabled>− Ponto</button>
                 </div>
-                <p class="hint">Também podes usar as setas do teclado num ponto. Com 3 ou 4 pontos, os pontos intermédios controlam a curva.</p>
+                <p class="hint">Dica: as bolinhas puxam a curva como pequenos ímanes. Também podes usar as setas do teclado.</p>
             </div>
             <!-- JSON EDITOR -->
             <details class="section">
@@ -726,7 +726,7 @@
 
             <!-- COLOR + SEGMENTS -->
             <div class="section">
-                <div class="section-label">Material</div>
+                <div class="section-label">Cor e forma</div>
 
                 <div class="control-row">
                     <div class="field-label">Cor do objeto</div>
@@ -744,8 +744,8 @@
             </div>
 
             <!-- FRACTAL -->
-            <div class="section">
-                <div class="section-label">Repetição de formas</div>
+            <details class="section">
+                <summary class="section-label">E se repetirmos?</summary>
 
                 <div class="control-row">
                     <div class="field-label">
@@ -771,7 +771,7 @@
                     </div>
                     <input type="range" id="escala-fractal" min="0.2" max="0.9" step="0.1" value="0.5" oninput="alterarEscalaFractal()">
                 </div>
-            </div>
+            </details>
 
             <!-- ANIMATION -->
             <div class="section">
@@ -804,7 +804,7 @@
                 </div>
                 <div class="btn-group" style="margin-top:6px">
                     <button class="btn primary" onclick="exportarA4()" style="font-size:12px; padding:8px 10px; letter-spacing:1px;">
-                        🖨 PRINT A4 — GALERIA
+                        🖨 Criar folha da minha criação
                     </button>
                 </div>
                 <input type="file" id="file-input" accept=".json" onchange="lerFicheiro()">
@@ -812,7 +812,7 @@
 
             <!-- INFO -->
             <div class="section">
-                <div class="section-label">System</div>
+                <div class="section-label">Sobre esta ferramenta</div>
                 <div class="info-box">
                     <div>RENDERER  <span class="val">WebGL / THREE.js r128</span></div>
                     <div>METHOD    <span class="val">Bézier → LatheGeometry</span></div>
@@ -827,12 +827,12 @@
             <div class="section" style="margin-top: auto;">
                 <div class="section-label">Instalar App</div>
                 <div class="info-box" style="margin-bottom: 10px; font-size:10px; line-height:1.7;">
-                    <div>Instala o <span class="val">Code3D</span> como app</div>
+                    <div>Instala o <span class="val">Revolve</span> como app</div>
                     <div>no teu dispositivo para acesso</div>
                     <div>offline e ecrã completo.</div>
                 </div>
                 <button id="pwa-install-btn" class="btn success" style="width:100%; font-size:12px; padding: 10px;" onclick="instalarPWA()">
-                    ⊕ INSTALAR CODE3D
+                    ⊕ INSTALAR REVOLVE
                 </button>
                 <div id="pwa-hint" style="display:none; margin-top:8px; font-size:9px; color:var(--dim); line-height:1.7; letter-spacing:0.5px;"></div>
             </div>
@@ -989,7 +989,7 @@
             _pwaPrompt = e;
             // Native prompt available — update button to signal readiness
             const btn = document.getElementById('pwa-install-btn');
-            btn.textContent = '⊕ INSTALAR CODE3D';
+            btn.textContent = '⊕ INSTALAR REVOLVE';
             btn.style.opacity = '1';
             document.getElementById('pwa-hint').style.display = 'none';
         });
@@ -1035,5 +1035,6 @@
         }
 
     </script>
+<script src="../../../editor-runtime.js"></script>
 </body>
 </html>

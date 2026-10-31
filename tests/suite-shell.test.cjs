@@ -9,6 +9,8 @@ function boot(suffix = '') {
     constructor() {
       this.hidden = false; this.dataset = {}; this.children = []; this.attrs = {};
       this.listeners = {}; this.firstChild = { textContent: '' };
+      this.messages = [];
+      this.contentWindow = { postMessage: data => this.messages.push(data) };
       this.classList = { toggle: (name, value) => { this[name] = value; } };
     }
     setAttribute(name, value) { this.attrs[name] = value; }
@@ -85,4 +87,15 @@ test('retry cannot remove a loaded editor', () => {
   frame.listeners.load();
   app.ids['suite-retry'].listeners.click();
   assert.equal(frame.removed, undefined);
+});
+
+test('hidden editors receive a pause message and resume when reopened', () => {
+  const app = boot('#revolve');
+  const frame = app.ids['suite-frames'].children[0];
+  frame.listeners.load();
+  assert.equal(frame.messages.at(-1).active, true);
+  app.go('#voxel');
+  assert.equal(frame.messages.at(-1).active, false);
+  app.go('#revolve');
+  assert.equal(frame.messages.at(-1).active, true);
 });

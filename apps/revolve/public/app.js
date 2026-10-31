@@ -23,7 +23,7 @@ const CONFIG_PADRAO = {
 function init() {
     // Criar cena
     scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x050608);
+    scene.background = new THREE.Color(0x11131c);
     scene.fog = null; // fog managed dynamically in wheel handler
 
     // Configurar câmera
@@ -45,7 +45,7 @@ function init() {
         preserveDrawingBuffer: true // Necessário para exportar imagens
     });
     renderer.setSize(vp.clientWidth, vp.clientHeight);
-    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     document.getElementById('viewport').appendChild(renderer.domElement);
@@ -83,6 +83,7 @@ function init() {
 // O enquadramento fica fixo durante o gesto para evitar saltos de escala.
 let perfilSelecionado = 0;
 let perfilGesto = null;
+let perfilRenderPendente = null;
 let perfilEscala = null;
 
 function desenharPerfil() {
@@ -149,6 +150,11 @@ function desenharPerfil() {
     };
     svg.onpointerup = svg.onpointercancel = svg.onlostpointercapture = () => {
         if (!perfilGesto) return;
+        if (perfilRenderPendente !== null) {
+            cancelAnimationFrame(perfilRenderPendente);
+            perfilRenderPendente = null;
+            carregarJSON(true);
+        }
         perfilGesto = null;
         desenharPerfil();
     };
@@ -156,7 +162,12 @@ function desenharPerfil() {
 
 function aplicarPerfil(config) {
     document.getElementById('json-editor').value = JSON.stringify(config, null, 2);
-    carregarJSON(true);
+    if (perfilGesto) {
+        if (perfilRenderPendente === null) perfilRenderPendente = requestAnimationFrame(() => {
+            perfilRenderPendente = null;
+            carregarJSON(true);
+        });
+    } else carregarJSON(true);
 }
 
 function atualizarPontoPerfil(index, x, y) {
@@ -1169,6 +1180,7 @@ function onWindowResize() {
 
 function animate() {
     requestAnimationFrame(animate);
+    if (window.exploraFrameActive === false || document.hidden) return;
 
     // Rotação automática
     if (animando && objetoAtual) {

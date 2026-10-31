@@ -8,7 +8,7 @@ if (path.dirname(output) !== root || path.basename(output) !== 'dist' ||
   throw new Error('Invalid distribution directory');
 }
 const files = ['index.html', 'volume.html', 'mosaico.html', 'stencil.html',
-  'suite-ui.css', 'suite-shell.css', 'suite-shell.js', 'suite.config.js', 'CNAME', 'LICENSE'];
+  'suite-ui.css', 'suite-shell.css', 'suite-shell.js', 'suite.config.js', 'editor-runtime.js', 'CNAME', 'LICENSE'];
 for (const file of files) {
   if (!fs.statSync(path.join(root, file)).isFile()) throw new Error(`Missing ${file}`);
 }
@@ -22,4 +22,5 @@ fs.cpSync(path.join(root, 'apps'), path.join(output, 'apps'), {
   recursive: true,
   filter: source => !['.git', 'node_modules', 'server.js', 'serve.py', 'package.json', 'railway.toml', 'nixpacks.toml'].includes(path.basename(source)) && !path.basename(source).startsWith('.env')
 });
+fs.cpSync(path.join(root, 'assets'), path.join(output, 'assets'), { recursive: true });
 console.log(`Explora3D assembled at ${output}`);

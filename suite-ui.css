@@ -201,3 +201,49 @@ body[data-suite-app=voxel] #sidebar > div:not(.stats):not(.sidebar-license):not(
   button, input, #sidebar { transition: none !important; }
   #status-dot { animation: none !important; }
 }
+
+/* Explora3D creative workshop: readable labels, generous targets and gentle colour. */
+:root {
+  --suite-font: 'Trebuchet MS', ui-rounded, system-ui, 'Segoe UI', sans-serif;
+  --suite-radius: 12px;
+  --p-surface-950: #11131c;
+  --p-surface-900: #191c29;
+  --p-surface-800: #252a3b;
+  --p-surface-700: #3c435c;
+  --p-content-border-color: #3c435c;
+  --p-text-muted-color: #b5bdd4;
+}
+body[data-suite-app=area] { --explora-accent: #ffb078; }
+body[data-suite-app=volume] { --explora-accent: #b5df96; }
+body[data-suite-app=revolve] { --explora-accent: #c7afff; }
+body[data-suite-app=voxel] { --explora-accent: #7ddeeb; }
+body[data-suite-app] :is(.section-label, .section-title) { color: var(--explora-accent); font-size: 14px; font-weight: 700; }
+body[data-suite-app] :is(.btn, .exp-btn, .rot-btn, .tpl-btn, .example-btn, .mode-btn, .cm-submit, .cm-secondary) { min-height: 44px; font-size: 14px; border-radius: 12px !important; }
+body[data-suite-app] :is(.hint, .field-label, .field label, .layer-label) { font-size: 13px; line-height: 1.55; text-transform: none; }
+body[data-suite-app] :is(.section, .panel-section) { border-color: #30364c; }
+body[data-suite-app] :is(.mode-btn.active, .brush-preset.active, .tool-btn.active) { color: var(--explora-accent) !important; border-color: var(--explora-accent) !important; background: #353043 !important; }
+body[data-suite-app=area] #toolPalette { max-height: calc(100% - 36px); overflow-y: auto; padding: 0 7px 8px; }
+body[data-suite-app=area] #toolPalette .tool-btn { width: 58px; height: 53px; display: flex; flex-direction: column; gap: 3px; font-size: 20px; }
+.explora-tool-caption { display: block; font-size: 10px; font-weight: 600; line-height: 1.2; font-family: var(--suite-font); }
+body[data-suite-app=area] .field { gap: 12px; margin-bottom: 12px; }
+body[data-suite-app=volume] .shape-btn { height: 66px; border-radius: 14px; position: relative; padding-bottom: 16px; }
+body[data-suite-app=volume] .shape-btn::after { content: attr(title); position: absolute; bottom: 4px; left: 0; width: 100%; font-size: 10px; color: var(--p-text-muted-color); }
+body[data-suite-app=volume] #hdr button { min-height: 40px; }
+body[data-suite-app=revolve] #profile-editor { background: #151827 !important; border-radius: 18px !important; }
+body[data-suite-app=revolve] .example-btn .icon { font-size: 26px; margin-bottom: 5px; }
+body[data-suite-app=revolve] #coords, body[data-suite-app=voxel] #info { display: none; }
+body[data-suite-app=voxel] #brand { background: #191c29; border-radius: 18px; }
+body[data-suite-app=voxel] .tpl-btn .emoji { font-size: 26px; }
+body[data-suite-app=voxel] .palette-btn { min-height: 32px; border-radius: 9px; }
+.explora-view-controls { position: absolute; z-index: 40; bottom: 18px; left: 50%; transform: translateX(-50%); display: flex; gap: 5px; background: #191c29ee; border: 1px solid #444b65; padding: 6px; border-radius: 18px; box-shadow: 0 6px 20px #0004; white-space: nowrap; }
+.explora-view-controls button { padding: 9px 12px; min-height: 42px; background: #292e42; border: 1px solid #414963; color: #f5f5ff; font-size: 12px; font-weight: 600; border-radius: 12px; cursor: pointer; }
+.explora-view-controls button:hover { background: #3c435c; }
+body[data-suite-app=voxel] .explora-view-controls { left: 18px; transform: none; }
+body[data-suite-app=volume] .explora-view-controls { bottom: 72px; }
+body[data-suite-app=volume]:not(.explora-mode-3d) .explora-view-controls { display: none; }
+@media(max-width: 768px) {
+  body[data-suite-app=area] #toolPalette .tool-btn { width: 43px; height: 46px; }
+  body[data-suite-app=area] .explora-tool-caption { font-size: 9px; }
+  .explora-view-controls button { padding: 8px; font-size: 11px; }
+  .explora-view-controls { bottom: 10px; }
+}

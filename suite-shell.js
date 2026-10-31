@@ -46,6 +46,7 @@
       frame.inert = !active;
       frame.setAttribute('aria-hidden', String(!active));
       frame.tabIndex = active ? 0 : -1;
+      frame.contentWindow?.postMessage({ type: 'explora:visibility', active }, location.origin);
     });
     if (atHome) return;
 
@@ -59,6 +60,7 @@
       frame.setAttribute('aria-hidden', 'false');
       frame.addEventListener('load', () => {
         frame.dataset.loaded = 'true';
+        frame.contentWindow?.postMessage({ type: 'explora:visibility', active: current === id }, location.origin);
         if (current === id) {
           clearTimeout(timeout);
           status.textContent = '';

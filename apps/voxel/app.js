@@ -225,8 +225,8 @@ class GIFEncoder {
 // ============================================================
 function init() {
     scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x0a0e27);
-    scene.fog = new THREE.Fog(0x0a0e27, 35, 70);
+    scene.background = new THREE.Color(0x11131c);
+    scene.fog = new THREE.Fog(0x11131c, 35, 70);
 
     camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 200);
     camera.position.set(26, 22, 26);
@@ -234,7 +234,7 @@ function init() {
 
     renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.shadowMap.enabled = true;
     document.getElementById('viewport').appendChild(renderer.domElement);
 
@@ -656,7 +656,7 @@ async function exportarGIF() {
 
     // ── Restaurar renderer ───────────────────────────────────────────────
     renderer.setRenderTarget(origRT);
-    renderer.setClearColor(0x0a0e27, 1);
+    renderer.setClearColor(0x11131c, 1);
     rt.dispose();
     scene.background = origBG; scene.fog = origFog;
     gridHelper.visible = true; axesHelper.visible = true;
@@ -1050,6 +1050,7 @@ function toggleSidebar() {
 // ============================================================
 function animate() {
     requestAnimationFrame(animate);
+    if (window.exploraFrameActive === false || document.hidden) return;
     if (animando) {
         // Orbitar câmera à volta do pivot (cameraTarget)
         const dx = camera.position.x - cameraTarget.x;

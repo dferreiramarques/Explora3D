@@ -25,3 +25,13 @@ Publicar apenas `dist/`. A API de sala de aula mantém-se separada em `server/`.
 
 O build transporta os recursos estáticos e os materiais importados de `apps/`.
 A revisão de UX/UI e a sala de aula comum continuam fases independentes desta migração.
+
+## Oficina criativa
+
+O início usa ilustrações vetoriais locais em `assets/`, com uma cor por técnica,
+mantendo o fundo escuro e o laranja da marca. Os editores partilham alvos maiores,
+rótulos e controlos de vista através do tema e de `editor-runtime.js`.
+O runtime recebe apenas mensagens de visibilidade do pai na mesma origem: as
+secções inativas deixam de renderizar, mas mantêm o estado. A renderização volta
+ao regressar. O Revolve agrupa atualizações do arrasto por frame, preservando
+a última posição; não há alteração aos formatos de projeto ou de exportação.

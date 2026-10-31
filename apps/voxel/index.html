@@ -393,7 +393,7 @@
     </div>
 </div>
 
-<button id="toggle-sidebar" onclick="toggleSidebar()">◀ Painel</button>
+<button id="toggle-sidebar" onclick="toggleSidebar()">◀ Ferramentas</button>
 
 <div id="sidebar">
     <div class="stats">
@@ -422,13 +422,13 @@
 
     <!-- Palette -->
     <div>
-        <div class="section-title" style="margin-bottom:8px">Paleta PICO-8</div>
+        <div class="section-title" style="margin-bottom:8px">Escolhe uma cor</div>
         <div id="palette"></div>
     </div>
 
     <!-- Layer -->
     <div class="layer-ctrl">
-        <div class="section-title" style="margin-bottom:10px">Camada (Y)</div>
+        <div class="section-title" style="margin-bottom:10px">Altura de construção</div>
         <div class="layer-row">
             <div class="layer-display" id="layer-display-2"></div>
             <div class="layer-label">Clica nesta<br>altura para<br>construir</div>
@@ -442,7 +442,7 @@
 
     <!-- Templates -->
     <div>
-        <div class="section-title" style="margin-bottom:8px">Templates</div>
+        <div class="section-title" style="margin-bottom:8px">Começa com uma ideia</div>
         <div class="template-grid">
             <button class="tpl-btn" onclick="carregarTemplate('humanoid')"><span class="emoji">🤖</span>Humanóide</button>
             <button class="tpl-btn" onclick="carregarTemplate('animal')"><span class="emoji">🐾</span>Animal</button>
@@ -459,7 +459,7 @@
         <div class="rot-btns">
             <button class="rot-btn" onclick="animando=true">▶ Rodar</button>
             <button class="rot-btn" onclick="animando=false">⏸ Parar</button>
-            <button class="rot-btn" onclick="resetarCamera()">🎥 Reset</button>
+            <button class="rot-btn" onclick="resetarCamera()">↺ Repor vista</button>
         </div>
         <button class="rot-btn" style="width:100%;margin-top:6px" onclick="centrarPivot()" title="Move o ponto de pivot (⬤ amarelo) para o centro do modelo">🎯 Centrar Pivot no Modelo</button>
     </div>
@@ -477,7 +477,7 @@
     <div>
         <div class="section-title" style="margin-bottom:8px">Exportar</div>
         <div class="export-grid">
-            <button id="btn-gif" class="exp-btn primary" onclick="exportarGIF()">🎞️ GIF</button>
+            <button id="btn-gif" class="exp-btn primary" onclick="exportarGIF()">🎞️ Criar animação</button>
             <button id="btn-pdf" class="exp-btn" onclick="exportarFicha()"
                 style="background:rgba(255,163,0,.08);border-color:rgba(255,163,0,.45);color:#ffa300;">📋 Ficha PDF</button>
             <button class="exp-btn" onclick="exportarPNG()">📸 PNG</button>
@@ -527,5 +527,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="app.js"></script>
+<script src="../../editor-runtime.js"></script>
 </body>
 </html>

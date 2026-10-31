@@ -383,27 +383,27 @@ input[type=file]{display:none}
     <!-- Vertical tool palette -->
     <div id="toolPalette">
       <div id="palHandle" title="Drag to move">· · ·</div>
-      <button class="tool-btn active" id="t-pencil"       onclick="setTool('pencil')"       title="Pencil [P]">✏</button>
-      <button class="tool-btn"        id="t-eraser"        onclick="setTool('eraser')"        title="Eraser [X]">⬜</button>
-      <button class="tool-btn"        id="t-line"          onclick="setTool('line')"          title="Line [L]">╱</button>
-      <button class="tool-btn"        id="t-fill"          onclick="setTool('fill')"          title="Fill [F]">◪</button>
-      <button class="tool-btn"        id="t-rect"          onclick="setTool('rect')"          title="Rect stroke [R]">▭</button>
-      <button class="tool-btn"        id="t-rect-fill"     onclick="setTool('rect-fill')"     title="Rect filled [⇧R]">▬</button>
-      <button class="tool-btn"        id="t-ellipse"       onclick="setTool('ellipse')"       title="Ellipse [E]">◯</button>
-      <button class="tool-btn"        id="t-ellipse-fill"  onclick="setTool('ellipse-fill')"  title="Ellipse filled [⇧E]">⬤</button>
-      <button class="tool-btn"        id="t-text"          onclick="setTool('text')"          title="Text [T]">A</button>
+      <button class="tool-btn active" id="t-pencil"       onclick="setTool('pencil')"       title="Pencil [P]">✏<span class="explora-tool-caption">Lápis</span></button>
+      <button class="tool-btn"        id="t-eraser"        onclick="setTool('eraser')"        title="Eraser [X]">⬜<span class="explora-tool-caption">Borracha</span></button>
+      <button class="tool-btn"        id="t-line"          onclick="setTool('line')"          title="Line [L]">╱<span class="explora-tool-caption">Linha</span></button>
+      <button class="tool-btn"        id="t-fill"          onclick="setTool('fill')"          title="Fill [F]">◪<span class="explora-tool-caption">Pintar</span></button>
+      <button class="tool-btn"        id="t-rect"          onclick="setTool('rect')"          title="Rect stroke [R]">▭<span class="explora-tool-caption">Contorno</span></button>
+      <button class="tool-btn"        id="t-rect-fill"     onclick="setTool('rect-fill')"     title="Rect filled [⇧R]">▬<span class="explora-tool-caption">Retângulo</span></button>
+      <button class="tool-btn"        id="t-ellipse"       onclick="setTool('ellipse')"       title="Ellipse [E]">◯<span class="explora-tool-caption">Contorno</span></button>
+      <button class="tool-btn"        id="t-ellipse-fill"  onclick="setTool('ellipse-fill')"  title="Ellipse filled [⇧E]">⬤<span class="explora-tool-caption">Elipse</span></button>
+      <button class="tool-btn"        id="t-text"          onclick="setTool('text')"          title="Text [T]">A<span class="explora-tool-caption">Texto</span></button>
       <div class="pal-sep"></div>
-      <button class="tool-btn" onclick="undoAction()"  title="Undo [Ctrl+Z]">↩</button>
-      <button class="tool-btn" onclick="redoAction()"  title="Redo [Ctrl+Y]">↪</button>
-      <button class="tool-btn" onclick="clearCanvas()" title="Clear canvas">✕</button>
-      <button class="tool-btn" onclick="importImage()" title="Import image">⬆</button>
-      <button class="tool-btn" onclick="importImage()" title="Import SVG / image" style="color:var(--acc);font-size:9px;font-weight:700">SVG</button>
+      <button class="tool-btn" onclick="undoAction()"  title="Desfazer">↩<span class="explora-tool-caption">Desfazer</span></button>
+      <button class="tool-btn" onclick="redoAction()"  title="Refazer">↪<span class="explora-tool-caption">Refazer</span></button>
+      <button class="tool-btn" onclick="clearCanvas()" title="Limpar">✕<span class="explora-tool-caption">Limpar</span></button>
+      <button class="tool-btn" onclick="importImage()" title="Imagem">⬆<span class="explora-tool-caption">Imagem</span></button>
+      <button class="tool-btn" onclick="importImage()" title="SVG" style="color:var(--acc);font-size:9px;font-weight:700">SVG<span class="explora-tool-caption">SVG</span></button>
       <div class="pal-sep"></div>
-      <button class="tool-btn" id="sym-v" onclick="toggleSym('v')" title="Mirror left↔right">⇔</button>
-      <button class="tool-btn" id="sym-h" onclick="toggleSym('h')" title="Mirror top↔bottom">⇕</button>
+      <button class="tool-btn" id="sym-v" onclick="toggleSym('v')" title="Mirror left↔right">⇔<span class="explora-tool-caption">Espelhar ↔</span></button>
+      <button class="tool-btn" id="sym-h" onclick="toggleSym('h')" title="Mirror top↔bottom">⇕<span class="explora-tool-caption">Espelhar ↕</span></button>
     </div>
     <div class="canvas-frame" id="canvasFrame">
-      <span id="projectTitle" contenteditable="true" spellcheck="false" title="Click to rename project">untitled</span>
+      <span id="projectTitle" contenteditable="true" spellcheck="false" title="Click to rename project">O meu desenho</span>
       <canvas id="drawCanvas"></canvas>
       <canvas id="overlayCanvas"></canvas>
       <div class="canvas-label" id="canvasLabel">60 × 60 mm</div>
@@ -438,7 +438,7 @@ input[type=file]{display:none}
         <button class="quality-btn active" id="q-standard" onclick="setPrintQuality('standard')" title="Balanced quality and speed">STD<span>~15 min</span></button>
         <button class="quality-btn" id="q-fine"     onclick="setPrintQuality('fine')"    title="Full detail — slow, best for complex designs">FINE<span>~50 min</span></button>
       </div> -->
-      <div class="field"><label>Layer Altura (mm)</label><input type="number" id="layerH" value="0.20" min="0.05" max="0.5" step="0.01"></div>
+      <div class="field"><label>Camada (mm)</label><input type="number" id="layerH" value="0.20" min="0.05" max="0.5" step="0.01"></div>
 <!--       <div class="field"><label>Nozzle Size (mm)</label><input type="number" id="nozzleD" value="0.40" min="0.2" max="1.2" step="0.05"></div> -->
       <div class="field"><label>Espessura da base</label><input type="number" id="baseThick" value="1.2" min="0.4" max="5.0" step="0.2"></div>
       <div class="field"><label>Camadas de relevo</label><input type="number" id="designLayers" value="2" min="1" max="3" step="1"></div>
@@ -448,7 +448,7 @@ input[type=file]{display:none}
       <div class="field"><label>Simplificar (px)</label><input type="number" id="simplifyEps" value="0.8" min="0" max="5" step="0.1"></div>
       <div class="field" style="flex-direction:column;gap:4px;align-items:stretch">
         <div style="display:flex;justify-content:space-between;align-items:center">
-          <label>Curve smooth</label>
+          <label>Suavizar curvas</label>
           <span id="chaikinVal" style="color:var(--acc);font-family:var(--mono);font-size:11px;font-weight:700">3 passes</span>
         </div>
         <input type="range" id="chaikinPasses" value="3" min="0" max="8" step="1"
@@ -3917,5 +3917,6 @@ ro.observe(document.getElementById('canvasWrap'));
 // ══════════════════════════════════════════════════════
 initCanvas(600);
 </script>
+<script src="../../editor-runtime.js"></script>
 </body>
 </html>

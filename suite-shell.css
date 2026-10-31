@@ -1,4 +1,5 @@
 .suite-shell { margin: 0; height: 100dvh; overflow: hidden; }
+.suite-shell *, .suite-shell *::before, .suite-shell *::after { box-sizing: border-box; }
 .suite-symbols { position: absolute; width: 0; height: 0; overflow: hidden; }
 .suite-shell svg { fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
 .suite-header { height: 68px; padding: 0 24px; display: flex; align-items: center; gap: 32px; background: var(--p-surface-900); border-bottom: 1px solid var(--p-content-border-color); }
@@ -51,3 +52,50 @@
   .suite-card { padding: 20px; }
 }
 @media(prefers-reduced-motion: reduce) { .suite-card { transition: none; } }
+
+/* A dark creative workshop, with a recognisable colour for each technique. */
+.suite-shell { background: #11131c; }
+.suite-header { background: #191b27; border-color: #303445; gap: 24px; }
+.suite-home { font-size: 21px; letter-spacing: -.04em; }
+.suite-home svg { width: 28px; height: 28px; padding: 7px; box-sizing: content-box; background: #3d261f; border-radius: 14px; }
+.suite-nav a { min-height: 44px; border-radius: 14px; font-size: 14px; }
+.suite-nav a[data-app=area] { --section-colour: #ffb078; }
+.suite-nav a[data-app=volume] { --section-colour: #b5df96; }
+.suite-nav a[data-app=revolve] { --section-colour: #c7afff; }
+.suite-nav a[data-app=voxel] { --section-colour: #7ddeeb; }
+.suite-nav a svg { color: var(--section-colour); }
+.suite-nav a[aria-current=page] { color: var(--section-colour); border-color: var(--section-colour); background: #292c3c; }
+#suite-home { padding-top: 24px; background-image: radial-gradient(#34374a 1px, transparent 1px); background-size: 28px 28px; }
+.suite-intro, .suite-quadrants, .suite-session-note { max-width: 1120px; }
+.suite-eyebrow { color: #ffb078; font-size: 13px; letter-spacing: .02em; }
+.suite-intro h1 { font-size: clamp(30px, 3vw, 40px); font-weight: 800; letter-spacing: -.04em; }
+.suite-intro p { color: #bdc2d6; margin-bottom: 20px; }
+.suite-quadrants { gap: 18px; }
+.suite-card { position: relative; overflow: hidden; min-height: 210px; padding: 16px 22px; border-radius: 24px; border-color: #363a4f; background: #1b1e2c; }
+.suite-card[data-card=area] { --card-accent: #ffb078; --card-tint: #31221e; }
+.suite-card[data-card=volume] { --card-accent: #b5df96; --card-tint: #233026; }
+.suite-card[data-card=revolve] { --card-accent: #c7afff; --card-tint: #2c253b; }
+.suite-card[data-card=voxel] { --card-accent: #7ddeeb; --card-tint: #1e3039; }
+.suite-card::before { content: ''; position: absolute; width: 190px; height: 190px; right: -25px; top: 50px; background: var(--card-tint); border-radius: 50%; pointer-events: none; }
+.suite-card:hover { background: #232738; border-color: var(--card-accent); }
+.suite-card-top { position: relative; z-index: 1; margin-bottom: 12px; }
+.suite-number { color: var(--card-accent); font-size: 12px; font-weight: 700; background: var(--card-tint); padding: 5px 8px; border-radius: 8px; }
+.suite-output { color: #d1d5e4; background: #282c3d; font-size: 11px; }
+.suite-card-art { position: absolute; width: 180px; height: 135px; right: 0; top: 48px; pointer-events: none; }
+.suite-card h2 { font-size: 26px; font-weight: 800; margin-bottom: 8px; }
+.suite-card p { width: 58%; min-height: 44px; position: relative; z-index: 1; color: #bdc2d6; font-size: 14px; margin-bottom: 12px; }
+.suite-card-action { color: var(--card-accent); position: relative; z-index: 1; font-size: 14px; }
+.suite-card-action span { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 10px; background: var(--card-tint); }
+.suite-session-note { color: #aeb5cd; }
+@media(max-width: 1050px) and (min-width: 601px) {
+  .suite-card-art { width: 150px; right: -10px; top: 85px; }
+  .suite-card p { width: 64%; }
+}
+@media(max-width: 600px) {
+  .suite-header { gap: 4px; }
+  .suite-home svg { width: 21px; height: 21px; padding: 4px; border-radius: 10px; }
+  .suite-nav a { font-size: 11px; padding: 5px 7px; }
+  .suite-card { min-height: 235px; padding: 20px; }
+  .suite-card-art { width: 165px; right: -8px; top: 78px; }
+  .suite-card p { width: 61%; }
+}
