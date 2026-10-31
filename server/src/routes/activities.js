@@ -4,6 +4,7 @@ const { pool } = require('../db');
 const { newClassroomCode, normalizeCode } = require('../codes');
 const { requireTeacher } = require('../middleware/auth');
 const asyncHandler = require('../asyncHandler');
+const { validApp } = require('../projectFormats');
 
 const router = express.Router();
 
@@ -18,27 +19,31 @@ async function generateUniqueCode() {
 
 router.post('/', requireTeacher, asyncHandler(async (req, res) => {
   const { title, brief } = req.body || {};
+  const appId = (req.body || {}).app_id || 'volume';
+  if (!validApp(appId)) return res.status(400).json({ error: 'Secção inválida.' });
   if (!title || !String(title).trim()) return res.status(400).json({ error: 'Título é obrigatório.' });
   const id = crypto.randomUUID();
   const classroomCode = await generateUniqueCode();
   const { rows } = await pool.query(
-    `INSERT INTO activities (id, teacher_id, classroom_code, title, brief)
-     VALUES ($1,$2,$3,$4,$5) RETURNING id, classroom_code, title, brief, created_at`,
-    [id, req.teacher.teacherId, classroomCode, String(title).trim(), String(brief || '')]
+    `INSERT INTO activities (id, teacher_id, classroom_code, title, brief, app_id)
+     VALUES ($1,$2,$3,$4,$5,$6) RETURNING id, classroom_code, title, brief, app_id, created_at`,
+    [id, req.teacher.teacherId, classroomCode, String(title).trim(), String(brief || ''), appId]
   );
   res.json(rows[0]);
 }));
 
 router.get('/', requireTeacher, asyncHandler(async (req, res) => {
+  const appId = req.query.app_id || 'volume';
+  if (!validApp(appId)) return res.status(400).json({ error: 'Secção inválida.' });
   const { rows } = await pool.query(
-    `SELECT a.id, a.classroom_code, a.title, a.brief, a.created_at,
+    `SELECT a.id, a.classroom_code, a.title, a.brief, a.app_id, a.created_at,
             COUNT(s.id)::int AS submission_count
      FROM activities a
      LEFT JOIN submissions s ON s.activity_id = a.id
-     WHERE a.teacher_id = $1
+     WHERE a.teacher_id = $1 AND a.app_id = $2
      GROUP BY a.id
      ORDER BY a.created_at DESC`,
-    [req.teacher.teacherId]
+    [req.teacher.teacherId, appId]
   );
   res.json(rows);
 }));
@@ -75,7 +80,7 @@ router.delete('/:id', requireTeacher, asyncHandler(async (req, res) => {
 router.get('/by-code/:code', asyncHandler(async (req, res) => {
   const code = normalizeCode(req.params.code);
   const { rows } = await pool.query(
-    'SELECT title, brief FROM activities WHERE classroom_code=$1',
+    'SELECT title, brief, app_id FROM activities WHERE classroom_code=$1',
     [code]
   );
   if (!rows.length) return res.status(404).json({ error: 'Código de sala não encontrado.' });
@@ -90,7 +95,7 @@ router.get('/:id/submissions', requireTeacher, asyncHandler(async (req, res) => 
   if (!owned.length) return res.status(404).json({ error: 'Atividade não encontrada.' });
 
   const { rows } = await pool.query(
-    'SELECT id, student_name, updated_at FROM submissions WHERE activity_id=$1 ORDER BY updated_at DESC',
+    'SELECT id, student_name, updated_at, submitted_at FROM submissions WHERE activity_id=$1 ORDER BY updated_at DESC',
     [req.params.id]
   );
   res.json(rows);

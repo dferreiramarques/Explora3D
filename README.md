@@ -36,9 +36,15 @@ continua disponível como atalho para o mesmo build. O tema partilhado é `suite
 ## Sala de aula
 
 O serviço existente encontra-se em `server/` (Node/Express e PostgreSQL). Mantém o seu
-processo de instalação e configuração próprios. A sala de aula está atualmente
-implementada no Volume. A conta comum, as turmas permanentes e a expansão às outras
-secções continuam a ser trabalho futuro; a consolidação não os implementa.
+processo de instalação e configuração próprios. As quatro secções têm entrada de
+sala de aula e usam a mesma conta de professor. Area, Revolve e Voxel têm o menu
+partilhado de aluno/professor, gravação de rascunhos e entrega de uma versão para
+avaliação. O Volume mantém o fluxo existente. Turmas permanentes com várias
+atividades continuam uma fase posterior: nesta versão, cada código identifica
+uma atividade. Ver [CLASSROOM.md](CLASSROOM.md) para instalação e publicação.
+
+Para executar os testes completos, instalar primeiro as dependências da API com
+`npm --prefix server ci`. O editor e o build estático continuam sem dependências.
 
 ## Materiais e migração
 

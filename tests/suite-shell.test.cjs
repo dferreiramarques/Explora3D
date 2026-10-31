@@ -99,3 +99,13 @@ test('hidden editors receive a pause message and resume when reopened', () => {
   app.go('#revolve');
   assert.equal(frame.messages.at(-1).active, true);
 });
+
+test('classroom links for every new section preserve the route and do not leak the code to other editors', () => {
+  for (const id of ['area', 'revolve', 'voxel']) {
+    const app = boot('?code=ABC123#' + id);
+    assert.equal(app.location.hash, '#' + id);
+    assert.equal(new URL(app.ids['suite-frames'].children[0].src).searchParams.get('code'), 'ABC123');
+    app.go('#volume');
+    assert.equal(new URL(app.ids['suite-frames'].children[1].src).search, '');
+  }
+});

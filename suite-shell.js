@@ -9,11 +9,12 @@
   const help = document.getElementById('suite-load-help');
   let current = 'home';
   let timeout;
+  const initialApp = Object.hasOwn(apps, location.hash.slice(1)) ? location.hash.slice(1) : 'volume';
 
   function editorURL(id) {
     const url = new URL(apps[id].url, location.href);
     // Existing Volume classroom links remain valid at the suite entry point.
-    if (id === 'volume') {
+    if (id === initialApp) {
       const code = new URLSearchParams(location.search).get('code');
       if (code) url.searchParams.set('code', code);
     }
@@ -92,7 +93,7 @@
     }
   });
   window.addEventListener('hashchange', show);
-  if (new URLSearchParams(location.search).has('code')) {
+  if (new URLSearchParams(location.search).has('code') && !Object.hasOwn(apps, location.hash.slice(1))) {
     history.replaceState(null, '', `${location.pathname}${location.search}#volume`);
   }
   show();

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
+<script src="../../classroom.config.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
 <title>Volume · Explora3D</title>
@@ -1214,7 +1215,7 @@ let drag       = null;
 let readOnlyView = false; // modo super-admin: só ver, nunca editar
 
 // ── Sala de aula ─────────────────────────
-const API_BASE = 'https://3dmonco-api-production.up.railway.app';
+const API_BASE = window.EXPLORA_CLASSROOM_API || 'https://3dmonco-api-production.up.railway.app';
 let classroomSession  = null; // {submissionId, classroomCode, studentName, briefTitle, brief}
 let teacherAuthToken  = null; // JWT do professor (também persistido em localStorage)
 let teacherEditSession= null; // {submissionId, studentName} — professor a editar o trabalho de um aluno
@@ -3020,6 +3021,7 @@ function closeBriefModal(){ document.getElementById('brief-modal').classList.rem
 
 // ── Professor: autenticação ─────────────────────────
 function openTeacherModal(){
+  try{ teacherAuthToken=localStorage.getItem('monco3d_teacher_token_v1')||null; }catch(e){}
   document.getElementById('teacher-modal').classList.add('open');
   if(teacherAuthToken) showTeacherDash(); else showTeacherAuth();
 }
@@ -3875,5 +3877,6 @@ updateHistoryBtns();
 
 </script>
 <script src="../../editor-runtime.js"></script>
+<script>window.addEventListener('storage',event=>{if(event.key==='monco3d_teacher_token_v1')teacherAuthToken=event.newValue;});</script>
 </body>
 </html>

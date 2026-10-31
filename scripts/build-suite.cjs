@@ -8,7 +8,8 @@ if (path.dirname(output) !== root || path.basename(output) !== 'dist' ||
   throw new Error('Invalid distribution directory');
 }
 const files = ['index.html', 'volume.html', 'mosaico.html', 'stencil.html',
-  'suite-ui.css', 'suite-shell.css', 'suite-shell.js', 'suite.config.js', 'editor-runtime.js', 'CNAME', 'LICENSE'];
+  'suite-ui.css', 'suite-shell.css', 'suite-shell.js', 'suite.config.js', 'editor-runtime.js',
+  'classroom.css', 'classroom.config.js', 'classroom-adapter.js', 'classroom.js', 'CNAME', 'LICENSE'];
 for (const file of files) {
   if (!fs.statSync(path.join(root, file)).isFile()) throw new Error(`Missing ${file}`);
 }

@@ -32,9 +32,10 @@ router.post('/register', asyncHandler(async (req, res) => {
   const passwordHash = await bcrypt.hash(String(password), 10);
   const id = crypto.randomUUID();
   const { rows } = await pool.query(
-    'INSERT INTO teachers (id, email, password_hash) VALUES ($1,$2,$3) RETURNING id, email, is_superadmin',
+    'INSERT INTO teachers (id, email, password_hash) VALUES ($1,$2,$3) ON CONFLICT (email) DO NOTHING RETURNING id, email, is_superadmin',
     [id, normalizedEmail, passwordHash]
   );
+  if (!rows.length) return res.status(409).json({ error: 'Já existe uma conta com este email.' });
   res.json({ token: signToken(rows[0]) });
 }));
 

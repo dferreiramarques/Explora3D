@@ -347,6 +347,7 @@ input[type=file]{display:none}
 ::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
 </style>
 <link rel="stylesheet" href="../../suite-ui.css">
+<link rel="stylesheet" href="../../classroom.css">
 </head>
 <body data-suite-app="area">
 
@@ -3283,9 +3284,10 @@ function loadProject() {
     const file = e.target.files[0];
     if (!file) return;
     const reader = new FileReader();
-    reader.onload = ev => {
+    reader.onload = async ev => {
       try {
         const p = JSON.parse(ev.target.result);
+        if (window.ExploraProject) { await window.ExploraProject.restore(p); showToast('Projeto carregado'); return; }
         if (!p.canvas) throw new Error('Invalid project file');
         // Restore title
         document.getElementById('projectTitle').textContent = p.name || 'untitled';
@@ -3866,7 +3868,7 @@ const _origUpdateBrush = window.updateBrush;
 
 // Keyboard shortcuts
 document.addEventListener('keydown', e => {
-  if (e.target.tagName === 'INPUT') return;
+  if (e.target.matches('input, textarea, select') || e.target.closest('dialog')) return;
   if (e.target.isContentEditable) return;
   const map = {'p':'pencil','l':'line','r':'rect','e':'ellipse','f':'fill','x':'eraser','t':'text'};
   if (map[e.key] && !e.shiftKey) { setTool(map[e.key]); return; }
@@ -3918,5 +3920,8 @@ ro.observe(document.getElementById('canvasWrap'));
 initCanvas(600);
 </script>
 <script src="../../editor-runtime.js"></script>
+<script src="../../classroom.config.js"></script>
+<script src="../../classroom-adapter.js"></script>
+<script src="../../classroom.js"></script>
 </body>
 </html>

@@ -7,6 +7,10 @@ const server = http.createServer((req, res) => {
   try {
     const url = new URL(req.url, 'http://localhost');
     const relative = decodeURIComponent(url.pathname).replace(/^\/+/, '');
+    if (relative === 'classroom.config.js' && process.env.EXPLORA_CLASSROOM_API) {
+      res.writeHead(200, { 'Content-Type': 'text/javascript', 'Cache-Control': 'no-store' });
+      res.end('window.EXPLORA_CLASSROOM_API = ' + JSON.stringify(process.env.EXPLORA_CLASSROOM_API) + ';\nwindow.EXPLORA_CLASSROOM_DEMO = ' + (process.env.EXPLORA_CLASSROOM_DEMO === '1') + ';'); return;
+    }
     if (relative.includes('\0') || relative.split(/[\\/]/).some(part => part.startsWith('.') || ['server', 'node_modules', 'scripts', 'tests'].includes(part))) {
       res.writeHead(403).end(); return;
     }

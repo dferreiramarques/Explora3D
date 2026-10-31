@@ -1,8 +1,8 @@
 // Cache scoped to this editor, including when installed inside the suite.
 const APP_ROOT = new URL('./', self.location.href);
 const CACHE_PREFIX = 'revolve:' + APP_ROOT.pathname + ':';
-const CACHE_NAME = CACHE_PREFIX + 'v23';
-const PRECACHE = ['index.html', 'app.js', '../../../suite-ui.css', '../../../editor-runtime.js', 'manifest.json'].map(path => new URL(path, APP_ROOT).href);
+const CACHE_NAME = CACHE_PREFIX + 'v24';
+const PRECACHE = ['index.html', 'app.js', '../../../suite-ui.css', '../../../editor-runtime.js', '../../../classroom.css', '../../../classroom.config.js', '../../../classroom-adapter.js', '../../../classroom.js', 'manifest.json'].map(path => new URL(path, APP_ROOT).href);
 const SHARED_THEME = new URL('../../../suite-ui.css', APP_ROOT).href;
 const SHARED_RUNTIME = new URL('../../../editor-runtime.js', APP_ROOT).href;
 const DEPENDENCIES = [
@@ -25,7 +25,8 @@ self.addEventListener('activate', event => {
 self.addEventListener('fetch', event => {
     const url = new URL(event.request.url);
     const localEditor = url.origin === APP_ROOT.origin && url.pathname.startsWith(APP_ROOT.pathname);
-    if (event.request.method !== 'GET' || (!localEditor && url.href !== SHARED_THEME && url.href !== SHARED_RUNTIME && !DEPENDENCIES.includes(url.href))) return;
+    const sharedClassroom = PRECACHE.includes(url.href);
+    if (event.request.method !== 'GET' || (!localEditor && !sharedClassroom && url.href !== SHARED_THEME && url.href !== SHARED_RUNTIME && !DEPENDENCIES.includes(url.href))) return;
     // Network first so visual changes arrive on refresh; cached files support offline use.
     event.respondWith(fetch(event.request).then(response => {
         if (response.ok) {

@@ -12,6 +12,7 @@ router.get('/activities', requireSuperadmin, asyncHandler(async (req, res) => {
            COUNT(s.id)::int AS submission_count
     FROM activities a
     LEFT JOIN submissions s ON s.activity_id = a.id
+    WHERE a.app_id = 'volume'
     GROUP BY a.id
     ORDER BY a.created_at DESC
   `);

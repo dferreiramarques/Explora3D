@@ -26,6 +26,9 @@ Publicar apenas `dist/`. A API de sala de aula mantém-se separada em `server/`.
 O build transporta os recursos estáticos e os materiais importados de `apps/`.
 A revisão de UX/UI e a sala de aula comum continuam fases independentes desta migração.
 
+As três novas secções já têm o menu e os fluxos partilhados de sala de aula;
+[CLASSROOM.md](CLASSROOM.md) descreve a API atualizada, a migração e os testes.
+
 ## Oficina criativa
 
 O início usa ilustrações vetoriais locais em `assets/`, com uma cor por técnica,

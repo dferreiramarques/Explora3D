@@ -7,7 +7,7 @@ const router = express.Router();
 
 async function loadOwnedSubmission(submissionId, teacherId) {
   const { rows } = await pool.query(
-    `SELECT s.* FROM submissions s
+    `SELECT s.*, a.app_id FROM submissions s
      JOIN activities a ON a.id = s.activity_id
      WHERE s.id=$1 AND a.teacher_id=$2`,
     [submissionId, teacherId]
@@ -21,6 +21,10 @@ router.get('/:id', requireTeacher, asyncHandler(async (req, res) => {
   res.json({
     student_name: submission.student_name,
     shapes_json: submission.shapes_json,
+    app_id: submission.app_id,
+    project_json: submission.project_json,
+    submitted_project_json: submission.submitted_project_json,
+    submitted_at: submission.submitted_at,
     updated_at: submission.updated_at
   });
 }));
@@ -33,6 +37,8 @@ router.put('/:id', requireTeacher, asyncHandler(async (req, res) => {
   }
   const submission = await loadOwnedSubmission(req.params.id, req.teacher.teacherId);
   if (!submission) return res.status(404).json({ error: 'Trabalho não encontrado.' });
+
+  if (submission.app_id !== 'volume') return res.status(400).json({ error: 'Abre uma cópia deste projeto no editor da respetiva secção.' });
 
   await pool.query(
     'UPDATE submissions SET shapes_json=$1, updated_at=now() WHERE id=$2',

@@ -379,6 +379,7 @@
         .message.error { background: var(--accent2); color: white; }
     </style>
 <link rel="stylesheet" href="../../suite-ui.css">
+<link rel="stylesheet" href="../../classroom.css">
 </head>
 <body data-suite-app="voxel">
 
@@ -513,6 +514,7 @@
 <script>
     // Atalhos de teclado para camada
     document.addEventListener('keydown', e => {
+        if (e.target.matches('input, textarea, select') || e.target.isContentEditable || e.target.closest('dialog')) return;
         if (e.key === 'ArrowUp' || e.key === 'PageUp') { e.preventDefault(); atualizarCamada(currentLayer + 1); }
         if (e.key === 'ArrowDown' || e.key === 'PageDown') { e.preventDefault(); atualizarCamada(currentLayer - 1); }
         if (e.key === 'a' || e.key === 'A') setMode('add');
@@ -528,5 +530,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="app.js"></script>
 <script src="../../editor-runtime.js"></script>
+<script src="../../classroom.config.js"></script>
+<script src="../../classroom-adapter.js"></script>
+<script src="../../classroom.js"></script>
 </body>
 </html>

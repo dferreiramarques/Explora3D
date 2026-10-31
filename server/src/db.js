@@ -40,6 +40,12 @@ async function initSchema() {
     CREATE INDEX IF NOT EXISTS idx_submissions_activity ON submissions(activity_id);
     CREATE UNIQUE INDEX IF NOT EXISTS uq_submissions_identity
       ON submissions(activity_id, lower(student_name), student_pin);
+
+    ALTER TABLE activities ADD COLUMN IF NOT EXISTS app_id text NOT NULL DEFAULT 'volume';
+    ALTER TABLE submissions ADD COLUMN IF NOT EXISTS project_json jsonb;
+    ALTER TABLE submissions ADD COLUMN IF NOT EXISTS submitted_project_json jsonb;
+    ALTER TABLE submissions ADD COLUMN IF NOT EXISTS submitted_at timestamptz;
+    CREATE INDEX IF NOT EXISTS idx_activities_app ON activities(teacher_id, app_id);
   `);
 }
 
