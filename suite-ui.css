@@ -1,9 +1,14 @@
 /* Explora3D · native HTML components inspired by PrimeNG Aura.
-   Source: monco3d/suite-ui.css. Distribute with sync-suite-ui.ps1.
+   Source: monco3d/suite-ui.css. Shared directly by all four editors.
    This is a visual adaptation, not the Angular PrimeNG runtime. */
 :root {
   color-scheme: dark;
   --p-primary-color: #ff6c36;
+  --p-primary-300: #ffb497;
+  --p-primary-400: #ff946b;
+  --p-primary-500: #ff6c36;
+  --p-primary-600: #e65320;
+  --p-primary-700: #bc3e14;
   --p-primary-hover-color: #ff946b;
   --p-primary-contrast-color: #291107;
   --p-surface-950: #09090b;

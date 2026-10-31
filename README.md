@@ -1,121 +1,54 @@
-# 3D Monco (beta)
+# Explora3D
 
-> Modelação & Impressão 3D para crianças do ensino básico e secundário
+Suite de aprendizagem de conceitos 3D para os 8–14 anos. Um único repositório reúne
+quatro formas de explorar, criar e apresentar resultados digitais ou materiais.
 
-**3D Monco** é uma ferramenta educativa open-source que permite a crianças dos 6 aos 14 anos criar modelos 3D directamente no browser, exportar para STL e enviar para impressora 3D — tudo sem instalação, sem conta, sem fricção.
+| Ordem | Secção | Editor | Resultado |
+|---|---|---|---|
+| 1 | Area | `apps/area/` | Desenho e relevo → impressão 3D |
+| 2 | Volume | `apps/volume/` | Formas e extrusão → impressão 3D |
+| 3 | Revolve | `apps/revolve/public/` | Perfil e rotação → impressão 3D |
+| 4 | Voxel | `apps/voxel/` | Construção por blocos → GIF animado |
 
-🌐 [3d.monco.io](https://3d.monco.io)
+## Abrir localmente
 
----
+Requer Node.js 18 ou superior. A suite não precisa de instalar dependências:
 
-## O produto
-
-Uma aplicação web single-file (`index.html`) que corre 100% no browser, sem backend, sem dependências de instalação. O aluno abre, desenha e imprime.
-
-### O que é possível fazer
-
-- **Desenhar** formas 2D (rectângulo, círculo, triângulo, estrela, coração, hexágono, seta, trapézio, losango) e forma livre (freehand)
-- **Colorir** com a paleta PICO-8 (até 8 cores personalizáveis) — cada cor tem uma espessura de extrusão editável
-- **Transformar** formas: mover, escalar, rodar (45° fixo ou livre), deformar, duplicar, apagar
-- **Orificios** — modo buraco para criar formas com cavidades
-- **Preview 3D** em tempo real com boolean CSG (Clipper.js + Three.js)
-- **Exportar STL** com timestamp, pronto para slicer (escala: altura do stage = 200mm)
-- **Layers** — painel de camadas com visibilidade e reordenação
-- **Conquistas** com confetti e popup central
-- **Certificado** exportável como imagem (PNG) com partilha nativa (Web Share API)
-- **Guardar/Carregar** composições em JSON
-- **Tangram** — puzzle de 7 peças geométricas com botão de gato automático
-- **Robot Monco** carregado ao arrancar como logo/mascote
-
----
-
-## Stack técnica
-
-| Camada | Tecnologia |
-|--------|-----------|
-| Runtime | Browser nativo (zero backend) |
-| 3D engine | Three.js r128 |
-| Boolean CSG | Clipper.js 6.4.2 |
-| Captura de imagem | html2canvas 1.4.1 |
-| UI tokens | Ant Design dark theme (CSS vars) |
-| Armazenamento | JSON download/upload (sem cloud) |
-
-**Arquitectura:** ficheiro HTML único (~2700 linhas). Sem build step, sem npm, sem framework.
-
----
-
-## Como usar
-
-1. Abrir `index.html` num browser moderno (Chrome, Edge, Safari, Firefox)
-2. Seleccionar uma forma no painel esquerdo
-3. Escolher a cor e espessura de extrusão (duplo clique na cor para editar)
-4. Desenhar e transformar no stage
-5. Clicar **3D** para preview
-6. Clicar **STL** para exportar e enviar para a impressora
-
----
-
-## Estrutura do ficheiro
-
-```
-index.html
-├── <style>          — CSS completo (Ant Design tokens, layout, componentes)
-├── <body>           — HTML (header, lsb, stage, rsb, modais)
-└── <script>         — JS inline (~1600 linhas)
-    ├── STATE        — variáveis globais (shapes, viewport, ferramentas)
-    ├── DRAW         — redraw, shapePath, handles
-    ├── EVENTS       — onDown, onMove, onUp, wheel, keyboard
-    ├── 3D           — buildMesh3D, clipperToThreeShape, STL export
-    ├── ACHIEV.      — conquistas, confetti, certificado
-    └── INIT         — loadMonco (robot logo)
+```sh
+npm run dev
 ```
 
----
+Abrir `http://127.0.0.1:8767/`. Em alternativa, servir esta pasta com qualquer servidor
+estático. O menu inicial, as tabs e o botão de início preservam os editores durante
+a sessão aberta; usar Guardar para continuar depois de fechar/recarregar.
 
-## Roadmap (próximas fases)
+## Construir e verificar
 
-### Fase 2 — Professor & Turma
-- [ ] Código de turma (acesso por PIN)
-- [ ] Dashboard do professor com projetos dos alunos
-- [ ] Aprovação para impressão pelo professor
-- [ ] Comentários do professor por projeto
-
-### Fase 3 — Certificado & Gamificação
-- [ ] Layout do certificado redesenhado
-- [ ] Validação/assinatura digital do professor
-- [ ] Níveis e badges por tipo de forma usada
-
-### Fase 4 — Cloud & Colaboração
-- [ ] Backend: Supabase (piloto) → PocketBase/Hetzner (escala)
-- [ ] Projetos guardados na cloud por aluno
-- [ ] Galeria de turma
-
----
-
-## Modelo de negócio
-
-| Segmento | Preço |
-|----------|-------|
-| Famílias | €59 / ano |
-| Turma escolar | €290 / turma / ano |
-| Câmara municipal | €5 / aluno (mín. 200) |
-| ATL / AEC | €399 / sala / ano |
-
----
-
-## Autoria
-
-**David Marques**
-Portugal · [monco.io](https://monco.io)
-
-Apoiar o projecto: [☕ Ko-fi](https://ko-fi.com/dferreiramarques)
-
----
-
-## Licença
-
-MIT — livre para usar, modificar e distribuir com atribuição.
-
+```sh
+npm test
+npm run build
 ```
-Copyright (c) 2025 David Araújo / Monco.io
-```
+
+Publicar o conteúdo de `dist/`. Desenvolvimento e distribuição usam os mesmos caminhos;
+nenhum passo depende das pastas antigas pixel3d, revolve ou stampforge. `build-suite.ps1`
+continua disponível como atalho para o mesmo build. O tema partilhado é `suite-ui.css`.
+
+## Sala de aula
+
+O serviço existente encontra-se em `server/` (Node/Express e PostgreSQL). Mantém o seu
+processo de instalação e configuração próprios. A sala de aula está atualmente
+implementada no Volume. A conta comum, as turmas permanentes e a expansão às outras
+secções continuam a ser trabalho futuro; a consolidação não os implementa.
+
+## Materiais e migração
+
+Os guias, exemplos e materiais pedagógicos acompanham cada editor em `apps/`.
+As licenças originais foram preservadas. [MIGRATION.md](MIGRATION.md) documenta o mapeamento
+dos repositórios anteriores e [IMPORTS.json](IMPORTS.json) identifica os commits importados.
+O histórico Git dos três projetos anteriores faz parte do histórico deste repositório.
+Os respetivos diretórios mantêm também alterações locais anteriores à importação.
+
+O endereço antigo `volume.html?code=...` continua a encaminhar para a atividade no Volume.
+As ligações `index.html?code=...` abrem a mesma secção diretamente.
+
+MIT. Ver [LICENSE](LICENSE) e as licenças de cada aplicação.

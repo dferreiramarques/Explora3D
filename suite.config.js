@@ -1,8 +1,7 @@
-// Development uses sibling repositories. build-suite.ps1 creates a self-contained
-// distribution with this same file pointing at the bundled editors.
+// Every editor is owned and served by this repository.
 window.SUITE_APPS = {
-  area: { name: 'Area', url: '../stampforge/' },
-  volume: { name: 'Volume', url: './volume.html' },
-  revolve: { name: 'Revolve', url: '../revolve/public/' },
-  voxel: { name: 'Voxel', url: '../pixel3d/' }
+  area: { name: 'Area', url: './apps/area/' },
+  volume: { name: 'Volume', url: './apps/volume/' },
+  revolve: { name: 'Revolve', url: './apps/revolve/public/' },
+  voxel: { name: 'Voxel', url: './apps/voxel/' }
 };

@@ -1,0 +1,23 @@
+[
+  {
+    "app": "area",
+    "repository": "https://github.com/dferreiramarques/stampforge",
+    "commit": "e43ed78ce16d5b072a22ee74b082d88eab4aaf8b",
+    "files": 13,
+    "working_tree_changes_included": true
+  },
+  {
+    "app": "revolve",
+    "repository": "https://github.com/dferreiramarques/revolve",
+    "commit": "08fab662e39f1a5373b16a7c3c44727d625f1d30",
+    "files": 28,
+    "working_tree_changes_included": true
+  },
+  {
+    "app": "voxel",
+    "repository": "https://github.com/dferreiramarques/pixel3d",
+    "commit": "581f6eafce481b1bcb0d4598beb68067a2a42f33",
+    "files": 34,
+    "working_tree_changes_included": true
+  }
+]
