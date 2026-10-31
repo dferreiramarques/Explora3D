@@ -64,7 +64,7 @@ test('switching sections and home preserves the same editor and project', () => 
 test('existing classroom links open Volume and preserve the code', () => {
   const app = boot('?code=AB12CD');
   assert.equal(app.location.hash, '#volume');
-  assert.equal(app.ids['suite-frames'].children[0].src, 'http://localhost:8766/monco3d/volume.html?code=AB12CD');
+  assert.equal(app.ids['suite-frames'].children[0].src, 'http://localhost:8766/monco3d/apps/volume/?code=AB12CD');
 });
 test('invalid routes return home without creating a frame', () => {
   const app = boot('#unknown');
