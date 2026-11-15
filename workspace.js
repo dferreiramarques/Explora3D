@@ -9,7 +9,8 @@
   const name = bar.querySelector('input');
   const stateLabel = bar.querySelector('.ux-project-status');
   let statusMessage = stateLabel, statusTimeout;
-  if (app === 'area') {
+  const floatingStatus = app === 'area' || app === 'volume';
+  if (floatingStatus) {
     // Keep feedback outside the toolbar so it never changes the editor height.
     stateLabel.className = 'ux-toast ux-project-notification';
     stateLabel.hidden = true;
@@ -32,7 +33,7 @@
   const readyPromise = new Promise(resolve => { resolveReady = resolve; });
   const setStatus = (text, duration = 0) => {
     statusMessage.textContent = text;
-    if (app !== 'area') return;
+    if (!floatingStatus) return;
     clearTimeout(statusTimeout);
     stateLabel.hidden = !text;
     if (text && duration) statusTimeout = setTimeout(() => { stateLabel.hidden = true; }, duration);
