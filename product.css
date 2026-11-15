@@ -98,3 +98,10 @@
 }
 @media(max-width: 420px) { .product-brand { font-size: 18px; gap: 6px; }.product-brand img { width: 32px; height: 32px; }.product-header { gap: 8px; }.product-page .header-cta { font-size: 11px; gap: 8px; }.objectives { grid-template-columns: 1fr; }.learning-strip > div { gap: 6px; }.tool-index { font-size: 8px; }.hero-actions > .product-cta { width: 100%; } }
 @media(prefers-reduced-motion: reduce) { .product-cta { transition: none; }.product-cta:hover { transform: none; } }
+
+.product-credits { display: grid; grid-template-columns: 1fr 1.5fr; gap: 70px; padding-block: 0 64px; }
+.product-credits h2 { font-size: 30px; margin-top: 14px; }
+.product-credits p { font-size: 14px; color: var(--p-text-muted-color); margin-bottom: 16px; }
+.product-credits a { text-underline-offset: 4px; }
+.credits-links { display: flex; flex-wrap: wrap; gap: 24px; font-size: 13px; font-weight: 700; }
+@media(max-width: 760px) { .product-credits { grid-template-columns: 1fr; gap: 24px; } }

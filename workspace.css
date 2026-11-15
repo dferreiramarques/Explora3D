@@ -33,26 +33,29 @@ body[data-suite-app=revolve] .ux-projectbar { grid-column: 1 / -1; grid-row: 1; 
 body[data-suite-app=revolve] #titlebar { display: none !important; }
 body[data-suite-app=revolve] #sidebar { width: auto; }
 body[data-suite-app=volume] #rsb { width: var(--ux-panel-width); flex: 0 0 var(--ux-panel-width); overflow-y: auto; padding: 0; }
+/* Match the Area palette: compact, bordered tiles with captions underneath. */
 body[data-suite-app=volume] #lsb {
-  width: 152px; flex: 0 0 152px; display: grid;
+  width: 144px; flex: 0 0 144px; display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  grid-template-rows: auto repeat(5, minmax(0, 1fr));
-  gap: 4px; padding: 10px 6px; overflow: hidden;
-  align-items: stretch; align-content: stretch;
+  grid-template-rows: auto repeat(5, 53px);
+  gap: 4px; padding: 12px 8px; overflow-y: auto;
+  align-items: stretch; align-content: start;
 }
 body[data-suite-app=volume] #lsb .lsb-label { grid-column: 1 / -1; margin: 0 0 4px; }
 body[data-suite-app=volume] #lsb .lsb-sep { display: none; }
 body[data-suite-app=volume] #lsb .shape-btn {
-  width: 100%; height: auto; min-height: 0; max-height: 76px;
-  padding: 4px 2px 18px; align-self: stretch;
+  width: 100%; height: 53px; min-height: 0; padding: 4px 2px 18px;
+  border: 1px solid var(--p-content-border-color); border-radius: 6px;
+  background: var(--p-surface-800); color: var(--p-text-muted-color);
 }
-body[data-suite-app=volume] #lsb .shape-btn svg { width: 30px; height: 30px; max-height: calc(100% - 2px); }
-body[data-suite-app=volume] #lsb .shape-btn::after { font-size: 10px; bottom: 4px; }
-@media(max-height: 560px) {
-  body[data-suite-app=volume] #lsb { padding-block: 4px; gap: 2px; }
-  body[data-suite-app=volume] #lsb .shape-btn { padding-bottom: 14px; }
-  body[data-suite-app=volume] #lsb .shape-btn svg { width: 24px; height: 24px; }
-  body[data-suite-app=volume] #lsb .shape-btn::after { font-size: 9px; bottom: 1px; }
+body[data-suite-app=volume] #lsb .shape-btn svg { width: 24px; height: 24px; }
+body[data-suite-app=volume] #lsb .shape-btn svg * { stroke: currentColor; }
+body[data-suite-app=volume] #lsb .shape-btn::after { font-size: 10px; bottom: 4px; color: inherit; }
+body[data-suite-app=volume] #lsb .shape-btn:hover,
+body[data-suite-app=volume] #lsb .shape-btn.active { border-color: var(--explora-accent); color: var(--explora-accent); background: var(--p-surface-800); box-shadow: none; }
+@media(max-height: 540px) {
+  body[data-suite-app=volume] #lsb { grid-template-rows: auto repeat(5, minmax(0, 1fr)); align-content: stretch; }
+  body[data-suite-app=volume] #lsb .shape-btn { height: auto; }
 }
 body[data-suite-app=volume] #bot { overflow-x: auto; justify-content: center; }
 body[data-suite-app=volume] #bot.ux-shape-controls {
@@ -107,3 +110,17 @@ body[data-suite-app=voxel] .explora-view-controls { left: 50%; transform: transl
   body.ux-panel-hidden[data-suite-app=area] .panel, body.ux-panel-hidden[data-suite-app=volume] #rsb { display: none; }
 }
 @media(min-width:769px) { .ux-projectbar .ux-panels-toggle { display: none; } }
+
+.ux-help-wizard { width: min(540px, calc(100vw - 28px)); }
+.ux-help-top { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.ux-help-counter { font-size: 12px; font-weight: 700; color: var(--p-text-muted-color); }
+.ux-help-top button { font-size: 22px; background: transparent; border: 0; width: 44px; }
+.ux-help-wizard progress { display: block; width: 100%; height: 6px; margin: 12px 0 24px; accent-color: var(--p-primary-color); border: 0; border-radius: 8px; overflow: hidden; background: var(--p-surface-800); }
+.ux-help-wizard progress::-webkit-progress-bar { background: var(--p-surface-800); }
+.ux-help-wizard progress::-webkit-progress-value { background: var(--p-primary-color); }
+.ux-help-step { min-height: 210px; }
+.ux-help-icon { display: grid; place-items: center; width: 58px; height: 58px; border-radius: 16px; background: var(--p-surface-800); color: var(--p-primary-color); font-size: 30px; margin-bottom: 20px; }
+.ux-help-step h2 { font-size: 24px; margin: 0 0 14px; line-height: 1.2; }
+.ux-help-step p { color: var(--p-text-muted-color); line-height: 1.7; margin: 0 0 24px; }
+.ux-help-actions { display: flex; justify-content: space-between; gap: 12px; }
+.ux-help-actions button { min-height: 44px; }

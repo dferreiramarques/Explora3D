@@ -129,22 +129,24 @@
     const close = document.createElement('button'); close.textContent = 'Voltar ao projeto'; close.onclick = () => dialog.close();
     dialog.append(heading, text, list, close); dialog.onclose = () => invoker?.focus(); dialog.showModal();
   }
-  button('output').onclick = () => {
-    const actions = [];
-    if (app === 'voxel') actions.push(['Descarregar GIF animado', () => { dialog.close(); return exportarGIF(); }]);
-    else actions.push(['Descarregar STL', () => { dialog.close(); return app === 'volume' ? downloadSTL() : app === 'area' ? exportSTL() : exportarSTL(); }]);
-    if (app === 'revolve' || app === 'voxel') actions.push(['Guardar imagem PNG', () => { dialog.close(); exportarPNG(); }]);
-    if (app === 'revolve') actions.push(['Criar folha da criação', () => { dialog.close(); exportarA4(); }]);
-    if (app === 'voxel') actions.push(['Criar ficha PDF', () => { dialog.close(); exportarFicha(); }], ['Descarregar camadas TXT', () => { dialog.close(); exportarTXT(); }]);
-    showDialog(app === 'voxel' ? 'Apresentar a tua criação' : 'Preparar para impressão 3D', app === 'voxel' ? 'O GIF mostra o modelo a rodar. Guarda também o projeto para poderes continuar a editá-lo.' : 'Descarrega o ficheiro STL e prepara-o com o professor num programa de impressão, como o Cura. Este botão não inicia uma impressora.', actions);
+  button('output').onclick = async () => {
+    if (app !== 'voxel') {
+      try {
+        if (app === 'volume') downloadSTL();
+        else if (app === 'area') await exportSTL();
+        else await exportarSTL();
+      } catch (error) { setStatus('Não foi possível descarregar o STL: ' + error.message); }
+      return;
+    }
+    const actions = [
+      ['Descarregar GIF animado', () => { dialog.close(); return exportarGIF(); }],
+      ['Guardar imagem PNG', () => { dialog.close(); exportarPNG(); }],
+      ['Criar ficha PDF', () => { dialog.close(); exportarFicha(); }],
+      ['Descarregar camadas TXT', () => { dialog.close(); exportarTXT(); }]
+    ];
+    showDialog('Apresentar a tua criação', 'O GIF mostra o modelo a rodar. Guarda também o projeto para poderes continuar a editá-lo.', actions);
   };
-  const tips = { area: 'Escolhe uma ferramenta à esquerda e desenha. Ajusta as dimensões no painel. O relevo transforma o desenho num objeto.', volume: 'Escolhe uma forma à esquerda, desenha e escolhe a cor e a espessura. Usa Ver em 3D para observar o volume.', revolve: 'Arrasta um ponto do perfil para mudar o sólido. As setas do teclado também ajustam o ponto selecionado.', voxel: 'Escolhe uma cor e a altura de construção. Clica para adicionar um bloco. Usa Apagar para retirar blocos.' };
-  button('help').onclick = () => {
-    const actions = [];
-    if (app === 'volume') actions.push(['Tutorial guiado', () => { dialog.close(); startTour(); }], ['Ver certificado', () => { dialog.close(); openCert(); }]);
-    if (app === 'area') actions.push(['Sobre e créditos', () => { dialog.close(); openAboutModal(); }]);
-    showDialog('Como criar no ' + names[app], tips[app] + ' Novo e os exemplos podem ser desfeitos. Guardar descarrega um ficheiro; a sala de aula guarda uma versão no servidor.', actions);
-  };
+  button('help').onclick = () => window.ExploraHelp.open(app, names[app]);
   bar.querySelector('.ux-panels-toggle').onclick = event => {
     const hidden = document.body.classList.toggle('ux-panel-hidden'); event.currentTarget.setAttribute('aria-expanded', String(!hidden)); window.dispatchEvent(new Event('resize'));
   };

@@ -786,7 +786,7 @@ button{cursor:pointer;border:none;font-family:inherit;background:none;color:inhe
 
 <!-- HEADER -->
 <div id="hdr">
-  <div id="logo" onclick="document.getElementById('credits-modal').classList.add('open')" title="Sobre o 3D Monco">
+  <div id="logo">
     <span class="logo-mark"><i class="pi pi-box"></i></span>
     <span class="logo-text">Volume<span> · 3D</span></span>
     <span class="beta-badge">beta</span>
@@ -1062,31 +1062,6 @@ button{cursor:pointer;border:none;font-family:inherit;background:none;color:inhe
         <div id="tm-all-detail-brief" class="cm-readonly-brief"></div>
         <table id="tm-all-results-table" class="cm-table"><tbody></tbody></table>
       </div>
-    </div>
-  </div>
-</div>
-
-<!-- Modal de créditos -->
-<div id="credits-modal" onclick="if(event.target===this)this.classList.remove('open')">
-  <div id="credits-inner">
-    <button id="credits-close" onclick="document.getElementById('credits-modal').classList.remove('open')" title="Fechar"><i class="pi pi-times"></i></button>
-    <h2>3D <span>Monco</span></h2>
-    <div class="credits-sub">Modelação & Impressão 3D para crianças</div>
-    <div class="credits-desc">
-      Uma ferramenta educativa open-source para introduzir crianças do ensino básico
-      ao design 3D e à impressão 3D, de forma simples e divertida.
-    </div>
-    <div class="credits-author">
-      ✏️ Criado por <strong>David Marques</strong><br>
-      <span style="font-size:12px;opacity:.6"></span>
-    </div>
-    <div class="credits-actions">
-      <button class="p-btn p-btn-primary" onclick="document.getElementById('credits-modal').classList.remove('open');startTour()"><i class="pi pi-question-circle"></i>Ver tutorial</button>
-      <a class="p-btn p-btn-kofi" href="https://ko-fi.com/dferreiramarques" target="_blank" rel="noopener">☕ Apoia no Ko-fi</a>
-    </div>
-    <div class="credits-foot">
-      <a href="https://3d.monco.io" target="_blank">3d.monco.io</a>
-      &nbsp;·&nbsp; MIT License &nbsp;·&nbsp; v50 MVP
     </div>
   </div>
 </div>
@@ -3895,6 +3870,7 @@ updateHistoryBtns();
 <script>window.addEventListener('storage',event=>{if(event.key==='monco3d_teacher_token_v1')teacherAuthToken=event.newValue;});</script>
 <script src="../../classroom-adapter.js"></script>
 <script src="../../project-store.js"></script>
+<script src="../../suite-help.js"></script>
 <script src="../../workspace.js"></script>
 <script src="../../classroom.js"></script>
 </body>

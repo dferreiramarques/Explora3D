@@ -357,7 +357,7 @@ input[type=file]{display:none}
 
 <!-- ─── HEADER ─────────────────────────────── -->
 <header>
-  <div class="logo" onclick="openAboutModal()" title="Sobre a Area">Area<em> · 3D</em> <span style="font-size:8px;background:var(--acc);color:#fff;padding:1px 5px;border-radius:3px;letter-spacing:1px;font-weight:700;vertical-align:middle">BETA</span></div>
+  <div class="logo">Area<em> · 3D</em> <span style="font-size:8px;background:var(--acc);color:#fff;padding:1px 5px;border-radius:3px;letter-spacing:1px;font-weight:700;vertical-align:middle">BETA</span></div>
   <div class="sep"></div>
   <div class="hdr-right">
     <label class="tiny">Cor</label>
@@ -613,21 +613,7 @@ input[type=file]{display:none}
 </div>
 
 <!-- ── About Modal ──────────────────────────── -->
-<div id="aboutModal">
-  <div id="aboutBox">
-    <h2>Area<em> · 3D</em></h2>
-    <div class="about-tagline">Browser-based fabric stamp designer<br>draw a design, export a print-ready STL.</div>
-    <div class="about-credits">
-      vibe coded by
-      <a href="https://www.linkedin.com/in/dferreiramarques/" target="_blank" rel="noopener">David Marques</a>
-      ·
-      <a href="https://ko-fi.com/dferreiramarques" target="_blank" rel="noopener">☕ ko-fi</a>
-      <br>
-      MIT License · 2026
-    </div>
-    <button id="aboutCloseBtn" onclick="document.getElementById('aboutModal').classList.remove('open')">✕ CLOSE</button>
-  </div>
-</div>
+
 
 <!-- ── Layer Preview Modal ───────────────────── -->
 <!-- <div id="layerModal">
@@ -820,9 +806,6 @@ function showToast(msg) {
   window._toastTimer = setTimeout(() => el.classList.remove('show'), 2400);
 }
 
-function openAboutModal() {
-  document.getElementById('aboutModal').classList.add('open');
-}
 
 // ══════════════════════════════════════════════════════
 //  TOOLS
@@ -3927,6 +3910,7 @@ initCanvas(600);
 <script src="../../classroom.config.js"></script>
 <script src="../../classroom-adapter.js"></script>
 <script src="../../project-store.js"></script>
+<script src="../../suite-help.js"></script>
 <script src="../../workspace.js"></script>
 <script src="../../classroom.js"></script>
 </body>
