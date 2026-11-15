@@ -6,7 +6,8 @@
 .suite-home { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--p-text-color); font-size: 17px; font-weight: 700; flex-shrink: 0; border-radius: 8px; padding: 8px; }
 .suite-brand-icon { display: block; width: 40px; height: 40px; flex-shrink: 0; }
 .suite-product-link { color: var(--p-text-muted-color); font-size: 12px; text-decoration: none; white-space: nowrap; }
-@media(max-width: 960px) { .suite-product-link { display: none; } }
+.suite-about { max-width: 1120px; margin: 0 auto 24px; }
+.suite-product-link:hover { color: var(--p-primary-color); text-decoration: underline; text-underline-offset: 3px; }
 .suite-home svg { width: 22px; height: 22px; color: var(--p-primary-color); }
 .suite-nav { display: flex; align-items: center; gap: 6px; height: 100%; }
 .suite-nav a { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 14px; border: 1px solid transparent; border-radius: 8px; color: var(--p-text-muted-color); text-decoration: none; font-weight: 600; font-size: 13px; }
