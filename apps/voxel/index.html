@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
+  <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
 <script>window.EXPLORA_UNIFIED_UI = true;</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -363,20 +364,23 @@
         /* Message toast */
         .message {
             position: fixed;
-            top: 20px; left: 50%;
-            transform: translateX(-50%) translateY(-12px);
+            top: 50%; left: 50%;
+            transform: translate(-50%, calc(-50% - 12px));
             background: var(--accent);
             color: var(--bg);
             padding: 10px 24px;
             border-radius: 30px;
             font-weight: 700;
             font-size: 13px;
+            max-width: calc(100vw - 32px);
+            box-sizing: border-box;
+            text-align: center;
             opacity: 0;
             pointer-events: none;
             z-index: 999;
             transition: opacity 0.2s, transform 0.2s;
         }
-        .message.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+        .message.show { opacity: 1; transform: translate(-50%, -50%); }
         .message.error { background: var(--accent2); color: white; }
     </style>
 <script src="../../suite-theme.js"></script>
