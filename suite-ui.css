@@ -1,15 +1,16 @@
-/* Explora3D · native HTML components inspired by PrimeNG Aura.
-   Source: monco3d/suite-ui.css. Shared directly by all four editors.
-   This is a visual adaptation, not the Angular PrimeNG runtime. */
+/* daisyUI 5.5.14 (MIT): official themes and button component, served locally. */
+@import url("assets/daisyui/dracula.css");
+@import url("assets/daisyui/cmyk.css");
+@import url("assets/daisyui/button.css");
 :root {
   color-scheme: dark;
   --p-primary-color: #ff6c36;
   --p-primary-300: #ffb497;
-  --p-primary-400: #ff946b;
+  --p-primary-400: var(--color-primary);
   --p-primary-500: #ff6c36;
   --p-primary-600: #e65320;
   --p-primary-700: #bc3e14;
-  --p-primary-hover-color: #ff946b;
+  --p-primary-hover-color: var(--color-primary);
   --p-primary-contrast-color: #291107;
   --p-surface-950: #09090b;
   --p-surface-900: #18181b;
@@ -54,10 +55,10 @@
   --muted: var(--p-text-muted-color);
   --acc: var(--p-primary-color);
   --acc2: var(--p-primary-hover-color);
-  --acc-dim: #69301d;
+  --acc-dim: var(--color-base-300);
   --accent: var(--p-primary-color);
-  --accent2: #fda4af;
-  --accent3: #93c5fd;
+  --accent2: var(--color-error);
+  --accent3: var(--color-info);
   --amber: var(--p-primary-color);
   --amber2: var(--p-primary-hover-color);
   --amber3: var(--p-primary-color);
@@ -111,7 +112,7 @@ input[type=color] { border: 1px solid var(--p-content-border-color); border-radi
 }
 :is(.btn, .exp-btn, .rot-btn, .tpl-btn, .example-btn, .mode-btn, .export-btn, .brush-preset, .cm-secondary, .tm-tab, .brand-link):hover:not(:disabled) {
   background: var(--p-surface-700) !important;
-  border-color: #71717a !important;
+  border-color: var(--p-content-border-color) !important;
 }
 :is(.btn.primary, .exp-btn.primary, .btn.success, .cm-submit, #stlBtn, #hdr-stl) {
   background: var(--p-primary-color) !important;
@@ -120,9 +121,9 @@ input[type=color] { border: 1px solid var(--p-content-border-color); border-radi
   box-shadow: none !important;
 }
 :is(.btn.primary, .exp-btn.primary, .btn.success, .cm-submit, #stlBtn, #hdr-stl):hover:not(:disabled) { background: var(--p-primary-hover-color) !important; }
-:is(.btn.danger, .btn-danger) { color: #fda4af !important; background: rgb(244 63 94 / 10%) !important; border: 1px solid rgb(251 113 133 / 35%) !important; border-radius: 8px; min-height: 36px; }
+:is(.btn.danger, .btn-danger) { color: var(--color-error) !important; background: rgb(244 63 94 / 10%) !important; border: 1px solid rgb(251 113 133 / 35%) !important; border-radius: 8px; min-height: 36px; }
 :is(.mode-btn.active, .brush-preset.active, .tm-tab.active, .tool-btn.active) {
-  background: #3d2119 !important; color: #ff946b !important;
+  background: var(--color-base-200) !important; color: var(--color-primary) !important;
   border-color: var(--p-primary-color) !important; box-shadow: none !important;
 }
 :is(.section-label, .section-title, .lsb-label) {
@@ -155,13 +156,13 @@ body[data-suite-app=volume] .shape-btn { border-radius: 10px; }
 /* Revolve: remove the terminal treatment, keep the profile and 3D dimensions. */
 body[data-suite-app=revolve] #app { grid-template-columns: minmax(0, 1fr) 420px; grid-template-rows: 56px minmax(0, 1fr); }
 body[data-suite-app=revolve] #titlebar .app-name { color: var(--p-text-color); font-size: 20px; letter-spacing: -.025em; text-transform: none; }
-body[data-suite-app=revolve] #titlebar .logo { border-color: #85432c; color: var(--p-primary-color); background: #3d2119; box-shadow: none; }
+body[data-suite-app=revolve] #titlebar .logo { border-color: var(--p-content-border-color); color: var(--p-primary-color); background: var(--color-base-200); box-shadow: none; }
 body[data-suite-app=revolve] #titlebar .tag { font-size: 11px; letter-spacing: normal; text-transform: none; background: var(--p-surface-800); }
 body[data-suite-app=revolve] #titlebar .tag:nth-of-type(n+3) { display: none; }
 body[data-suite-app=revolve] #status-dot { background: var(--p-primary-color); box-shadow: none; animation: none; }
 body[data-suite-app=revolve] #json-editor { font: 12px/1.6 ui-monospace, Consolas, monospace; min-height: 260px; }
 body[data-suite-app=revolve] #profile-editor { margin: 12px 0; }
-body[data-suite-app=revolve] #coords { letter-spacing: normal; background: rgb(24 24 27 / 90%); }
+body[data-suite-app=revolve] #coords { letter-spacing: normal; background: var(--color-base-100); }
 body[data-suite-app=revolve] .field-label { font-size: 13px; }
 /* Area: separate neutral chrome from the printable drawing surface. */
 body[data-suite-app=area] > header { height: auto; min-height: 64px; flex-wrap: wrap; padding: 10px 16px; gap: 8px; }
@@ -176,13 +177,13 @@ body[data-suite-app=area] #toolPalette { border-radius: 12px; box-shadow: var(--
 body[data-suite-app=area] #statusBar { background: var(--p-surface-900); border-color: var(--p-content-border-color); color: var(--p-text-muted-color); }
 /* Voxel: use the same panel rhythm, without changing PICO-8 palette swatches. */
 body[data-suite-app=voxel] #sidebar { width: 340px; border-left: 1px solid var(--p-content-border-color); padding: 20px 16px; gap: 20px; backdrop-filter: none; }
-body[data-suite-app=voxel] #brand { background: rgb(24 24 27 / 94%); border: 1px solid var(--p-content-border-color); border-radius: 12px; padding: 16px; gap: 10px; }
+body[data-suite-app=voxel] #brand { background: var(--color-base-100); border: 1px solid var(--p-content-border-color); border-radius: 12px; padding: 16px; gap: 10px; }
 body[data-suite-app=voxel] #brand h1 { font-size: 22px; letter-spacing: -.025em; color: var(--p-text-color); text-shadow: none; }
 body[data-suite-app=voxel] #brand .version { font-size: 12px; letter-spacing: normal; }
 body[data-suite-app=voxel] #toggle-sidebar { right: 354px; }
 body[data-suite-app=voxel] #toggle-sidebar.moved { right: 14px; }
 body[data-suite-app=voxel] .stat-box .val { font-size: 24px; color: var(--p-primary-color); }
-body[data-suite-app=voxel] #info { background: rgb(24 24 27 / 90%); border: 1px solid var(--p-content-border-color); border-radius: 10px; color: var(--p-text-muted-color); }
+body[data-suite-app=voxel] #info { background: var(--color-base-100); border: 1px solid var(--p-content-border-color); border-radius: 10px; color: var(--p-text-muted-color); }
 body[data-suite-app=voxel] #sidebar > div:not(.stats):not(.sidebar-license):not(.layer-ctrl) { padding-top: 14px; border-top: 1px solid var(--p-surface-800); }
 @media (max-width: 1100px) {
   body[data-suite-app=revolve] #app { grid-template-columns: minmax(0, 1fr) 350px; }
@@ -207,10 +208,10 @@ body[data-suite-app=voxel] #sidebar > div:not(.stats):not(.sidebar-license):not(
   --suite-font: 'Trebuchet MS', ui-rounded, system-ui, 'Segoe UI', sans-serif;
   --suite-radius: 12px;
   --p-surface-950: #11131c;
-  --p-surface-900: #191c29;
+  --p-surface-900: var(--color-base-100);
   --p-surface-800: #252a3b;
-  --p-surface-700: #3c435c;
-  --p-content-border-color: #3c435c;
+  --p-surface-700: var(--color-base-300);
+  --p-content-border-color: var(--color-base-300);
   --p-text-muted-color: #b5bdd4;
 }
 body[data-suite-app=area] { --explora-accent: #ffb078; }
@@ -220,8 +221,8 @@ body[data-suite-app=voxel] { --explora-accent: #7ddeeb; }
 body[data-suite-app] :is(.section-label, .section-title) { color: var(--explora-accent); font-size: 14px; font-weight: 700; }
 body[data-suite-app] :is(.btn, .exp-btn, .rot-btn, .tpl-btn, .example-btn, .mode-btn, .cm-submit, .cm-secondary) { min-height: 44px; font-size: 14px; border-radius: 12px !important; }
 body[data-suite-app] :is(.hint, .field-label, .field label, .layer-label) { font-size: 13px; line-height: 1.55; text-transform: none; }
-body[data-suite-app] :is(.section, .panel-section) { border-color: #30364c; }
-body[data-suite-app] :is(.mode-btn.active, .brush-preset.active, .tool-btn.active) { color: var(--explora-accent) !important; border-color: var(--explora-accent) !important; background: #353043 !important; }
+body[data-suite-app] :is(.section, .panel-section) { border-color: var(--p-content-border-color); }
+body[data-suite-app] :is(.mode-btn.active, .brush-preset.active, .tool-btn.active) { color: var(--explora-accent) !important; border-color: var(--explora-accent) !important; background: var(--color-base-300) !important; }
 body[data-suite-app=area] #toolPalette { max-height: calc(100% - 36px); overflow-y: auto; padding: 0 7px 8px; }
 body[data-suite-app=area] #toolPalette .tool-btn { width: 58px; height: 53px; display: flex; flex-direction: column; gap: 3px; font-size: 20px; }
 .explora-tool-caption { display: block; font-size: 10px; font-weight: 600; line-height: 1.2; font-family: var(--suite-font); }
@@ -229,15 +230,15 @@ body[data-suite-app=area] .field { gap: 12px; margin-bottom: 12px; }
 body[data-suite-app=volume] .shape-btn { height: 66px; border-radius: 14px; position: relative; padding-bottom: 16px; }
 body[data-suite-app=volume] .shape-btn::after { content: attr(title); position: absolute; bottom: 4px; left: 0; width: 100%; font-size: 10px; color: var(--p-text-muted-color); }
 body[data-suite-app=volume] #hdr button { min-height: 40px; }
-body[data-suite-app=revolve] #profile-editor { background: #151827 !important; border-radius: 18px !important; }
+body[data-suite-app=revolve] #profile-editor { background: var(--color-base-200) !important; border-radius: 18px !important; }
 body[data-suite-app=revolve] .example-btn .icon { font-size: 26px; margin-bottom: 5px; }
 body[data-suite-app=revolve] #coords, body[data-suite-app=voxel] #info { display: none; }
-body[data-suite-app=voxel] #brand { background: #191c29; border-radius: 18px; }
+body[data-suite-app=voxel] #brand { background: var(--color-base-100); border-radius: 18px; }
 body[data-suite-app=voxel] .tpl-btn .emoji { font-size: 26px; }
 body[data-suite-app=voxel] .palette-btn { min-height: 32px; border-radius: 9px; }
-.explora-view-controls { position: absolute; z-index: 40; bottom: 18px; left: 50%; transform: translateX(-50%); display: flex; gap: 5px; background: #191c29ee; border: 1px solid #444b65; padding: 6px; border-radius: 18px; box-shadow: 0 6px 20px #0004; white-space: nowrap; }
-.explora-view-controls button { padding: 9px 12px; min-height: 42px; background: #292e42; border: 1px solid #414963; color: #f5f5ff; font-size: 12px; font-weight: 600; border-radius: 12px; cursor: pointer; }
-.explora-view-controls button:hover { background: #3c435c; }
+.explora-view-controls { position: absolute; z-index: 40; bottom: 18px; left: 50%; transform: translateX(-50%); display: flex; gap: 5px; background: var(--color-base-100); border: 1px solid var(--p-content-border-color); padding: 6px; border-radius: 18px; box-shadow: 0 6px 20px #0004; white-space: nowrap; }
+.explora-view-controls button { padding: 9px 12px; min-height: 42px; background: var(--color-base-200); border: 1px solid var(--p-content-border-color); color: var(--color-base-content); font-size: 12px; font-weight: 600; border-radius: 12px; cursor: pointer; }
+.explora-view-controls button:hover { background: var(--color-base-300); }
 body[data-suite-app=voxel] .explora-view-controls { left: 18px; transform: none; }
 body[data-suite-app=volume] .explora-view-controls { bottom: 72px; }
 body[data-suite-app=volume]:not(.explora-mode-3d) .explora-view-controls { display: none; }
@@ -247,3 +248,34 @@ body[data-suite-app=volume]:not(.explora-mode-3d) .explora-view-controls { displ
   .explora-view-controls button { padding: 8px; font-size: 11px; }
   .explora-view-controls { bottom: 10px; }
 }
+
+/* Bridge existing native editor controls to daisyUI semantic tokens. */
+:root[data-theme] {
+  --p-primary-color: var(--color-primary);
+  --p-primary-300: var(--color-primary);
+  --p-primary-400: var(--color-primary);
+  --p-primary-500: var(--color-primary);
+  --p-primary-600: var(--color-primary);
+  --p-primary-700: var(--color-primary);
+  --p-primary-hover-color: color-mix(in oklab, var(--color-primary) 85%, var(--color-base-content));
+  --p-primary-contrast-color: var(--color-primary-content);
+  --p-surface-950: var(--color-base-200);
+  --p-surface-900: var(--color-base-100);
+  --p-surface-800: var(--color-base-200);
+  --p-surface-700: var(--color-base-300);
+  --p-text-color: var(--color-base-content);
+  --p-text-muted-color: color-mix(in oklab, var(--color-base-content) 75%, var(--color-base-100));
+  --p-content-border-color: color-mix(in oklab, var(--color-base-content) 22%, var(--color-base-100));
+  --p-focus-ring: 0 0 0 3px color-mix(in oklab, var(--color-primary) 30%, transparent);
+  --suite-radius: var(--radius-field);
+  --ant-color-text-tertiary: var(--p-text-muted-color);
+}
+html[data-theme=cmyk] { color-scheme: light; }
+html[data-theme=dracula] { color-scheme: dark; }
+body[data-suite-app=area] { --explora-accent: var(--color-secondary); }
+body[data-suite-app=volume] { --explora-accent: var(--color-success); }
+body[data-suite-app=revolve] { --explora-accent: var(--color-primary); }
+body[data-suite-app=voxel] { --explora-accent: var(--color-info); }
+.suite-theme-toggle { flex-shrink: 0; min-height: 44px; padding: 8px 12px; border: 1px solid var(--p-content-border-color); color: var(--p-text-color); cursor: pointer; white-space: nowrap; }
+/* Legacy editors use --border as a colour; daisyUI buttons use it as a width. */
+.btn { --border: 1px; }

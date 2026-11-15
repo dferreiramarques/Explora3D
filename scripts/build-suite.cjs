@@ -8,7 +8,7 @@ if (path.dirname(output) !== root || path.basename(output) !== 'dist' ||
   throw new Error('Invalid distribution directory');
 }
 const files = ['index.html', 'volume.html', 'mosaico.html', 'stencil.html',
-  'suite-ui.css', 'suite-shell.css', 'suite-shell.js', 'suite.config.js', 'editor-runtime.js',
+  'suite-ui.css', 'suite-theme.js', 'suite-shell.css', 'suite-shell.js', 'suite.config.js', 'editor-runtime.js',
   'classroom.css', 'classroom.config.js', 'classroom-adapter.js', 'classroom.js', 'CNAME', 'LICENSE'];
 files.push('workspace.css', 'workspace.js', 'project-store.js');
 for (const file of files) {
