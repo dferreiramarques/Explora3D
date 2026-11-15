@@ -76,12 +76,12 @@
 .suite-card[data-card=volume] { --card-accent: var(--color-success); --card-tint: color-mix(in oklab, var(--card-accent) 12%, var(--color-base-100)); }
 .suite-card[data-card=revolve] { --card-accent: var(--color-primary); --card-tint: color-mix(in oklab, var(--card-accent) 12%, var(--color-base-100)); }
 .suite-card[data-card=voxel] { --card-accent: var(--color-info); --card-tint: color-mix(in oklab, var(--card-accent) 12%, var(--color-base-100)); }
-.suite-card::before { content: ''; position: absolute; width: 190px; height: 190px; right: -25px; top: 50px; background: var(--card-tint); border-radius: 50%; pointer-events: none; }
+.suite-card::before { content: ''; position: absolute; width: 220px; height: 220px; right: -30px; top: 35px; background: radial-gradient(ellipse, var(--card-tint), transparent 70%); pointer-events: none; }
 .suite-card:hover { background: var(--color-base-200); border-color: var(--card-accent); }
 .suite-card-top { position: relative; z-index: 1; margin-bottom: 12px; }
 .suite-number { color: var(--card-accent); font-size: 12px; font-weight: 700; background: var(--card-tint); padding: 5px 8px; border-radius: 8px; }
 .suite-output { color: var(--p-text-color); background: var(--color-base-200); font-size: 11px; }
-.suite-card-art { position: absolute; width: 180px; height: 135px; right: 0; top: 48px; pointer-events: none; }
+.suite-card-art { position: absolute; width: 210px; height: 158px; right: -4px; top: 40px; pointer-events: none; }
 .suite-card h2 { font-size: 26px; font-weight: 800; margin-bottom: 8px; }
 .suite-card p { width: 58%; min-height: 44px; position: relative; z-index: 1; color: var(--p-text-muted-color); font-size: 14px; margin-bottom: 12px; }
 .suite-card-action { color: var(--card-accent); position: relative; z-index: 1; font-size: 14px; }
@@ -104,6 +104,6 @@
 .suite-theme-toggle { margin-left: auto; }
 .suite-header-note + .suite-theme-toggle { margin-left: 0; }
 @media(max-width: 600px) {
-  .suite-header .suite-theme-toggle { padding: 6px; font-size: 11px; }
+  .suite-header .suite-theme-toggle { padding: 0; font-size: 24px; }
   .suite-nav a { padding-inline: 4px; }
 }

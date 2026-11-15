@@ -241,7 +241,7 @@ body[data-suite-app=voxel] .palette-btn { min-height: 32px; border-radius: 9px; 
 .explora-view-controls button:hover { background: var(--color-base-300); }
 body[data-suite-app=voxel] .explora-view-controls { left: 18px; transform: none; }
 body[data-suite-app=volume] .explora-view-controls { bottom: 72px; }
-body[data-suite-app=volume]:not(.explora-mode-3d) .explora-view-controls { display: none; }
+body[data-suite-app=volume]:not(.explora-mode-3d) .explora-view-controls:not(.ux-shape-controls) { display: none; }
 @media(max-width: 768px) {
   body[data-suite-app=area] #toolPalette .tool-btn { width: 43px; height: 46px; }
   body[data-suite-app=area] .explora-tool-caption { font-size: 9px; }
@@ -276,6 +276,7 @@ body[data-suite-app=area] { --explora-accent: var(--color-secondary); }
 body[data-suite-app=volume] { --explora-accent: var(--color-success); }
 body[data-suite-app=revolve] { --explora-accent: var(--color-primary); }
 body[data-suite-app=voxel] { --explora-accent: var(--color-info); }
-.suite-theme-toggle { flex-shrink: 0; min-height: 44px; padding: 8px 12px; border: 1px solid var(--p-content-border-color); color: var(--p-text-color); cursor: pointer; white-space: nowrap; }
+.suite-theme-toggle, .ux-projectbar .suite-theme-toggle { flex-shrink: 0; width: 44px; height: 44px; min-height: 44px; padding: 0; border: 0; background: transparent; box-shadow: none; color: var(--p-text-color); font-size: 24px; cursor: pointer; }
+.suite-theme-toggle:hover, .ux-projectbar .suite-theme-toggle:hover:not(:disabled) { background: transparent; color: var(--p-primary-color); }
 /* Legacy editors use --border as a colour; daisyUI buttons use it as a width. */
 .btn { --border: 1px; }

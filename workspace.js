@@ -8,6 +8,19 @@
   bar.innerHTML = `<span class="ux-app-name">${names[app]}</span><input class="ux-project-name" aria-label="Nome do projeto" maxlength="100" value="O meu projeto"><button type="button" data-action="new">Novo</button><button type="button" data-action="open">Abrir</button><button type="button" data-action="save">Guardar</button><button type="button" data-action="undo" title="Desfazer (Ctrl+Z)">↶ Desfazer</button><button type="button" data-action="redo" title="Refazer (Ctrl+Shift+Z)">↷ Refazer</button><button type="button" data-action="output" class="ux-output">${app === 'voxel' ? 'Criar animação' : 'Preparar impressão'}</button><button type="button" data-action="help">Ajuda</button><button type="button" class="ux-panels-toggle" aria-expanded="true">Painel</button><span class="ux-project-status" role="status" aria-live="polite"></span>`;
   const name = bar.querySelector('input');
   const stateLabel = bar.querySelector('.ux-project-status');
+  let statusMessage = stateLabel, statusTimeout;
+  if (app === 'area') {
+    // Keep feedback outside the toolbar so it never changes the editor height.
+    stateLabel.className = 'ux-toast ux-project-notification';
+    stateLabel.hidden = true;
+    statusMessage = document.createElement('span');
+    const dismiss = document.createElement('button');
+    dismiss.type = 'button'; dismiss.textContent = '×';
+    dismiss.setAttribute('aria-label', 'Fechar notificação');
+    dismiss.onclick = () => { clearTimeout(statusTimeout); stateLabel.hidden = true; };
+    stateLabel.append(statusMessage, dismiss);
+    document.body.appendChild(stateLabel);
+  }
   const button = action => bar.querySelector('[data-action="' + action + '"]');
   const legacy = document.querySelector(app === 'area' ? 'body > header' : app === 'volume' ? '#hdr' : app === 'revolve' ? '#titlebar' : '#brand');
   if (app === 'voxel') document.body.prepend(bar); else legacy.before(bar);
@@ -17,7 +30,13 @@
   let lastScope = 'free', lastWritten = '';
   let resolveReady;
   const readyPromise = new Promise(resolve => { resolveReady = resolve; });
-  const setStatus = text => { stateLabel.textContent = text; };
+  const setStatus = (text, duration = 0) => {
+    statusMessage.textContent = text;
+    if (app !== 'area') return;
+    clearTimeout(statusTimeout);
+    stateLabel.hidden = !text;
+    if (text && duration) statusTimeout = setTimeout(() => { stateLabel.hidden = true; }, duration);
+  };
   const raw = () => JSON.stringify({ name: name.value.trim() || 'O meu projeto', data: adapter.capture() });
   function controls() { button('undo').disabled = !history?.canUndo || restoring; button('redo').disabled = !history?.canRedo || restoring; }
   function persist() {
@@ -25,7 +44,7 @@
     if (history.current === lastWritten) return;
     const payload = JSON.stringify({ version: 1, app, ...JSON.parse(history.current), ts: Date.now() });
     if (window.ExploraProjectStore.write(localStorage, key, payload)) {
-      lastWritten = history.current; setStatus('✓ Guardado neste dispositivo');
+      lastWritten = history.current; setStatus('✓ Guardado neste dispositivo', 4000);
     } else setStatus('Não foi possível guardar neste dispositivo. Usa Guardar para descarregar um ficheiro.');
   }
   function checkpoint() {
@@ -93,7 +112,7 @@
   });
   button('open').onclick = () => file.click();
   button('save').onclick = () => {
-    try { checkpoint(); const data = adapter.capture(); data[app === 'revolve' || app === 'voxel' ? 'nome' : 'name'] = name.value; download(data); setStatus('Ficheiro descarregado · podes voltar a abri-lo em Abrir'); }
+    try { checkpoint(); const data = adapter.capture(); data[app === 'revolve' || app === 'voxel' ? 'nome' : 'name'] = name.value; download(data); setStatus('Ficheiro descarregado · podes voltar a abri-lo em Abrir', 6000); }
     catch (error) { setStatus(error.message); }
   };
   button('undo').onclick = () => travel(-1); button('redo').onclick = () => travel(1);
@@ -154,6 +173,15 @@
     const colourTitle = document.createElement('h3'); colourTitle.className = 'ux-panel-title'; colourTitle.textContent = 'Cor e espessura';
     const colours = document.createElement('div'); colours.id = 'ux-volume-colours';
     [...document.querySelectorAll('#bot .col-wrap')].forEach(node => colours.appendChild(node));
+    const tools = document.getElementById('bot');
+    tools.classList.add('explora-view-controls', 'ux-shape-controls');
+    tools.setAttribute('role', 'toolbar');
+    tools.setAttribute('aria-label', 'Manipular formas');
+    tools.querySelectorAll('.tool-btn').forEach(tool => {
+      tool.type = 'button';
+      tool.setAttribute('aria-label', tool.title);
+    });
+    document.getElementById('stage').appendChild(tools);
     const thickness = document.createElement('button'); thickness.type = 'button'; thickness.className = 'ux-panel-button'; thickness.textContent = 'Ajustar espessura';
     thickness.onclick = () => { const swatch = colours.querySelector('.col-wrap.active'); if (swatch && activeColor !== '#000000') openExtrudePop(activeColor, swatch); };
     coloursSection.append(colourTitle, colours, thickness); intro.after(coloursSection);
@@ -239,7 +267,7 @@
         if (legacy?.shapes) saved = JSON.stringify({ version: 1, app, name: 'Projeto recuperado', data: legacy });
       }
       if (saved) {
-        try { const parsed = JSON.parse(saved); if (parsed.version !== 1 || parsed.app !== app || !parsed.data) throw new Error('Formato inválido'); await restore(JSON.stringify({ name: parsed.name, data: parsed.data })); setStatus('✓ Projeto recuperado neste dispositivo'); }
+        try { const parsed = JSON.parse(saved); if (parsed.version !== 1 || parsed.app !== app || !parsed.data) throw new Error('Formato inválido'); await restore(JSON.stringify({ name: parsed.name, data: parsed.data })); setStatus('✓ Projeto recuperado neste dispositivo', 5000); }
         catch { storageBlocked = !window.ExploraProjectStore.write(localStorage, key + '_recovery', saved); setStatus('O rascunho anterior não pôde ser aberto. Foi preservado para recuperação.'); }
       }
     } catch { setStatus('Armazenamento local indisponível. Usa Guardar para descarregar um ficheiro.'); }

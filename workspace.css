@@ -33,8 +33,40 @@ body[data-suite-app=revolve] .ux-projectbar { grid-column: 1 / -1; grid-row: 1; 
 body[data-suite-app=revolve] #titlebar { display: none !important; }
 body[data-suite-app=revolve] #sidebar { width: auto; }
 body[data-suite-app=volume] #rsb { width: var(--ux-panel-width); flex: 0 0 var(--ux-panel-width); overflow-y: auto; padding: 0; }
-body[data-suite-app=volume] #lsb { width: 88px; flex: 0 0 88px; }
+body[data-suite-app=volume] #lsb {
+  width: 152px; flex: 0 0 152px; display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: auto repeat(5, minmax(0, 1fr));
+  gap: 4px; padding: 10px 6px; overflow: hidden;
+  align-items: stretch; align-content: stretch;
+}
+body[data-suite-app=volume] #lsb .lsb-label { grid-column: 1 / -1; margin: 0 0 4px; }
+body[data-suite-app=volume] #lsb .lsb-sep { display: none; }
+body[data-suite-app=volume] #lsb .shape-btn {
+  width: 100%; height: auto; min-height: 0; max-height: 76px;
+  padding: 4px 2px 18px; align-self: stretch;
+}
+body[data-suite-app=volume] #lsb .shape-btn svg { width: 30px; height: 30px; max-height: calc(100% - 2px); }
+body[data-suite-app=volume] #lsb .shape-btn::after { font-size: 10px; bottom: 4px; }
+@media(max-height: 560px) {
+  body[data-suite-app=volume] #lsb { padding-block: 4px; gap: 2px; }
+  body[data-suite-app=volume] #lsb .shape-btn { padding-bottom: 14px; }
+  body[data-suite-app=volume] #lsb .shape-btn svg { width: 24px; height: 24px; }
+  body[data-suite-app=volume] #lsb .shape-btn::after { font-size: 9px; bottom: 1px; }
+}
 body[data-suite-app=volume] #bot { overflow-x: auto; justify-content: center; }
+body[data-suite-app=volume] #bot.ux-shape-controls {
+  position: absolute; height: auto; min-height: 0; padding: 6px;
+  gap: 5px; border: 1px solid var(--p-content-border-color);
+  background: var(--p-surface-900); border-radius: 18px;
+  box-shadow: 0 6px 20px #0004; flex-wrap: nowrap;
+}
+body[data-suite-app=volume] #bot.ux-shape-controls .bot-sep { display: none; }
+body[data-suite-app=volume] #bot.ux-shape-controls .tool-btn {
+  width: 48px; height: 44px; min-height: 44px; padding: 8px;
+  border-radius: 12px; font-size: 20px;
+}
+body[data-suite-app=volume].explora-mode-3d #bot.ux-shape-controls { display: none; }
 #ux-volume-colours { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
 #ux-volume-colours .col-wrap { min-width: 44px; min-height: 58px; padding: 4px; border-radius: 10px; }
 body[data-suite-app=voxel] .ux-projectbar { position: fixed; top: 0; left: 0; right: 0; }
@@ -52,6 +84,10 @@ body[data-suite-app=voxel] .explora-view-controls { left: 50%; transform: transl
 .ux-point-coordinates label { font-size: 13px; color: var(--p-text-muted-color); }
 .ux-point-coordinates input { display: block; width: 100%; margin-top: 4px; }
 .ux-toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); max-width: min(600px,90vw); padding: 12px 18px; border: 1px solid var(--p-content-border-color); border-radius: 12px; background: var(--p-surface-800); z-index: 5000; color: var(--p-text-color); font: 14px/1.5 var(--suite-font); }
+.ux-project-notification:not([hidden]) { display: flex; align-items: center; gap: 12px; width: max-content; box-shadow: var(--suite-shadow); }
+.ux-project-notification[hidden] { display: none; }
+.ux-project-notification > span { min-width: 0; overflow-wrap: anywhere; }
+.ux-project-notification > button { flex-shrink: 0; width: 44px; height: 44px; border: 0; background: transparent; color: inherit; font-size: 24px; cursor: pointer; }
 @media(max-width:1100px) { :root { --ux-panel-width: 288px; } .ux-projectbar { gap: 6px; } .ux-projectbar input.ux-project-name { width: 150px; } }
 @media(max-width:768px) {
   :root { --ux-panel-width: 280px; }

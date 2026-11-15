@@ -1660,7 +1660,7 @@ function redraw(){
     ctx.save();
     if(s.type!=='freehand'){ctx.translate(s.x,s.y);ctx.rotate(s.rot);}
     shapePath(ctx,s);
-    ctx.fillStyle=isHole?'rgba(0,0,0,.6)':s.color+'cc';
+    ctx.fillStyle=isHole?'rgba(0,0,0,.6)':s.color;
     ctx.strokeStyle=isSel?'#fff':(isHole?'#ff4444':s.color);
     ctx.lineWidth=isSel?3:1.5;
     if(isHole)ctx.setLineDash([4,3]);
@@ -2681,13 +2681,18 @@ function buildMesh3D() {
         depth:          _zMm,
         bevelEnabled:   false,
       });
-      const mat = new THREE.MeshPhongMaterial({
+      // Unlit colours match the 2D palette; darker sides retain the depth cue.
+      const mat = new THREE.MeshBasicMaterial({
         color:    new THREE.Color(s.color),
-        specular: new THREE.Color(0x222222),
-        shininess: 60,
+        toneMapped: false,
         side: THREE.DoubleSide,
       });
-      group.add(new THREE.Mesh(geo, mat));
+      const sideMat = new THREE.MeshBasicMaterial({
+        color: new THREE.Color(s.color).multiplyScalar(.78),
+        toneMapped: false,
+        side: THREE.DoubleSide,
+      });
+      group.add(new THREE.Mesh(geo, [mat, sideMat]));
     });
   });
 

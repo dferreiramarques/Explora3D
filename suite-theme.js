@@ -11,8 +11,10 @@
     document.documentElement.dataset.theme = theme;
     document.querySelectorAll('[data-theme-toggle]').forEach(button => {
       const dark = theme === 'dracula';
-      button.textContent = dark ? '☀ Claro' : '☾ Escuro';
-      button.setAttribute('aria-label', dark ? 'Ativar modo claro (CMYK)' : 'Ativar modo escuro (Dracula)');
+      button.textContent = dark ? '☀' : '☾';
+      const label = dark ? 'Ativar modo claro (CMYK)' : 'Ativar modo escuro (Dracula)';
+      button.setAttribute('aria-label', label);
+      button.title = label;
       button.setAttribute('aria-pressed', String(dark));
     });
   }
@@ -36,7 +38,7 @@
     if (!host) return;
     const button = document.createElement('button');
     button.type = 'button';
-    button.className = 'btn btn-ghost suite-theme-toggle';
+    button.className = 'suite-theme-toggle';
     button.dataset.themeToggle = '';
     button.addEventListener('click', () => {
       const theme = document.documentElement.dataset.theme === 'dracula' ? 'cmyk' : 'dracula';
