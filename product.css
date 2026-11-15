@@ -35,7 +35,6 @@
 .hero-tile > span { display: block; padding: 12px 14px 0; font-size: 10px; color: var(--product-muted); }
 .hero-tile img { display: block; width: 100%; height: auto; margin-top: -10px; }
 .tile-area { transform: rotate(-3deg); }.tile-volume { transform: rotate(4deg); }.tile-revolve { transform: rotate(2deg); }.tile-voxel { transform: rotate(-2deg); }
-.workshop-sticker { position: absolute; right: -18px; bottom: -24px; padding: 20px 17px; border-radius: 50%; font-size: 12px; line-height: 1.3; text-align: center; background: var(--color-accent); color: var(--color-accent-content); transform: rotate(10deg); box-shadow: 0 6px 0 color-mix(in oklab, var(--color-accent) 50%, transparent); }
 .learning-strip { border-block: 1px solid var(--p-content-border-color); background: var(--color-base-200); }
 .learning-strip > div { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 15px; padding-block: 22px; font-size: 13px; font-weight: 700; }
 .learning-strip b { color: var(--color-primary); margin-inline: 14px; }
@@ -93,8 +92,7 @@
 }
 @media(max-width: 760px) {
  .page-width { width: calc(100% - 36px); }.product-header { flex-wrap: wrap; padding: 14px 18px; }.product-header nav { order: 4; width: 100%; justify-content: space-between; padding-top: 10px; border-top: 1px solid var(--p-content-border-color); }.product-header .header-cta { margin-left: auto; padding-inline: 12px; }.product-header .suite-theme-toggle { width: 36px; }
- .product-hero { grid-template-columns: 1fr; padding-block: 48px 64px; gap: 48px; }.hero-copy h1 { font-size: clamp(36px, 8vw, 54px); }.hero-copy > p { font-size: 16px; }.hero-workshop { max-width: 480px; width: calc(100% - 20px); margin-inline: auto; }.workshop-sticker { right: -10px; }
- .learning-strip > div { font-size: 12px; }.learning-strip b { margin-inline: 6px; }.section-space { padding-block: 56px; }.section-heading { display: block; }.section-heading > p { margin-top: 20px; max-width: none; }
+ .product-hero { grid-template-columns: 1fr; padding-block: 48px 64px; gap: 48px; }.hero-copy h1 { font-size: clamp(36px, 8vw, 54px); }.hero-copy > p { font-size: 16px; }.hero-workshop { max-width: 480px; width: calc(100% - 20px); margin-inline: auto; } .learning-strip > div { font-size: 12px; }.learning-strip b { margin-inline: 6px; }.section-space { padding-block: 56px; }.section-heading { display: block; }.section-heading > p { margin-top: 20px; max-width: none; }
  .tool-grid { grid-template-columns: 1fr; }.tool-visual { height: 210px; }.tool-visual img { width: 260px; height: 195px; margin-top: 12px; }.tool-copy { padding: 24px; }.objectives { grid-template-columns: 1fr 1fr; gap: 28px 20px; }
  .classroom-section { grid-template-columns: 1fr; gap: 36px; }.faq-section { grid-template-columns: 1fr; gap: 28px; padding-bottom: 56px; }.final-invitation { padding: 26px; gap: 20px; }.final-invitation > img { width: 54px; height: 54px; }.final-invitation > div { flex: 1; }.final-invitation h2 { font-size: 24px; }.final-invitation .eyebrow { font-size: 9px; }.final-invitation .product-cta { margin-left: 0; width: 100%; }.product-footer { flex-wrap: wrap; gap: 12px; }.product-footer > a:last-child { margin-left: 0; }
 }
