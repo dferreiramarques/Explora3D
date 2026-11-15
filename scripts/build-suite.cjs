@@ -10,7 +10,7 @@ if (path.dirname(output) !== root || path.basename(output) !== 'dist' ||
 const files = ['index.html', 'volume.html', 'mosaico.html', 'stencil.html',
   'suite-ui.css', 'suite-theme.js', 'suite-shell.css', 'suite-shell.js', 'suite.config.js', 'editor-runtime.js',
   'classroom.css', 'classroom.config.js', 'classroom-adapter.js', 'classroom.js', 'CNAME', 'LICENSE'];
-files.push('workspace.css', 'workspace.js', 'project-store.js');
+files.push('workspace.css', 'workspace.js', 'project-store.js', 'product.css', 'product.js');
 for (const file of files) {
   if (!fs.statSync(path.join(root, file)).isFile()) throw new Error(`Missing ${file}`);
 }
@@ -19,6 +19,7 @@ for (const app of ['area/index.html', 'volume/index.html', 'revolve/public/index
 }
 fs.rmSync(output, { recursive: true, force: true });
 fs.mkdirSync(output);
+fs.cpSync(path.join(root, 'app'), path.join(output, 'app'), { recursive: true });
 for (const file of files) fs.copyFileSync(path.join(root, file), path.join(output, file));
 fs.cpSync(path.join(root, 'apps'), path.join(output, 'apps'), {
   recursive: true,

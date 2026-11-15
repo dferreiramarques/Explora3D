@@ -56,5 +56,5 @@ test('Volume legacy link preserves activity query and redirects into the suite',
     document: { getElementById: () => ({}) },
     location: { href: 'https://example.test/volume.html?code=ABC123', search: '?code=ABC123', replace: url => { destination = url; } }
   });
-  assert.equal(destination, 'https://example.test/?code=ABC123#volume');
+  assert.equal(destination, 'https://example.test/app/?code=ABC123#volume');
 });

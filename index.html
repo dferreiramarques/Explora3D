@@ -1,51 +1,61 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Explora3D · Explorar, criar e materializar</title>
+  <meta name="description" content="Explora3D: quatro ferramentas para aprender geometria, desenvolver o raciocínio espacial e transformar ideias em desenhos, modelos 3D e animações.">
+  <title>Explora3D · Pequenas ideias, grandes descobertas</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <script src="product.js"></script>
   <script src="suite-theme.js"></script>
-<link rel="stylesheet" href="suite-ui.css">
-  <link rel="stylesheet" href="suite-shell.css">
-  <script src="suite.config.js" defer></script>
-  <script src="suite-shell.js" defer></script>
+  <link rel="stylesheet" href="suite-ui.css">
+  <link rel="stylesheet" href="product.css">
 </head>
-<body class="suite-shell">
-  <svg class="suite-symbols" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
-    <symbol id="icon-home" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10H3zM9 20v-7h6v7"/></symbol>
-    <symbol id="icon-area" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="m4 15 11-11M9 20 20 9"/></symbol>
-    <symbol id="icon-volume" viewBox="0 0 24 24"><path d="m12 2 9 5v10l-9 5-9-5V7zm0 10 9-5M12 12 3 7m9 5v10"/></symbol>
-    <symbol id="icon-revolve" viewBox="0 0 24 24"><path d="M12 2v20M9 4c-5 4 0 5-2 9s-3 7 5 7 10-3 7-7 3-5-4-9"/><path d="m17 2-2 2 3 1"/></symbol>
-    <symbol id="icon-voxel" viewBox="0 0 24 24"><path d="M3 12h8v8H3zm10 0h8v8h-8zm0-10h8v8h-8z"/></symbol>
-  </svg>
-  <header class="suite-header">
-    <a class="suite-home" href="#home" aria-label="Início — escolher uma secção" title="Voltar aos quadrantes"><img class="suite-brand-icon" src="assets/explora3d-icon.svg" width="40" height="40" alt=""><span>Explora3D</span></a>
-    <nav class="suite-nav" aria-label="Secções da suite">
-      <a href="#area" data-app="area"><svg><use href="#icon-area"/></svg><span>Area</span></a>
-      <a href="#volume" data-app="volume"><svg><use href="#icon-volume"/></svg><span>Volume</span></a>
-      <a href="#revolve" data-app="revolve"><svg><use href="#icon-revolve"/></svg><span>Revolve</span></a>
-      <a href="#voxel" data-app="voxel"><svg><use href="#icon-voxel"/></svg><span>Voxel</span></a>
-    </nav>
-    <span class="suite-header-note">Explora. Cria. Descobre.</span>
+<body class="product-page">
+  <a class="skip-link" href="#conteudo">Saltar para o conteúdo</a>
+  <header class="suite-header product-header">
+    <a class="product-brand" href="./" aria-label="Explora3D — início"><img src="assets/explora3d-icon.svg" width="42" height="42" alt=""><span>Explora<span class="brand-3d">3D</span></span></a>
+    <nav aria-label="Navegação principal"><a href="#ferramentas">As ferramentas</a><a href="#aprender">O que se aprende</a><a href="#sala">Na sala de aula</a></nav>
+    <a class="product-cta header-cta" href="app/">Abrir aplicação <span aria-hidden="true">↗</span></a>
   </header>
-  <main id="suite-main">
-    <section id="suite-home" aria-labelledby="home-title">
-      <div class="suite-intro"><span class="suite-eyebrow">A tua oficina de ideias</span><h1 id="home-title">O que vais criar hoje?</h1><p>Desenha, dá forma e experimenta. Aqui, cada ideia é o início de uma descoberta.</p></div>
-      <div class="suite-quadrants">
-        <a class="suite-card" href="#area" data-card="area"><div class="suite-card-top"><span class="suite-number">01</span><span class="suite-output">Desenhar e imprimir</span></div><img class="suite-card-art" src="assets/area-play.svg" alt="" width="240" height="180"><h2>Area</h2><p>Um desenho pode tornar-se um carimbo. Vamos experimentar?</p><span class="suite-card-action">Explorar Area <span aria-hidden="true">↗</span></span></a>
-        <a class="suite-card" href="#volume" data-card="volume"><div class="suite-card-top"><span class="suite-number">02</span><span class="suite-output">Juntar e imprimir</span></div><img class="suite-card-art" src="assets/volume-play.svg" alt="" width="240" height="180"><h2>Volume</h2><p>Junta formas, abre buracos e vê a tua ideia ganhar volume.</p><span class="suite-card-action">Explorar Volume <span aria-hidden="true">↗</span></span></a>
-        <a class="suite-card" href="#revolve" data-card="revolve"><div class="suite-card-top"><span class="suite-number">03</span><span class="suite-output">Rodar e imprimir</span></div><img class="suite-card-art" src="assets/revolve-play.svg" alt="" width="240" height="180"><h2>Revolve</h2><p>Puxa os pontos de uma curva. Roda-a. Surpresa: um objeto!</p><span class="suite-card-action">Explorar Revolve <span aria-hidden="true">↗</span></span></a>
-        <a class="suite-card" href="#voxel" data-card="voxel"><div class="suite-card-top"><span class="suite-number">04</span><span class="suite-output">Construir e animar</span></div><img class="suite-card-art" src="assets/voxel-play.svg" alt="" width="240" height="180"><h2>Voxel</h2><p>Bloco a bloco, inventa uma personagem e põe-na a rodar.</p><span class="suite-card-action">Explorar Voxel <span aria-hidden="true">↗</span></span></a>
+  <main id="conteudo">
+    <section class="product-hero page-width" aria-labelledby="hero-title">
+      <div class="hero-copy"><span class="eyebrow"><span class="status-dot"></span> Uma oficina digital para aprender a criar</span>
+        <h1 id="hero-title">As ideias ganham forma.<br><em>A aprendizagem também.</em></h1>
+        <p>Do primeiro traço a um objeto em 3D. Quatro ferramentas para os alunos explorarem a geometria, resolverem desafios e descobrirem o que conseguem criar.</p>
+        <div class="hero-actions"><a class="product-cta" href="app/">Começar a explorar <span aria-hidden="true">↗</span></a><a class="text-link" href="#aprender">Descobrir o que se aprende <span aria-hidden="true">↓</span></a></div>
+        <p class="hero-note">No navegador · Ao ritmo de cada aluno · Com espaço para experimentar</p>
       </div>
-      <p class="suite-session-note">Podes mudar de secção e voltar ao teu trabalho enquanto esta página estiver aberta. Guarda um ficheiro para continuar mais tarde.</p>
+      <div class="hero-workshop" aria-label="Desenhos, sólidos de revolução, construções e personagens em blocos">
+        <div class="workshop-grid"></div><span class="workshop-label">IDEIA → EXPERIÊNCIA → DESCOBERTA</span>
+        <div class="hero-tile tile-area"><span>01 / Desenhar</span><img src="assets/area-play.svg" alt="Carimbo criado a partir de um desenho" width="320" height="240"></div>
+        <div class="hero-tile tile-volume"><span>02 / Dar volume</span><img src="assets/volume-play.svg" alt="Construção com formas geométricas" width="320" height="240"></div>
+        <div class="hero-tile tile-revolve"><span>03 / Transformar</span><img src="assets/revolve-play.svg" alt="Vaso criado pela rotação de um perfil" width="320" height="240"></div>
+        <div class="hero-tile tile-voxel"><span>04 / Inventar</span><img src="assets/voxel-play.svg" alt="Personagem construída com blocos" width="320" height="240"></div>
+        <span class="workshop-sticker">E se eu<br><strong>experimentar?</strong></span>
+      </div>
     </section>
-    <section id="suite-workspace" aria-label="Ferramenta selecionada" hidden>
-      <div id="suite-load-status" role="status" aria-live="polite"></div>
-      <div id="suite-frames"></div>
-      <div id="suite-load-help" hidden><p>A ferramenta está a demorar a abrir.</p><button id="suite-retry" type="button">Tentar novamente</button><a id="suite-direct" target="_blank" rel="noopener">Abrir separadamente ↗</a></div>
+    <div class="learning-strip"><div class="page-width"><span>Geometria com as mãos na ideia.</span><span>Imaginar <b>↗</b> Experimentar <b>↗</b> Observar <b>↗</b> Melhorar</span></div></div>
+    <section class="page-width section-space" id="ferramentas" aria-labelledby="tools-title">
+      <div class="section-heading"><div><span class="eyebrow">QUATRO FORMAS DE DESCOBRIR</span><h2 id="tools-title">Uma suite.<br>Muitas maneiras de criar.</h2></div><p>Cada ferramenta abre uma porta diferente para o pensamento em 3D. Podem ser exploradas individualmente ou combinadas num projeto.</p></div>
+      <div class="tool-grid">
+        <article class="tool-card area-card"><div class="tool-visual"><span class="tool-index">01 / DO TRAÇO AO RELEVO</span><img src="assets/area-play.svg" width="320" height="240" alt="Desenho transformado num carimbo" loading="lazy"></div><div class="tool-copy"><h3>Area <span>Desenhar &amp; materializar</span></h3><p>Desenhar, ajustar o traço e transformar uma imagem num relevo. Uma primeira ligação entre a criação em duas dimensões e um objeto que pode ser impresso.</p><ul><li>Explorar contornos, composição e dimensões.</li><li>Relacionar o desenho com o relevo e a espessura.</li><li>Planear um carimbo ou uma pequena peça.</li></ul><a class="text-link" href="app/#area">Explorar Area <span aria-hidden="true">↗</span></a></div></article>
+        <article class="tool-card volume-card"><div class="tool-visual"><span class="tool-index">02 / DO PLANO AO SÓLIDO</span><img src="assets/volume-play.svg" width="320" height="240" alt="Formas geométricas combinadas numa construção" loading="lazy"></div><div class="tool-copy"><h3>Volume <span>Combinar &amp; construir</span></h3><p>Juntar formas, atribuir alturas e abrir furos. Alternar entre o desenho e a vista 3D para perceber como cada decisão muda o resultado.</p><ul><li>Reconhecer e combinar formas geométricas.</li><li>Relacionar largura, altura e profundidade.</li><li>Explorar a adição e a subtração de formas.</li></ul><a class="text-link" href="app/#volume">Explorar Volume <span aria-hidden="true">↗</span></a></div></article>
+        <article class="tool-card revolve-card"><div class="tool-visual"><span class="tool-index">03 / DA LINHA À ROTAÇÃO</span><img src="assets/revolve-play.svg" width="320" height="240" alt="Perfil e sólido de revolução" loading="lazy"></div><div class="tool-copy"><h3>Revolve <span>Rodar &amp; transformar</span></h3><p>Mover os pontos de um perfil e observar o sólido que nasce da sua rotação. Investigar como uma pequena mudança na curva transforma o objeto inteiro.</p><ul><li>Explorar perfis, eixos e simetria de rotação.</li><li>Antecipar a forma de um sólido de revolução.</li><li>Comparar proporções e testar alternativas.</li></ul><a class="text-link" href="app/#revolve">Explorar Revolve <span aria-hidden="true">↗</span></a></div></article>
+        <article class="tool-card voxel-card"><div class="tool-visual"><span class="tool-index">04 / DO BLOCO À PERSONAGEM</span><img src="assets/voxel-play.svg" width="320" height="240" alt="Robô construído com blocos coloridos" loading="lazy"></div><div class="tool-copy"><h3>Voxel <span>Construir &amp; apresentar</span></h3><p>Construir por blocos, trabalhar em diferentes camadas e inventar personagens. Rodar o modelo para o observar e criar uma animação da construção.</p><ul><li>Localizar elementos numa grelha tridimensional.</li><li>Organizar camadas, padrões e simetrias.</li><li>Decompor um objeto em unidades mais simples.</li></ul><a class="text-link" href="app/#voxel">Explorar Voxel <span aria-hidden="true">↗</span></a></div></article>
+      </div>
     </section>
+    <section class="learning-section" id="aprender" aria-labelledby="learning-title"><div class="page-width section-space">
+      <div class="section-heading"><div><span class="eyebrow">APRENDER FAZENDO</span><h2 id="learning-title">Mais do que fazer um modelo.<br>Aprender a pensar com ele.</h2></div><p>Objetivos que podem orientar atividades de exploração livre ou desafios acompanhados pelo professor.</p></div>
+      <div class="objectives"><article><span class="objective-number">01</span><h3>Raciocínio espacial</h3><p>Interpretar vistas, imaginar transformações e relacionar representações 2D com objetos 3D.</p><span class="prompt">“Como será visto do outro lado?”</span></article><article><span class="objective-number">02</span><h3>Geometria em contexto</h3><p>Explorar formas, dimensões, proporções e simetrias através de objetos criados pelos próprios alunos.</p><span class="prompt">“O que muda se duplicar a altura?”</span></article><article><span class="objective-number">03</span><h3>Resolver problemas</h3><p>Dividir uma ideia em partes, planear uma construção, testar hipóteses e corrigir o que não resulta.</p><span class="prompt">“Que peças preciso de combinar?”</span></article><article><span class="objective-number">04</span><h3>Criatividade com intenção</h3><p>Experimentar soluções diferentes e justificar escolhas de forma, cor e composição.</p><span class="prompt">“Como posso fazer de outra maneira?”</span></article><article><span class="objective-number">05</span><h3>Literacia digital</h3><p>Usar ferramentas de criação, guardar projetos e distinguir um ficheiro editável de um ficheiro para apresentar ou fabricar.</p><span class="prompt">“Que formato preciso de guardar?”</span></article><article><span class="objective-number">06</span><h3>Comunicar e refletir</h3><p>Apresentar um processo, explicar as alterações feitas e comparar a ideia inicial com o resultado.</p><span class="prompt">“O que descobri ao experimentar?”</span></article></div>
+    </div></section>
+    <section class="page-width section-space classroom-section" id="sala" aria-labelledby="classroom-title">
+      <div class="classroom-intro"><span class="eyebrow">DA EXPLORAÇÃO AO PROJETO</span><h2 id="classroom-title">Uma pergunta é um<br>bom ponto de partida.</h2><p>Em vez de começar por uma lista de comandos, começar por um desafio. O professor acompanha as decisões; os alunos experimentam, observam e melhoram.</p><a class="product-cta" href="app/">Abrir a oficina <span aria-hidden="true">↗</span></a></div>
+      <ol class="lesson-steps"><li><span>01</span><div><h3>Lançar um desafio</h3><p>“Como podemos criar uma peça que represente a nossa turma?” Escolher a ferramenta e definir o que se pretende investigar.</p></div></li><li><span>02</span><div><h3>Construir e testar</h3><p>Esboçar uma solução, observar de vários ângulos e alterar uma variável de cada vez. Comparar resultados em pares.</p></div></li><li><span>03</span><div><h3>Partilhar a descoberta</h3><p>Apresentar o modelo, explicar as escolhas e guardar o projeto. Quando fizer sentido, preparar a impressão ou uma animação.</p></div></li></ol>
+    </section>
+    <section class="page-width faq-section" aria-labelledby="faq-title"><h2 id="faq-title">Antes de começar</h2><div><details><summary>É preciso ter uma impressora 3D?</summary><p>Não. A exploração e a aprendizagem acontecem no ecrã. Area, Volume e Revolve permitem preparar ficheiros STL para uma etapa de impressão, quando houver equipamento disponível.</p></details><details><summary>É preciso instalar alguma coisa?</summary><p>As ferramentas abrem no navegador. Guarda um ficheiro do projeto para poderes continuar o trabalho mais tarde ou noutro dispositivo.</p></details><details><summary>Como escolher a ferramenta?</summary><p>Area parte do desenho; Volume combina formas e alturas; Revolve transforma um perfil por rotação; Voxel constrói com blocos. Escolhe em função da pergunta que os alunos vão explorar.</p></details><details><summary>Como adaptar a atividade à turma?</summary><p>Varia a complexidade do desafio, o tempo de exploração e o apoio dado. Podes começar por uma forma simples ou um template e avançar para uma criação com restrições e uma explicação do processo.</p></details></div></section>
+    <section class="page-width final-invitation"><img src="assets/explora3d-icon.svg" width="76" height="76" alt=""><div><span class="eyebrow">A PRÓXIMA DESCOBERTA COMEÇA AQUI</span><h2>Uma ideia. Quatro caminhos.<br>Vamos experimentar?</h2></div><a class="product-cta" href="app/">Explorar o Explora3D <span aria-hidden="true">↗</span></a></section>
   </main>
-  <noscript>Ativa o JavaScript no navegador para abrir as ferramentas da suite.</noscript>
+  <footer class="page-width product-footer"><a class="product-brand" href="./"><img src="assets/explora3d-icon.svg" width="30" height="30" alt=""><span>Explora3D</span></a><p>Explorar, criar e materializar.</p><a href="app/">Ir para a aplicação ↗</a></footer>
 </body>
 </html>

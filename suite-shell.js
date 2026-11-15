@@ -12,7 +12,7 @@
   const initialApp = Object.hasOwn(apps, location.hash.slice(1)) ? location.hash.slice(1) : 'volume';
 
   function editorURL(id) {
-    const url = new URL(apps[id].url, location.href);
+    const url = new URL(apps[id].url, document.baseURI || location.href);
     // Existing Volume classroom links remain valid at the suite entry point.
     if (id === initialApp) {
       const code = new URLSearchParams(location.search).get('code');

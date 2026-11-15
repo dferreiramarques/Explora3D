@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <base href="../">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Explora3D · Explorar, criar e materializar</title>
+  <script src="suite-theme.js"></script>
+<link rel="stylesheet" href="suite-ui.css">
+  <link rel="stylesheet" href="suite-shell.css">
+  <script src="suite.config.js" defer></script>
+  <script src="suite-shell.js" defer></script>
+</head>
+<body class="suite-shell">
+  <svg class="suite-symbols" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="icon-home" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10H3zM9 20v-7h6v7"/></symbol>
+    <symbol id="icon-area" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="m4 15 11-11M9 20 20 9"/></symbol>
+    <symbol id="icon-volume" viewBox="0 0 24 24"><path d="m12 2 9 5v10l-9 5-9-5V7zm0 10 9-5M12 12 3 7m9 5v10"/></symbol>
+    <symbol id="icon-revolve" viewBox="0 0 24 24"><path d="M12 2v20M9 4c-5 4 0 5-2 9s-3 7 5 7 10-3 7-7 3-5-4-9"/><path d="m17 2-2 2 3 1"/></symbol>
+    <symbol id="icon-voxel" viewBox="0 0 24 24"><path d="M3 12h8v8H3zm10 0h8v8h-8zm0-10h8v8h-8z"/></symbol>
+  </svg>
+  <header class="suite-header">
+    <a class="suite-home" href="app/#home" aria-label="Início — escolher uma secção" title="Voltar aos quadrantes"><img class="suite-brand-icon" src="assets/explora3d-icon.svg" width="40" height="40" alt=""><span>Explora3D</span></a>
+    <nav class="suite-nav" aria-label="Secções da suite">
+      <a href="app/#area" data-app="area"><svg><use href="#icon-area"/></svg><span>Area</span></a>
+      <a href="app/#volume" data-app="volume"><svg><use href="#icon-volume"/></svg><span>Volume</span></a>
+      <a href="app/#revolve" data-app="revolve"><svg><use href="#icon-revolve"/></svg><span>Revolve</span></a>
+      <a href="app/#voxel" data-app="voxel"><svg><use href="#icon-voxel"/></svg><span>Voxel</span></a>
+    </nav>
+    <a class="suite-product-link" href="./">Sobre o Explora3D</a>
+    <span class="suite-header-note">Explora. Cria. Descobre.</span>
+  </header>
+  <main id="suite-main">
+    <section id="suite-home" aria-labelledby="home-title">
+      <div class="suite-intro"><span class="suite-eyebrow">A tua oficina de ideias</span><h1 id="home-title">O que vais criar hoje?</h1><p>Desenha, dá forma e experimenta. Aqui, cada ideia é o início de uma descoberta.</p></div>
+      <div class="suite-quadrants">
+        <a class="suite-card" href="app/#area" data-card="area"><div class="suite-card-top"><span class="suite-number">01</span><span class="suite-output">Desenhar e imprimir</span></div><img class="suite-card-art" src="assets/area-play.svg" alt="" width="240" height="180"><h2>Area</h2><p>Um desenho pode tornar-se um carimbo. Vamos experimentar?</p><span class="suite-card-action">Explorar Area <span aria-hidden="true">↗</span></span></a>
+        <a class="suite-card" href="app/#volume" data-card="volume"><div class="suite-card-top"><span class="suite-number">02</span><span class="suite-output">Juntar e imprimir</span></div><img class="suite-card-art" src="assets/volume-play.svg" alt="" width="240" height="180"><h2>Volume</h2><p>Junta formas, abre buracos e vê a tua ideia ganhar volume.</p><span class="suite-card-action">Explorar Volume <span aria-hidden="true">↗</span></span></a>
+        <a class="suite-card" href="app/#revolve" data-card="revolve"><div class="suite-card-top"><span class="suite-number">03</span><span class="suite-output">Rodar e imprimir</span></div><img class="suite-card-art" src="assets/revolve-play.svg" alt="" width="240" height="180"><h2>Revolve</h2><p>Puxa os pontos de uma curva. Roda-a. Surpresa: um objeto!</p><span class="suite-card-action">Explorar Revolve <span aria-hidden="true">↗</span></span></a>
+        <a class="suite-card" href="app/#voxel" data-card="voxel"><div class="suite-card-top"><span class="suite-number">04</span><span class="suite-output">Construir e animar</span></div><img class="suite-card-art" src="assets/voxel-play.svg" alt="" width="240" height="180"><h2>Voxel</h2><p>Bloco a bloco, inventa uma personagem e põe-na a rodar.</p><span class="suite-card-action">Explorar Voxel <span aria-hidden="true">↗</span></span></a>
+      </div>
+      <p class="suite-session-note">Podes mudar de secção e voltar ao teu trabalho enquanto esta página estiver aberta. Guarda um ficheiro para continuar mais tarde.</p>
+    </section>
+    <section id="suite-workspace" aria-label="Ferramenta selecionada" hidden>
+      <div id="suite-load-status" role="status" aria-live="polite"></div>
+      <div id="suite-frames"></div>
+      <div id="suite-load-help" hidden><p>A ferramenta está a demorar a abrir.</p><button id="suite-retry" type="button">Tentar novamente</button><a id="suite-direct" target="_blank" rel="noopener">Abrir separadamente ↗</a></div>
+    </section>
+  </main>
+  <noscript>Ativa o JavaScript no navegador para abrir as ferramentas da suite.</noscript>
+</body>
+</html>
