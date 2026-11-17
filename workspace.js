@@ -31,7 +31,10 @@
   let lastScope = 'free', lastWritten = '';
   let resolveReady;
   const readyPromise = new Promise(resolve => { resolveReady = resolve; });
-  const setStatus = (text, duration = 0) => {
+  // quiet: routine autosave feedback. Inline status bars show it; the floating toast
+  // (Area, Volume) does not, so drawing a shape doesn't pop a notification every time.
+  const setStatus = (text, duration = 0, quiet = false) => {
+    if (quiet && floatingStatus) return;
     statusMessage.textContent = text;
     if (!floatingStatus) return;
     clearTimeout(statusTimeout);
@@ -45,7 +48,7 @@
     if (history.current === lastWritten) return;
     const payload = JSON.stringify({ version: 1, app, ...JSON.parse(history.current), ts: Date.now() });
     if (window.ExploraProjectStore.write(localStorage, key, payload)) {
-      lastWritten = history.current; setStatus('✓ Guardado neste dispositivo', 4000);
+      lastWritten = history.current; setStatus('✓ Guardado neste dispositivo', 4000, true);
     } else setStatus('Não foi possível guardar neste dispositivo. Usa Guardar para descarregar um ficheiro.');
   }
   function checkpoint() {
@@ -55,7 +58,7 @@
       if (currentScope !== lastScope) { history.reset(current); lastScope = currentScope; controls(); return; }
       if (history.push(current)) {
         controls();
-        if (currentScope === 'free') { setStatus('A guardar neste dispositivo…'); clearTimeout(timer); timer = setTimeout(persist, 300); }
+        if (currentScope === 'free') { setStatus('A guardar neste dispositivo…', 0, true); clearTimeout(timer); timer = setTimeout(persist, 300); }
       }
     } catch (error) { setStatus('Alterações por guardar: ' + error.message); }
   }
