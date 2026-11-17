@@ -84,7 +84,6 @@ pixel3d/
 - **Rotação automática**  
 - **Export GIF** animado 240×240 (24 frames, codificação LZW inline)  
 - **Export PNG** screenshot  
-- **Export TXT** visualização por camadas (pedagógico)  
 - Câmera 3D livre (órbita + pan + zoom)
 
 ---
@@ -95,8 +94,9 @@ Funcionalidades já prototipadas, retiradas da interface até estarem prontas:
 
 - **Galeria** (`galeria/`) — mostrar em conjunto os GIFs criados pela turma.
 - **Leitor TXT** (`visualizador_txt.html`) — abrir e rever os ficheiros `.txt` exportados pelos alunos.
+- **Exportar TXT** (`exportarTXT()` em `app.js`) — exportação do modelo em texto, para outro cenário de aprendizagem.
 
-Os ficheiros continuam no repositório; só os botões de acesso saíram do cabeçalho do Voxel.
+O código continua no repositório; só os botões saíram da interface do Voxel.
 
 ## 🐛 Resolução de Problemas
 
