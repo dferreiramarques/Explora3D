@@ -89,6 +89,15 @@ pixel3d/
 
 ---
 
+## 🗺️ Roadmap
+
+Funcionalidades já prototipadas, retiradas da interface até estarem prontas:
+
+- **Galeria** (`galeria/`) — mostrar em conjunto os GIFs criados pela turma.
+- **Leitor TXT** (`visualizador_txt.html`) — abrir e rever os ficheiros `.txt` exportados pelos alunos.
+
+Os ficheiros continuam no repositório; só os botões de acesso saíram do cabeçalho do Voxel.
+
 ## 🐛 Resolução de Problemas
 
 | Problema | Solução |
