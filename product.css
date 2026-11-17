@@ -105,3 +105,8 @@
 .product-credits a { text-underline-offset: 4px; }
 .credits-links { display: flex; flex-wrap: wrap; gap: 24px; font-size: 13px; font-weight: 700; }
 @media(max-width: 760px) { .product-credits { grid-template-columns: 1fr; gap: 24px; } }
+
+/* vídeo explicativo */
+.video-section { padding-bottom: 24px; }
+.video-frame { border-radius: 22px; overflow: hidden; border: 1px solid var(--p-content-border-color); box-shadow: 0 18px 50px rgba(17, 24, 39, .10); background: #000; }
+.video-frame video { display: block; width: 100%; height: auto; }
