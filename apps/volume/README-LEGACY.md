@@ -108,7 +108,6 @@ index.html
 **David Marques**
 Portugal · [monco.io](https://monco.io)
 
-Apoiar o projecto: [☕ Ko-fi](https://ko-fi.com/dferreiramarques)
 
 ---
 

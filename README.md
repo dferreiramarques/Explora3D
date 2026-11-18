@@ -1,6 +1,6 @@
 # Explora3D
 
-Suite de aprendizagem de conceitos 3D para os 8–14 anos. Um único repositório reúne
+Suite de aprendizagem de conceitos 3D do 1.º ao 3.º ciclo. Um único repositório reúne
 quatro formas de explorar, criar e apresentar resultados digitais ou materiais.
 
 | Ordem | Secção | Editor | Resultado |
