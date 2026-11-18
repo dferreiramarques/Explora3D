@@ -80,6 +80,8 @@
 .final-invitation { display: flex; align-items: center; gap: 28px; padding: 38px; border: 1px solid var(--p-content-border-color); border-radius: 26px; background: var(--color-base-200); }
 .final-invitation h2 { font-size: 30px; margin-top: 12px; }
 .final-invitation .product-cta { margin-left: auto; flex-shrink: 0; }
+.final-note { margin: 10px 0 0; font-size: 14px; color: var(--p-text-muted-color, inherit); opacity: .85; }
+.final-note a { font-weight: 700; text-underline-offset: 4px; }
 .product-footer { display: flex; align-items: center; gap: 24px; padding-block: 38px; color: var(--product-muted); }
 .product-footer .product-brand { font-size: 17px; color: var(--p-text-color); }
 .product-footer p, .product-footer > a:last-child { font-size: 12px; }
