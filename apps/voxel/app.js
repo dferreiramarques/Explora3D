@@ -583,6 +583,79 @@ function exportarPNG() {
     mostrarMensagem('📸 PNG exportado!');
 }
 
+// ── STL (cubos colados num só volume) ─────────────────────────
+// Só são emitidas as faces entre um cubo e o vazio: as faces partilhadas entre
+// cubos adjacentes desaparecem, ficando uma única malha fechada por grupo ligado.
+// 1 cubo = STL_MM_POR_CUBO mm. Eixo Y da app (para cima) passa a Z (convenção STL).
+const STL_MM_POR_CUBO = 10;
+
+function construirTriangulosSTL(ocupado, mm) {
+    // Cantos de cada face no espaço da app; (d,u,v) cíclicos => u×v = +d
+    const tris = [];
+    const bounds = { min: [Infinity, Infinity, Infinity], max: [-Infinity, -Infinity, -Infinity] };
+    const faces = [];
+    for (const k of Object.keys(voxelMeshes)) {
+        const p = k.split(',').map(Number);
+        for (let d = 0; d < 3; d++) {
+            const u = (d + 1) % 3, v = (d + 2) % 3;
+            for (const s of [1, -1]) {
+                const n = p.slice(); n[d] += s;
+                if (ocupado(n[0], n[1], n[2])) continue;
+                const base = p.slice(); if (s > 0) base[d] += 1;
+                const corner = (du, dv) => { const c = base.slice(); c[u] += du; c[v] += dv; return c; };
+                let q = [corner(0, 0), corner(1, 0), corner(1, 1), corner(0, 1)];
+                if (s < 0) q = [q[0], q[3], q[2], q[1]];
+                faces.push(q);
+                q.forEach(c => c.forEach((val, i) => {
+                    if (val < bounds.min[i]) bounds.min[i] = val;
+                    if (val > bounds.max[i]) bounds.max[i] = val;
+                }));
+            }
+        }
+    }
+    // (x,y,z) -> (x, -z, y): rotação de 90° em X (mantém a orientação), origem na base do modelo
+    const T = c => [
+        (c[0] - bounds.min[0]) * mm,
+        (bounds.max[2] - c[2]) * mm,
+        (c[1] - bounds.min[1]) * mm
+    ];
+    faces.forEach(q => {
+        const a = T(q[0]), b = T(q[1]), c = T(q[2]), d = T(q[3]);
+        tris.push([a, b, c], [a, c, d]);
+    });
+    return tris;
+}
+
+function exportarSTL() {
+    if (Object.keys(voxelMeshes).length === 0) {
+        mostrarMensagem('Sem blocos para exportar!', true); return;
+    }
+    const ocupado = (x, y, z) =>
+        x >= 0 && y >= 0 && z >= 0 && x < GRID_SIZE && y < GRID_SIZE && z < GRID_SIZE && grid[x][y][z] >= 0;
+    const tris = construirTriangulosSTL(ocupado, STL_MM_POR_CUBO);
+
+    const buf = new ArrayBuffer(84 + tris.length * 50);
+    const dv = new DataView(buf);
+    const cab = 'Explora3D Voxel';
+    for (let i = 0; i < cab.length; i++) dv.setUint8(i, cab.charCodeAt(i));
+    dv.setUint32(80, tris.length, true);
+    let o = 84;
+    tris.forEach(([a, b, c]) => {
+        const ux = b[0]-a[0], uy = b[1]-a[1], uz = b[2]-a[2];
+        const vx = c[0]-a[0], vy = c[1]-a[1], vz = c[2]-a[2];
+        let nx = uy*vz - uz*vy, ny = uz*vx - ux*vz, nz = ux*vy - uy*vx;
+        const l = Math.hypot(nx, ny, nz) || 1;
+        [nx/l, ny/l, nz/l, ...a, ...b, ...c].forEach(val => { dv.setFloat32(o, val, true); o += 4; });
+        dv.setUint16(o, 0, true); o += 2;
+    });
+
+    const url = URL.createObjectURL(new Blob([buf], { type: 'model/stl' }));
+    const el = document.createElement('a');
+    el.href = url; el.download = 'pixel3d_' + Date.now() + '.stl'; el.click();
+    setTimeout(() => URL.revokeObjectURL(url), 5000);
+    mostrarMensagem(`🧊 STL exportado! (${STL_MM_POR_CUBO} mm por cubo)`);
+}
+
 // ── GIF Animado ───────────────────────────────────────────────
 // Técnica de transparência: render duplo (fundo preto + branco) por frame.
 // Pixeis idênticos nos dois renders = modelo; diferentes = borda AA ou fundo → transparentes.
